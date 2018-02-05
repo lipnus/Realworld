@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import lipnus.com.realworld.direction.CompassActivity;
+import lipnus.com.realworld.qrcode.QrcodeActicity;
+import lipnus.com.realworld.quest.QuestActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,7 +23,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClick_qrcode(View v){
-//        Intent iT = new Intent(this, .class);
-//        startActivity(iT);
+        Intent iT = new Intent(this, QrcodeActicity.class);
+        startActivity(iT);
+    }
+
+    public void onClick_quest(View v){
+        Intent iT = new Intent(this, QuestActivity.class);
+        startActivity(iT);
     }
 }

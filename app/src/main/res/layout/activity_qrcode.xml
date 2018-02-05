@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="lipnus.com.realworld.QrcodeActicity">
+    android:orientation="vertical"
+    tools:context="lipnus.com.realworld.qrcode.QrcodeActicity">
 
     <com.dlazaro66.qrcodereaderview.QRCodeReaderView
         android:id="@+id/qrdecoderview"
@@ -15,7 +16,6 @@
         android:id="@+id/qrcode_resultTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ㅅ발"/>
-
+        android:text="ㅅㅅㅅㅅ"/>
 
 </LinearLayout>

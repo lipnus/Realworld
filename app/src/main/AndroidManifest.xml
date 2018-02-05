@@ -3,8 +3,13 @@
     package="lipnus.com.realworld">
 
     <uses-permission android:name="android.permission.INTERNET" /> <!-- 인터넷권한 -->
+
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- 위치정보활용시 추가 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <application
         android:allowBackup="true"
@@ -21,6 +26,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".direction.CompassActivity" />
+        <activity android:name=".qrcode.DecoderActivity" />
+        <activity android:name=".qrcode.QrcodeActicity" />
+        <activity android:name=".quest.QuestActivity"></activity>
     </application>
 
 </manifest>

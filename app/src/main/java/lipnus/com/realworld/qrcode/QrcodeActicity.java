@@ -1,4 +1,4 @@
-package lipnus.com.realworld;
+package lipnus.com.realworld.qrcode;
 
 import android.graphics.PointF;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import com.dlazaro66.qrcodereaderview.QRCodeReaderView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import lipnus.com.realworld.R;
 
 public class QrcodeActicity extends AppCompatActivity implements QRCodeReaderView.OnQRCodeReadListener {
 
@@ -21,7 +22,7 @@ public class QrcodeActicity extends AppCompatActivity implements QRCodeReaderVie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        super.setContentView(R.layout.activity_qrcode_acticity);
+        super.setContentView(R.layout.activity_qrcode);
         ButterKnife.bind(this);
 
 

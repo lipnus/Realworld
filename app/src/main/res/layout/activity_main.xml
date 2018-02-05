@@ -17,6 +17,11 @@
         android:text="QR코드"
         android:onClick="onClick_qrcode"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="퀘스트(영상)"
+        android:onClick="onClick_quest"/>
 
 
 </LinearLayout>
