@@ -27,7 +27,7 @@ public class QuestActivity extends AppCompatActivity {
                 initializedYouTubePlayer.addListener(new AbstractYouTubePlayerListener() {
                     @Override
                     public void onReady() {
-                        String videoId = "6JYIGclVQdw";
+                        String videoId = "D76OSIdqtak";
                         initializedYouTubePlayer.loadVideo(videoId, 0);
                     }
                 });

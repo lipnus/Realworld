@@ -23,5 +23,10 @@
         android:text="퀘스트(영상)"
         android:onClick="onClick_quest"/>
 
+    <Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="메인화면"
+    android:onClick="onClick_main"/>
 
 </LinearLayout>

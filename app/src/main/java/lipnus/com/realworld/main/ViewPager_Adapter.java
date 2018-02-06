@@ -1,8 +1,9 @@
-package com.lipnus.kumchurk.submenu.search;
+package lipnus.com.realworld.main;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.support.v13.app.FragmentPagerAdapter;
+
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.util.Log;
 
 import java.util.Locale;
@@ -12,18 +13,15 @@ import java.util.Locale;
  */
 
 //어댑터
-public class Search_ViewPager_Adapter extends FragmentPagerAdapter {
+public class ViewPager_Adapter extends FragmentPagerAdapter {
 
     //제목
-    private String title1="메뉴";
-    private String title2="식당";
-    private String title3="유저";
+    private String title1="목록";
+    private String title2="점수";
+    private String title3="순위";
 
 
-    
-
-
-    public Search_ViewPager_Adapter(FragmentManager fm) {
+    public ViewPager_Adapter(FragmentManager fm) {
         super(fm);
     }
 
@@ -34,7 +32,7 @@ public class Search_ViewPager_Adapter extends FragmentPagerAdapter {
         Log.d("FFF", "getItem(" + position +")");
 
 
-        return Search_ViewPager_Fragment.PlaceholderFragment.newInstance(position + 1);
+        return ViewPager_Fragment.PlaceholderFragment.newInstance(position + 1);
     }
 
 

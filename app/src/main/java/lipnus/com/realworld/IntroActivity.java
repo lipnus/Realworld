@@ -6,15 +6,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import lipnus.com.realworld.direction.CompassActivity;
+import lipnus.com.realworld.main.MainActivity;
 import lipnus.com.realworld.qrcode.QrcodeActicity;
 import lipnus.com.realworld.quest.QuestActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class IntroActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_intro);
     }
 
     public void onClick_direction(View v){
@@ -29,6 +30,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClick_quest(View v){
         Intent iT = new Intent(this, QuestActivity.class);
+        startActivity(iT);
+    }
+
+    public void onClick_main(View v){
+        Intent iT = new Intent(this, MainActivity.class);
         startActivity(iT);
     }
 }
