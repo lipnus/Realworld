@@ -32,7 +32,6 @@
         <activity android:name=".main.MainActivity" />
         <activity android:name=".retro.RetrofitActivity" />
         <activity android:name=".volley.VolleyActivity" />
-        <activity android:name=".main.Main2Activity" />
         <activity android:name=".mission.MissionActivity"></activity>
     </application>
 

@@ -8,6 +8,7 @@ import java.util.List;
 
 import lipnus.com.realworld.retro.ResponseBody.ResponseGet2;
 import lipnus.com.realworld.retro.ResponseBody.Scenario;
+import lipnus.com.realworld.retro.ResponseBody.ScenarioDetail;
 import lipnus.com.realworld.retro.ResponseBody.TokenGet;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -113,6 +114,25 @@ public class RetroClient {
 
             @Override
             public void onFailure(Call<List<Scenario>> call, Throwable t) {
+                callback.onError(t);
+            }
+        });
+    }
+
+    //시나리오 상세
+    public void postScenariosDetail(int id, HashMap<String, Object> parameters, final RetroCallback callback) {
+        apiService.postScenariosDetail(id, parameters).enqueue(new Callback<ScenarioDetail>() {
+            @Override
+            public void onResponse(Call<ScenarioDetail> call, Response<ScenarioDetail> response) {
+                if (response.isSuccessful()) {
+                    callback.onSuccess(response.code(), response.body());
+                } else {
+                    callback.onFailure(response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ScenarioDetail> call, Throwable t) {
                 callback.onError(t);
             }
         });

@@ -11,9 +11,11 @@ import android.widget.Toast;
 import java.util.HashMap;
 import java.util.List;
 
+import lipnus.com.realworld.GlobalApplication;
 import lipnus.com.realworld.R;
 import lipnus.com.realworld.retro.ResponseBody.ResponseGet2;
 import lipnus.com.realworld.retro.ResponseBody.Scenario;
+import lipnus.com.realworld.retro.ResponseBody.ScenarioDetail;
 import lipnus.com.realworld.retro.ResponseBody.TokenGet;
 
 public class RetrofitActivity extends AppCompatActivity {
@@ -122,7 +124,7 @@ public class RetrofitActivity extends AppCompatActivity {
         Toast.makeText(this, "POST Clicked", Toast.LENGTH_SHORT).show();
 
         HashMap<String, Object> parameters = new HashMap<>();
-        parameters.put("access_token", "dd4076af-0e79-11e8-b608-0cc47a9ce276");
+        parameters.put("access_token", GlobalApplication.access_tocken);
 
         retroClient.postScenarios(parameters, new RetroCallback() {
 
@@ -141,6 +143,45 @@ public class RetrofitActivity extends AppCompatActivity {
 
                 codeResult = String.valueOf(code);
                 resultStr = data.get(0).id;
+
+                setTextView();
+            }
+
+            @Override
+            public void onFailure(int code) {
+
+                codeResult = String.valueOf(code);
+                resultStr ="Failure";
+
+
+                setTextView();
+            }
+        });
+    }
+
+    public void onClick_post_scenarioDetail(View v){
+        Toast.makeText(this, "POST Clicked", Toast.LENGTH_SHORT).show();
+
+        HashMap<String, Object> parameters = new HashMap<>();
+        parameters.put("access_token", GlobalApplication.access_tocken);
+
+        retroClient.postScenariosDetail(1, parameters, new RetroCallback() {
+
+            @Override
+            public void onError(Throwable t) {
+                Log.e(LOG, t.toString());
+
+                codeResult = "Error";
+                resultStr ="Error";
+                setTextView();
+            }
+
+            @Override
+            public void onSuccess(int code, Object receivedData) {
+                ScenarioDetail data = (ScenarioDetail) receivedData;
+
+                codeResult = String.valueOf(code);
+                resultStr = Integer.toString(data.id);
 
                 setTextView();
             }

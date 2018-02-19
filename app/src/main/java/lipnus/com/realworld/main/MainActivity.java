@@ -113,12 +113,12 @@ public class MainActivity extends AppCompatActivity {
         titleIv.setScaleType(ImageView.ScaleType.FIT_XY);
     }
 
+
     //서버에서 시나리오를 받아옴
     public void postScenario(){
-        Toast.makeText(getApplicationContext(), "POST Clicked", Toast.LENGTH_SHORT).show();
 
         HashMap<String, Object> parameters = new HashMap<>();
-        parameters.put("access_token", "dd4076af-0e79-11e8-b608-0cc47a9ce276");
+        parameters.put("access_token", GlobalApplication.access_tocken);
 
         retroClient.postScenarios(parameters, new RetroCallback() {
 

@@ -6,6 +6,7 @@ import java.util.List;
 
 import lipnus.com.realworld.retro.ResponseBody.ResponseGet2;
 import lipnus.com.realworld.retro.ResponseBody.Scenario;
+import lipnus.com.realworld.retro.ResponseBody.ScenarioDetail;
 import lipnus.com.realworld.retro.ResponseBody.TokenGet;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -13,6 +14,7 @@ import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 /**
  * Created by sonchangwoo on 2017. 1. 1..
@@ -20,9 +22,8 @@ import retrofit2.http.POST;
 
 public interface RetroBaseApiService {
 
-//    final String Base_URL = "http://jsonplaceholder.typicode.com";
-//    final String Base_URL = "http://ec2-13-125-164-178.ap-northeast-2.compute.amazonaws.com:9000";
-    final String Base_URL= "http://210.180.118.59:8061";
+
+    String Base_URL= "http://210.180.118.59:8061";
 
 
 
@@ -35,6 +36,12 @@ public interface RetroBaseApiService {
 
     @POST("/scenarios")
     Call<List<Scenario>> postScenarios(@Body HashMap<String, Object> parameters);
+
+    @POST("/scenarios/{id}")
+    Call<ScenarioDetail> postScenariosDetail(@Path("id") int id, @Body HashMap<String, Object> parameters);
+
+
+
 
 
 

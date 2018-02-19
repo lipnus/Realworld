@@ -14,6 +14,7 @@ import android.widget.ListView;
 
 import lipnus.com.realworld.GlobalApplication;
 import lipnus.com.realworld.R;
+import lipnus.com.realworld.mission.MissionActivity;
 import lipnus.com.realworld.retro.ResponseBody.Scenario;
 
 
@@ -115,7 +116,8 @@ public class ViewPager_Fragment {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Log.e("CCC", "위치: " + position);
-                    Intent iT = new Intent(context, MainActivity.class);
+                    Intent iT = new Intent(context, MissionActivity.class);
+                    iT.putExtra("scenarioId", position+1);
                     startActivity(iT);
                 }
             });
