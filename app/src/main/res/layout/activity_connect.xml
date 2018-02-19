@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <Button
+        android:onClick="onClick_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="POST(테스트서버)"/>
+
+    <Button
+        android:onClick="onClick_post_tocken"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="토큰"/>
+
+    <Button
+        android:onClick="onClick_post_scenario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="시나리오"/>
+
+    <TextView
+        android:padding="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="#909090"
+        android:id="@+id/connect_response_tv"/>
+
+</LinearLayout>

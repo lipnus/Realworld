@@ -12,12 +12,10 @@ public class ListViewItem {
 
     private String titile;
     private String date;
-    private boolean islock;
 
-    public ListViewItem(String titile, String date, boolean islock) {
+    public ListViewItem(String titile, String date) {
         this.titile = titile;
         this.date = date;
-        this.islock = islock;
     }
 
     public String getTitile() {
@@ -28,7 +26,4 @@ public class ListViewItem {
         return date;
     }
 
-    public boolean isIslock() {
-        return islock;
-    }
 }

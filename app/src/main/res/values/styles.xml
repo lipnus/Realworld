@@ -5,14 +5,17 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">#2cc1e0</item>
+        <item name="actionMenuTextColor">#2cc1e0</item>
         <item name="windowNoTitle">true</item>
+
     </style>
 
     <!--탭뷰-->
     <style name="CustomTextStyle" parent="@android:style/TextAppearance.Widget.TabWidget">
         <item name="android:textSize">14sp</item>
         <item name="android:textAllCaps">true</item>
+
     </style>
 
 </resources>

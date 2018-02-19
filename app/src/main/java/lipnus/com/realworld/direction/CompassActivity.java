@@ -12,9 +12,9 @@ import com.squareup.otto.Subscribe;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import lipnus.com.realworld.BusProvider;
+import lipnus.com.realworld.eventBus.BusProvider;
 import lipnus.com.realworld.R;
-
+import lipnus.com.realworld.eventBus.LocationEvent;
 
 
 public class CompassActivity extends AppCompatActivity {

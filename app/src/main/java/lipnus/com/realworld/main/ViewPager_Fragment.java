@@ -2,15 +2,19 @@ package lipnus.com.realworld.main;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
+import lipnus.com.realworld.GlobalApplication;
 import lipnus.com.realworld.R;
+import lipnus.com.realworld.retro.ResponseBody.Scenario;
 
 
 /**
@@ -19,6 +23,7 @@ import lipnus.com.realworld.R;
 
 //프래그먼트
 public class ViewPager_Fragment {
+
 
     /**
      * A placeholder fragment containing a simple view.
@@ -45,6 +50,7 @@ public class ViewPager_Fragment {
 
         public PlaceholderFragment() {
         }
+
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -81,26 +87,38 @@ public class ViewPager_Fragment {
 
 
 
-
         //각 프래그먼트들의 소스코드가 들어있다
         public View setFragment1(ViewGroup container, LayoutInflater inflater){
-
             View rootView;
             final Context context;
 
             rootView = inflater.inflate(R.layout.fragment_main, container, false);
             context = rootView.getContext();
 
-
-//            //리스트뷰와 어댑터
+            //리스트뷰와 어댑터
             ListView listview = (ListView)rootView.findViewById(R.id.main_fragment_listview);
             ListViewAdapter adapter = new ListViewAdapter();
             listview.setAdapter(adapter);
 
-            adapter.addItem("제목", "20180312", true);
-            adapter.addItem("제목2", "20180312", true);
-            adapter.addItem("제목3", "20180312", true);
+
+            int listSize = GlobalApplication.scenarioList.size();
+
+            for(int i=0; i<listSize; i++){
+                Scenario scenario = GlobalApplication.scenarioList.get(i);
+                adapter.addItem(scenario.name, scenario.lastPlayed);
+            }
+
             adapter.notifyDataSetChanged();
+
+            //리스트뷰의 클릭리스너
+            listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Log.e("CCC", "위치: " + position);
+                    Intent iT = new Intent(context, MainActivity.class);
+                    startActivity(iT);
+                }
+            });
 
             return rootView;
         }
@@ -113,7 +131,6 @@ public class ViewPager_Fragment {
             rootView = inflater.inflate(R.layout.fragment_main, container, false);
             context = rootView.getContext();
 
-
             return rootView;
         }
 
@@ -124,8 +141,6 @@ public class ViewPager_Fragment {
 
             rootView = inflater.inflate(R.layout.fragment_main, container, false);
             context = rootView.getContext();
-
-
 
             return rootView;
         }

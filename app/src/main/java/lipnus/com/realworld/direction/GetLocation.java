@@ -7,7 +7,8 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 
-import lipnus.com.realworld.BusProvider;
+import lipnus.com.realworld.eventBus.BusProvider;
+import lipnus.com.realworld.eventBus.LocationEvent;
 
 /**
  * Created by Sunpil on 2017-03-23.

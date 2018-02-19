@@ -29,4 +29,22 @@
     android:text="메인화면"
     android:onClick="onClick_main"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Retrofit"
+        android:onClick="onClick_retrofit"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Volley"
+        android:onClick="onClick_volley"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="미션목록"
+        android:onClick="onClick_mission"/>
+
 </LinearLayout>
