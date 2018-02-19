@@ -1,12 +1,21 @@
 package lipnus.com.realworld.mission;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,12 +27,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import lipnus.com.realworld.GlobalApplication;
+import lipnus.com.realworld.NavigationMenu;
 import lipnus.com.realworld.R;
-import lipnus.com.realworld.SimpleFunction;
-import lipnus.com.realworld.main.ListViewAdapter;
-import lipnus.com.realworld.main.MainActivity;
 import lipnus.com.realworld.retro.ResponseBody.Mission;
-import lipnus.com.realworld.retro.ResponseBody.Scenario;
 import lipnus.com.realworld.retro.ResponseBody.ScenarioDetail;
 import lipnus.com.realworld.retro.RetroCallback;
 import lipnus.com.realworld.retro.RetroClient;
@@ -39,14 +45,19 @@ public class MissionActivity extends AppCompatActivity {
     @BindView(R.id.mission_subtitle_tv) TextView subtitleTv;
 
     @BindView(R.id.mission_listview)
-    ListView listview;
+    ListView listView;
+
+    @BindView(R.id.mission_scrollView)
+    ScrollView scrollView;
 
     MissionListViewAdapter adapter;
 
 
     RetroClient retroClient;
 
-    int scenarioId;
+    public static int scenarioId; //네비게이션에서 재사용된다
+
+    NavigationMenu navigationMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,19 +69,66 @@ public class MissionActivity extends AppCompatActivity {
 
         //리스트뷰
         adapter = new MissionListViewAdapter();
-        listview.setAdapter(adapter);
+        listView.setAdapter(adapter);
 
         //호출할 때 같이 보낸 값 받아옴
         Intent iT = getIntent();
         scenarioId = iT.getExtras().getInt("scenarioId");
         postScenarioDetail(scenarioId);
+
+        //네이게이션
+        View thisView = this.getWindow().getDecorView() ;
+        navigationMenu = new NavigationMenu(this, thisView,0);
+
+        //스크롤뷰 조정
+        scrollViewControl();
     }
 
     public void onClick_mission_back(View v){
-        Intent iT = new Intent(this, MainActivity.class);
-        startActivity(iT);
         finish();
     }
+
+    public void scrollViewControl(){
+
+        //onScrollChangedListener은 SDK 23이상에서만 동작한다 23버전 이하에서는 꿩대신 닭으로 onTouchListener를 사용
+        if(Build.VERSION.SDK_INT >=23 ){
+            scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+                @Override
+                public void onScrollChange(View view, int i, int i1, int i2, int i3) {
+                    scrollChanged();
+                }
+            });
+        }else { //버전이 낮은경우
+            scrollView.setOnTouchListener(new View.OnTouchListener() {
+                private ViewTreeObserver observer;
+
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    scrollChanged();
+                    return false;
+                }
+            });
+        }
+    }
+
+    public void scrollChanged(){
+
+        try{
+            float scrollY = scrollView.getScrollY();
+
+            //최상단부 메뉴 그림의 스크롤에 따른 변환효과
+                titleIv.setScaleX(1 + (scrollY / 1000));
+                titleIv.setScaleY(1 + (scrollY / 1000));
+
+            //뒤로가기 화살표 스르륵
+            if(scrollY<300){
+                backIv.setAlpha( (300-scrollY)/300);
+            }
+
+
+        }catch(Exception e){Log.d("DDD", "오류: " + e);}
+    }
+
 
     public void postScenarioDetail(int scenarioId){
 
@@ -116,6 +174,21 @@ public class MissionActivity extends AppCompatActivity {
         //정렬(call by reference이므로 걍 이렇게 하면 됨)
         missionArray(data.missions);
 
+
+
+        setListViewHeightBasedOnChildren(listView, 300);
+        adapter.notifyDataSetChanged();
+        scrollView.post(new Runnable() {
+            @Override
+            public void run() {
+                scrollView.scrollTo(0,0);
+            }
+        });
+
+
+
+
+
     }
 
 
@@ -151,7 +224,51 @@ public class MissionActivity extends AppCompatActivity {
 
             adapter.addItem(mission.name, mission.succeededAt, "locked");
         }
-
-        adapter.notifyDataSetChanged();
     }
+
+    //리스트뷰 크기
+    public void setListViewHeightBasedOnChildren(ListView listView, int paddingBottom) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            // pre-condition
+            return;
+        }
+
+        int totalHeight = 0;
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.AT_MOST);
+
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        int dpHeight = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        int pxHeight = convertDpToPixel(dpHeight,this);
+
+        params.height = pxHeight + paddingBottom;
+
+        listView.setLayoutParams(params);
+        listView.requestLayout();
+    }
+
+    public int convertDpToPixel(float dp, Context context){
+
+        Resources resources = context.getResources();
+
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+
+        float px = dp * (metrics.densityDpi / 160f);
+
+        return (int)px;
+
+    }
+
+
+
+
+
+
 }

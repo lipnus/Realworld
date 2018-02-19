@@ -3,87 +3,97 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <ScrollView
+        android:id="@+id/mission_scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginBottom="60dp">
+        android:layout_marginBottom="55dp"
+        android:fillViewport="true">
 
-        <!--이미지-->
-        <FrameLayout
-            android:id="@+id/main_FL"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/mission_title_iv"
-                android:layout_width="match_parent"
-                android:layout_height="250dp"/>
-
-            <ImageView
-                android:id="@+id/mission_back_iv"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_margin="5dp"
-                android:background="#cc2"
-                android:layout_gravity="left|top"
-                android:onClick="onClick_mission_back"/>
-
-            <TextView
-                android:layout_gravity="left|bottom"
-                android:layout_marginLeft="15dp"
-                android:layout_marginBottom="15dp"
-                android:id="@+id/mission_title_tv"
-                android:textSize="28dp"
-                android:textStyle="bold"
-                android:textColor="#ffffff"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </FrameLayout>
-
-        <!--중간-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#f8f8f8"
-            android:padding="10dp">
+            android:orientation="vertical"
+            android:layout_marginBottom="55dp">
 
-            <TextView
-                android:id="@+id/mission_subtitle_tv"
-                android:textSize="15dp"
-                android:textColor="#2cc1e0"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            <!--이미지-->
+            <FrameLayout
+                android:id="@+id/main_FL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
+                <ImageView
+                    android:id="@+id/mission_title_iv"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"/>
+
+                <TextView
+                    android:layout_gravity="left|bottom"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:id="@+id/mission_title_tv"
+                    android:textSize="28dp"
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </FrameLayout>
+
+            <!--중간-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#f8f8f8"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/mission_subtitle_tv"
+                    android:textSize="15dp"
+                    android:textColor="#2cc1e0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#ebebeb"/>
+
+            <!--미션리스트-->
+            <ListView
+                android:id="@+id/mission_listview"
+                android:layout_width="match_parent"
+                android:layout_height="380px"
+                android:divider="#ffffff"/>
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="#ebebeb"/>
 
-        <!--미션리스트-->
-        <ListView
-            android:id="@+id/mission_listview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:divider="#ffffff"/>
-    </LinearLayout>
+
+    </ScrollView>
 
 
     <View
         android:layout_gravity="bottom"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="55dp"
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="#909090"/>
-
     <include
         android:layout_gravity="bottom"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="55dp"
         layout="@layout/navigation" />
+
+    <ImageView
+        android:id="@+id/mission_back_iv"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="5dp"
+        android:background="#cc2"
+        android:layout_gravity="left|top"
+        android:onClick="onClick_mission_back"/>
 
 
 

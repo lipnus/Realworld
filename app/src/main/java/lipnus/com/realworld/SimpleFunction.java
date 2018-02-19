@@ -1,5 +1,6 @@
 package lipnus.com.realworld;
 
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
@@ -28,8 +29,11 @@ public class SimpleFunction {
             totalHeight += listItem.getMeasuredHeight();
         }
 
+        Log.d("SSBB", "totalHeight: " + totalHeight);
+
         ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        int padding = 100;
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1)) + padding;
         listView.setLayoutParams(params);
         listView.requestLayout();
     }

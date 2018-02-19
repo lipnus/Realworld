@@ -155,6 +155,7 @@
     <orderEntry type="library" name="com.android.support:support-v4-26.0.1" level="project" />
     <orderEntry type="library" scope="TEST" name="net.sf.kxml:kxml2:2.3.0@jar" level="project" />
     <orderEntry type="library" name="com.android.support:animated-vector-drawable-26.0.1" level="project" />
+    <orderEntry type="library" name="com.daimajia.androidanimations:library-2.3" level="project" />
     <orderEntry type="library" name="com.android.support:transition-26.0.1" level="project" />
     <orderEntry type="library" name="com.android.support:design-26.0.1" level="project" />
     <orderEntry type="library" name="com.dlazaro66.qrcodereaderview:qrcodereaderview-2.0.3" level="project" />

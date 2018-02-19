@@ -6,9 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 
 import java.util.ArrayList;
 
@@ -48,6 +51,8 @@ public class ListViewAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.list_main, parent, false);
         }
 
+        final LinearLayout lR = convertView.findViewById(R.id.list_lr);
+
         ImageView lockIv = convertView.findViewById(R.id.list_lock_iv);
         TextView titleTv = convertView.findViewById(R.id.list_title_tv);
         TextView dateTv = convertView.findViewById(R.id.list_date_tv);
@@ -58,7 +63,7 @@ public class ListViewAdapter extends BaseAdapter {
 
         int imgPath;
 
-        if(listViewItemList.get(pos).getTitile().equals("Locked")){
+        if(listViewItemList.get(pos).getTitile().equals("LOCKED")){
             imgPath = R.drawable.lock_lock;
         }else if(listViewItemList.get(pos).getDate()!=null && listViewItemList.get(pos).getDate().equals("진행중")) {
             imgPath = R.drawable.lock_now;
@@ -70,6 +75,16 @@ public class ListViewAdapter extends BaseAdapter {
                 .load( imgPath )
                 .into(lockIv);
         lockIv.setScaleType(ImageView.ScaleType.FIT_XY);
+
+        //애니메이션
+        lR.post(new Runnable() {
+            @Override
+            public void run() {
+                YoYo.with(Techniques.FadeInLeft)
+                        .duration(pos*300+300)
+                        .playOn(lR);
+            }
+        });
 
         return convertView;
     }

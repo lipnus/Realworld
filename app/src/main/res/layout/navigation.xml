@@ -3,15 +3,15 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
-    android:background="#2e2e"
-    android:orientation="horizontal">
+    android:layout_height="55dp"
+    android:orientation="horizontal"
+    android:paddingTop="10dp">
 
     <!--홈-->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_weight="1"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:gravity="center">
 
         <LinearLayout
@@ -23,11 +23,11 @@
             <ImageView
                 android:id="@+id/navitaion_menu_iv1"
                 android:layout_gravity="center"
-                android:background="#909090"
-                android:layout_width="35dp"
-                android:layout_height="35dp" />
+                android:layout_width="22dp"
+                android:layout_height="22dp" />
 
             <TextView
+                android:paddingTop="3dp"
                 android:id="@+id/navitaion_menu_tv1"
                 android:gravity="center"
                 android:layout_width="match_parent"
@@ -42,7 +42,7 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_weight="1"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:gravity="center">
 
         <LinearLayout
@@ -54,11 +54,11 @@
             <ImageView
                 android:id="@+id/navitaion_menu_iv2"
                 android:layout_gravity="center"
-                android:background="#909090"
-                android:layout_width="35dp"
-                android:layout_height="35dp" />
+                android:layout_width="22dp"
+                android:layout_height="22dp" />
 
             <TextView
+                android:paddingTop="3dp"
                 android:id="@+id/navitaion_menu_tv2"
                 android:gravity="center"
                 android:layout_width="match_parent"
@@ -73,7 +73,7 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_weight="1"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:gravity="center">
 
         <LinearLayout
@@ -85,11 +85,11 @@
             <ImageView
                 android:id="@+id/navitaion_menu_iv3"
                 android:layout_gravity="center"
-                android:background="#909090"
-                android:layout_width="35dp"
-                android:layout_height="35dp" />
+                android:layout_width="22dp"
+                android:layout_height="22dp" />
 
             <TextView
+                android:paddingTop="3dp"
                 android:id="@+id/navitaion_menu_tv3"
                 android:gravity="center"
                 android:layout_width="match_parent"
