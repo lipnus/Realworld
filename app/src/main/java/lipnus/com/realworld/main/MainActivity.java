@@ -62,45 +62,18 @@ public class MainActivity extends AppCompatActivity {
         });
 
         retroClient = RetroClient.getInstance(this).createBaseApi(); //레트로핏
-
-        postScenario();
         addData();
+    }
 
-
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        Log.e("EVEV", "리쥼");
+        postScenario();
     }
 
     public void onClick_Scenario(View v){
         postScenario();
-    }
-
-    //뷰페이저 세팅
-    public void pagerSetting(){
-        mainPagerAdapter = new ViewPager_Adapter( getSupportFragmentManager() );
-        mainPager.setAdapter(mainPagerAdapter);
-
-        //페이지
-        mainPager.setCurrentItem(pagerPosition);
-
-        //뷰페이저에 변화가 있을때의 리스너
-        mainPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-                //뷰페이저가 넘어갈때마다 pagerPosition에다가 뷰페이저의 현재위치를 저장
-                pagerPosition = position;
-                Log.d("SSCC", "페이지번호: "+ pagerPosition);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
     }
 
     //받은 데이터들을 표현
@@ -112,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
                 .into(titleIv);
         titleIv.setScaleType(ImageView.ScaleType.FIT_XY);
     }
-
 
     //서버에서 시나리오를 받아옴
     public void postScenario(){
@@ -166,12 +138,42 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        //아직 클리어 하지 않은 부분들 처리
+        //아직 클리어 하지 않은 부분
         for(int i=nowIndex+1; i<listSize; i++){
             Scenario scenario = scenarioList.get(i);
-            scenario.name = "Locked";
+            scenario.name = "LOCKED";
         }
 
+    }
+
+    //뷰페이저 세팅
+    public void pagerSetting(){
+        mainPagerAdapter = new ViewPager_Adapter( getSupportFragmentManager() );
+        mainPager.setAdapter(mainPagerAdapter);
+
+        //페이지
+        mainPager.setCurrentItem(pagerPosition);
+
+        //뷰페이저에 변화가 있을때의 리스너
+        mainPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+                //뷰페이저가 넘어갈때마다 pagerPosition에다가 뷰페이저의 현재위치를 저장
+                pagerPosition = position;
+                Log.d("SSCC", "페이지번호: "+ pagerPosition);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     //탭뷰 인디케이터 크기 줄이기

@@ -1,4 +1,4 @@
-package lipnus.com.realworld.main;
+package lipnus.com.realworld.mission;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -17,14 +17,14 @@ import lipnus.com.realworld.R;
 /**
  * Created by Sunpil on 2016-07-13.
  */
-public class ListViewAdapter extends BaseAdapter {
+public class MissionListViewAdapter extends BaseAdapter {
 
     // Adapter에 추가된 데이터를 저장하기 위한 ArrayList
-    private ArrayList<ListViewItem> listViewItemList = new ArrayList<>() ;
+    private ArrayList<MissionListViewItem> listViewItemMissionList = new ArrayList<>() ;
 
 
     // ListViewAdapter의 생성자
-    public ListViewAdapter() {
+    public MissionListViewAdapter() {
 
     }
 
@@ -32,7 +32,7 @@ public class ListViewAdapter extends BaseAdapter {
     // Adapter에 사용되는 데이터의 개수를 리턴. : 필수 구현
     @Override
     public int getCount() {
-        return listViewItemList.size() ;
+        return listViewItemMissionList.size() ;
     }
 
 
@@ -52,15 +52,15 @@ public class ListViewAdapter extends BaseAdapter {
         TextView titleTv = convertView.findViewById(R.id.list_title_tv);
         TextView dateTv = convertView.findViewById(R.id.list_date_tv);
 
-        titleTv.setText(listViewItemList.get(pos).getTitile());
-        dateTv.setText(listViewItemList.get(pos).getDate());
+        titleTv.setText(listViewItemMissionList.get(pos).getTitile());
+        dateTv.setText(listViewItemMissionList.get(pos).getDate());
 
 
         int imgPath;
 
-        if(listViewItemList.get(pos).getTitile().equals("Locked")){
+        if(listViewItemMissionList.get(pos).getState().equals("locked")){
             imgPath = R.drawable.lock_lock;
-        }else if(listViewItemList.get(pos).getDate()!=null && listViewItemList.get(pos).getDate().equals("진행중")) {
+        }else if(listViewItemMissionList.get(pos).getState().equals("now")) {
             imgPath = R.drawable.lock_now;
         }else{
             imgPath = R.drawable.lock_unlock;
@@ -83,14 +83,14 @@ public class ListViewAdapter extends BaseAdapter {
     // 지정한 위치(position)에 있는 데이터 리턴 : 필수 구현
     @Override
     public Object getItem(int position) {
-        return listViewItemList.get(position) ;
+        return listViewItemMissionList.get(position) ;
     }
 
 
     // 아이템 데이터 추가
-    public void addItem(String title, String date) {
+    public void addItem(String title, String date, String state) {
 
-        ListViewItem item = new ListViewItem(title, date);
-        listViewItemList.add(item);
+        MissionListViewItem item = new MissionListViewItem(title, date, state);
+        listViewItemMissionList.add(item);
     }
 }
