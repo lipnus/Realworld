@@ -11,6 +11,7 @@
         android:id="@+id/main_fragment_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="#ffffff"/>
+        android:dividerHeight="1px"
+        android:divider="#c8c7cc"/>
 
 </LinearLayout>

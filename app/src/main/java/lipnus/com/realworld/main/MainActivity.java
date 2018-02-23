@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
     public void addData(){
 
         Glide.with(this)
-                .load("http://lipnus.ivyro.net/psh.jpg")
+                .load(R.drawable.main)
                  .centerCrop()
                 .into(titleIv);
         titleIv.setScaleType(ImageView.ScaleType.FIT_XY);

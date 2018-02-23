@@ -18,6 +18,7 @@
             android:onClick="onClick_Scenario"/>
 
         <ImageView
+            android:visibility="gone"
             android:id="@+id/main_back_iv"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -26,12 +27,25 @@
             android:layout_gravity="left|top"/>
 
         <ImageView
+            android:visibility="gone"
             android:id="@+id/main_profile_iv"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_margin="5dp"
             android:background="#cc2"
             android:layout_gravity="right|top" />
+
+        <TextView
+            android:layout_gravity="left|bottom"
+            android:layout_marginLeft="15dp"
+            android:layout_marginBottom="15dp"
+            android:id="@+id/mission_title_tv"
+            android:textSize="28dp"
+            android:textStyle="bold"
+            android:textColor="#ffffff"
+            android:text="미스테리트레일 여수"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </FrameLayout>
 
     <LinearLayout

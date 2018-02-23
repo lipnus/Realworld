@@ -56,6 +56,7 @@ public class ListViewAdapter extends BaseAdapter {
         ImageView lockIv = convertView.findViewById(R.id.list_lock_iv);
         TextView titleTv = convertView.findViewById(R.id.list_title_tv);
         TextView dateTv = convertView.findViewById(R.id.list_date_tv);
+        ImageView rightBackgroundIv = convertView.findViewById(R.id.list_rightbackground_iv);
 
         titleTv.setText(listViewItemList.get(pos).getTitile());
         dateTv.setText(listViewItemList.get(pos).getDate());
@@ -67,6 +68,11 @@ public class ListViewAdapter extends BaseAdapter {
             imgPath = R.drawable.lock_lock;
         }else if(listViewItemList.get(pos).getDate()!=null && listViewItemList.get(pos).getDate().equals("진행중")) {
             imgPath = R.drawable.lock_now;
+            Glide.with(context)
+                    .load( R.drawable.ing )
+                    .into(rightBackgroundIv);
+            rightBackgroundIv.setScaleType(ImageView.ScaleType.FIT_XY);
+            dateTv.setText("");
         }else{
             imgPath = R.drawable.lock_unlock;
         }

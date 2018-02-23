@@ -8,6 +8,7 @@
         <item name="colorAccent">#2cc1e0</item>
         <item name="actionMenuTextColor">#2cc1e0</item>
         <item name="windowNoTitle">true</item>
+        <!--<item name="android:windowTranslucentStatus">true</item>-->
 
     </style>
 

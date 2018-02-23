@@ -19,7 +19,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".IntroActivity">
+        <activity android:name=".mission.MissionDetailActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,7 +32,8 @@
         <activity android:name=".main.MainActivity" />
         <activity android:name=".retro.RetrofitActivity" />
         <activity android:name=".volley.VolleyActivity" />
-        <activity android:name=".mission.MissionActivity"></activity>
+        <activity android:name=".mission.MissionActivity" />
+        <!--<activity android:name=".mission.MissionDetailActivity"></activity>-->
     </application>
 
 </manifest>

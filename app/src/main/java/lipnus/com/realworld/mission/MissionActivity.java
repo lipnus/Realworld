@@ -44,6 +44,7 @@ public class MissionActivity extends AppCompatActivity {
 
     @BindView(R.id.mission_subtitle_tv) TextView subtitleTv;
 
+
     @BindView(R.id.mission_listview)
     ListView listView;
 
@@ -82,6 +83,12 @@ public class MissionActivity extends AppCompatActivity {
 
         //스크롤뷰 조정
         scrollViewControl();
+
+        //백버튼
+        Glide.with(this)
+                .load(R.drawable.back)
+                .into(backIv);
+        backIv.setScaleType(ImageView.ScaleType.FIT_XY);
     }
 
     public void onClick_mission_back(View v){

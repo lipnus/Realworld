@@ -6,13 +6,13 @@
     android:layout_height="60dp"
     android:orientation="horizontal"
     android:gravity="center_vertical"
-    android:paddingLeft="15dp"
-    android:paddingRight="15dp">
+    android:paddingLeft="18dp"
+    android:paddingRight="18dp">
 
     <ImageView
         android:id="@+id/list_lock_iv"
-        android:layout_width="18dp"
-        android:layout_height="18dp"/>
+        android:layout_width="13dp"
+        android:layout_height="16dp"/>
 
     <TextView
         android:layout_marginLeft="10dp"
@@ -26,12 +26,26 @@
         android:layout_height="match_parent"/>
 
 
-    <TextView
-        android:textSize="11dp"
-        android:layout_gravity="right|center_vertical"
-        android:id="@+id/list_date_tv"
+    <FrameLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="30dp">
+
+        <ImageView
+            android:layout_gravity="right|center_vertical"
+            android:id="@+id/list_rightbackground_iv"
+            android:layout_width="42dp"
+            android:layout_height="17dp"/>
+
+        <TextView
+
+            android:layout_gravity="right|center_vertical"
+            android:textSize="11dp"
+            android:id="@+id/list_date_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </FrameLayout>
+
 
 
 </LinearLayout>

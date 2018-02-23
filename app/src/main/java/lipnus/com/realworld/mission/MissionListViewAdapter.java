@@ -56,6 +56,7 @@ public class MissionListViewAdapter extends BaseAdapter {
         final ImageView lockIv = convertView.findViewById(R.id.list_lock_iv);
         TextView titleTv = convertView.findViewById(R.id.list_title_tv);
         TextView dateTv = convertView.findViewById(R.id.list_date_tv);
+        ImageView rightBackgroundIv = convertView.findViewById(R.id.list_rightbackground_iv);
 
         titleTv.setText(listViewItemMissionList.get(pos).getTitile());
         dateTv.setText(listViewItemMissionList.get(pos).getDate());
@@ -66,6 +67,11 @@ public class MissionListViewAdapter extends BaseAdapter {
         if(listViewItemMissionList.get(pos).getState().equals("locked")){
             imgPath = R.drawable.lock_lock;
         }else if(listViewItemMissionList.get(pos).getState().equals("now")) {
+            Glide.with(context)
+                    .load( R.drawable.ing )
+                    .into(rightBackgroundIv);
+            rightBackgroundIv.setScaleType(ImageView.ScaleType.FIT_XY);
+            dateTv.setText("");
             imgPath = R.drawable.lock_now;
         }else{
             imgPath = R.drawable.lock_unlock;
