@@ -14,8 +14,8 @@
 
 
     <LinearLayout
-        android:paddingRight="20dp"
-        android:paddingLeft="20dp"
+        android:paddingRight="25dp"
+        android:paddingLeft="25dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -37,11 +37,7 @@
             android:id="@+id/detail_content_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="영화에서 트찰라의 왕위 증위식에선 마지막으로 왕위 쟁탈에 도전할 수 있는
-            왕위 계승전을 진행하는데요. 이 역시 원작에 마찬가지로 있는 요소로서,왕위 쟁탈에 참가하는
-            도전자에겐 왕위를 차지할 기회를 선사하죠. 참고로 코믹스 속에선 슈리도 왕위 계승에
-            참가할려다 오빠 트찰라에게 기회를 뺏기게됩니다. 영화에서도 슈리가 도전할려는 걸 보고
-            '설마?'라며 놀랐는데,영화에선 그냥 웃음으로 넘어가더군요. "/>
+            android:text=""/>
 
     </LinearLayout>
 

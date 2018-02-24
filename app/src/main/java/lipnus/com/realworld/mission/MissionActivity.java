@@ -12,6 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -36,27 +37,20 @@ import lipnus.com.realworld.retro.RetroClient;
 
 public class MissionActivity extends AppCompatActivity {
 
+
+
     @BindView(R.id.mission_title_iv) ImageView titleIv;
-
     @BindView(R.id.mission_back_iv) ImageView backIv;
-
     @BindView(R.id.mission_title_tv) TextView titleTv;
-
     @BindView(R.id.mission_subtitle_tv) TextView subtitleTv;
-
-
-    @BindView(R.id.mission_listview)
-    ListView listView;
-
-    @BindView(R.id.mission_scrollView)
-    ScrollView scrollView;
-
+    @BindView(R.id.mission_listview) ListView listView;
+    @BindView(R.id.mission_scrollView) ScrollView scrollView;
     MissionListViewAdapter adapter;
-
-
     RetroClient retroClient;
 
     public static int scenarioId; //네비게이션에서 재사용된다
+
+    ScenarioDetail sDetail; //클릭시 미션 아이디를 찾기 위해서
 
     NavigationMenu navigationMenu;
 
@@ -153,7 +147,7 @@ public class MissionActivity extends AppCompatActivity {
             public void onSuccess(int code, Object receivedData) {
                 ScenarioDetail data = (ScenarioDetail) receivedData;
 
-                Toast.makeText(getApplicationContext(), "성공: " + data.id, Toast.LENGTH_SHORT).show();
+                sDetail = data; //다음 리스트뷰로 가는 아이디 때문에..
                 setSenario(data);
             }
 
@@ -193,9 +187,19 @@ public class MissionActivity extends AppCompatActivity {
         });
 
 
+        //리스트뷰의 클릭리스너
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.e("CCC", "MissionAcitivty 미션id: " + sDetail.missions.get(position).id);
 
+                int missionId = sDetail.missions.get(position).id;
 
-
+                Intent iT = new Intent(getApplicationContext(), MissionDetailActivity.class);
+                iT.putExtra("missionId", missionId);
+                startActivity(iT);
+            }
+        });
     }
 
 

@@ -19,7 +19,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".mission.MissionDetailActivity">
+        <activity android:name=".main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,11 +29,15 @@
         <activity android:name=".direction.CompassActivity" />
         <activity android:name=".qrcode.QrcodeActicity" />
         <activity android:name=".quest.QuestActivity" />
-        <activity android:name=".main.MainActivity" />
+        <!--<activity android:name=".main.MainActivity" />-->
         <activity android:name=".retro.RetrofitActivity" />
         <activity android:name=".volley.VolleyActivity" />
         <activity android:name=".mission.MissionActivity" />
-        <!--<activity android:name=".mission.MissionDetailActivity"></activity>-->
+        <activity
+            android:name=".mission.MissionDetailActivity"
+            android:excludeFromRecents="true"
+            android:taskAffinity=""
+            android:theme="@style/Theme.Sliding.Light"></activity>
     </application>
 
 </manifest>

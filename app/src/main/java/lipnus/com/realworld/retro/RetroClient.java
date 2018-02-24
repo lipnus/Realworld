@@ -6,6 +6,7 @@ import android.content.Context;
 import java.util.HashMap;
 import java.util.List;
 
+import lipnus.com.realworld.retro.ResponseBody.MissionDetail;
 import lipnus.com.realworld.retro.ResponseBody.ResponseGet2;
 import lipnus.com.realworld.retro.ResponseBody.Scenario;
 import lipnus.com.realworld.retro.ResponseBody.ScenarioDetail;
@@ -137,6 +138,26 @@ public class RetroClient {
             }
         });
     }
+
+    //미션상세
+    public void postMissionsDetail(int id, HashMap<String, Object> parameters, final RetroCallback callback) {
+        apiService.postMissionsDetail(id, parameters).enqueue(new Callback<MissionDetail>() {
+            @Override
+            public void onResponse(Call<MissionDetail> call, Response<MissionDetail> response) {
+                if (response.isSuccessful()) {
+                    callback.onSuccess(response.code(), response.body());
+                } else {
+                    callback.onFailure(response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MissionDetail> call, Throwable t) {
+                callback.onError(t);
+            }
+        });
+    }
+
 
 
 
