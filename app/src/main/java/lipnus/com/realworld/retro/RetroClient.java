@@ -2,6 +2,7 @@ package lipnus.com.realworld.retro;
 
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.HashMap;
 import java.util.List;

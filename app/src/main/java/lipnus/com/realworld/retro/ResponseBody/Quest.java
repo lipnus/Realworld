@@ -8,9 +8,9 @@ public class Quest {
 
     public int id;
     public int type;
-    public int label;
+    public String label;
 
-    public Quest(int id, int type, int label) {
+    public Quest(int id, int type, String label) {
         this.id = id;
         this.type = type;
         this.label = label;

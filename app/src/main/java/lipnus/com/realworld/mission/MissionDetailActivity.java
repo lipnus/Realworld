@@ -5,9 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.klinker.android.sliding.MultiShrinkScroller;
 import com.klinker.android.sliding.SlidingActivity;
 import com.pierfrancescosoffritti.youtubeplayer.player.AbstractYouTubePlayerListener;
@@ -29,6 +34,8 @@ import com.klinker.android.sliding.SlidingActivity;
 public class MissionDetailActivity extends SlidingActivity {
 
     TextView titleTv, contentTv;
+    ImageView dragIv;
+    TextView btnTv;
     YouTubePlayerView youTubePlayerView;
 
     RetroClient retroClient;
@@ -45,6 +52,8 @@ public class MissionDetailActivity extends SlidingActivity {
 
         titleTv = findViewById(R.id.detail_title_tv);
         contentTv = findViewById(R.id.detail_content_tv);
+        dragIv = findViewById(R.id.detail_drag_iv);
+        btnTv = findViewById(R.id.detail_btn_tv);
         youTubePlayerView = findViewById(R.id.detail_youtube);
 
         retroClient = RetroClient.getInstance(this).createBaseApi(); //레트로핏
@@ -68,6 +77,22 @@ public class MissionDetailActivity extends SlidingActivity {
         }, true);
 
 
+
+        //상단이미지
+        Glide.with(this)
+                .load(R.drawable.dragdown)
+                .into(dragIv);
+        dragIv.setScaleType(ImageView.ScaleType.FIT_XY);
+
+
+        dragIv.post(new Runnable() {
+            @Override
+            public void run() {
+                YoYo.with(Techniques.BounceInDown)
+                        .duration(1500)
+                        .playOn(dragIv);
+            }
+        });
     }
 
     @Override
@@ -107,6 +132,7 @@ public class MissionDetailActivity extends SlidingActivity {
     public void setMission(MissionDetail data){
         titleTv.setText("#" + missionId + ". "+ data.name);
         contentTv.setText(data.content);
+        btnTv.setText(data.quests.get(0).label);
     }
 
     @Override

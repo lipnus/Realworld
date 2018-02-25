@@ -12,7 +12,6 @@
 
         <ImageView
             android:id="@+id/main_title_iv"
-            android:background="#c22"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:onClick="onClick_Scenario"/>
@@ -45,7 +44,7 @@
             android:textColor="#ffffff"
             android:text="미스테리트레일 여수"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"/>
     </FrameLayout>
 
     <LinearLayout
