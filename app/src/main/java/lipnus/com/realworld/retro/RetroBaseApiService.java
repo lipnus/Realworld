@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import lipnus.com.realworld.retro.ResponseBody.MissionDetail;
+import lipnus.com.realworld.retro.ResponseBody.QuestDetail;
+import lipnus.com.realworld.retro.ResponseBody.QuestResult;
 import lipnus.com.realworld.retro.ResponseBody.ResponseGet2;
 import lipnus.com.realworld.retro.ResponseBody.Scenario;
 import lipnus.com.realworld.retro.ResponseBody.ScenarioDetail;
@@ -43,6 +45,12 @@ public interface RetroBaseApiService {
 
     @POST("/missions/{id}")
     Call<MissionDetail> postMissionsDetail(@Path("id") int id, @Body HashMap<String, Object> parameters);
+
+    @POST("/quests/{id}")
+    Call<QuestDetail> postQuestDetail(@Path("id") int id, @Body HashMap<String, Object> parameters);
+
+    @POST("/quests/{id}/result")
+    Call<QuestResult> postQuestResult(@Path("id") int id, @Body HashMap<String, Object> parameters);
 
 
 

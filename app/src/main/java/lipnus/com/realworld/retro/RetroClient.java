@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import lipnus.com.realworld.retro.ResponseBody.MissionDetail;
+import lipnus.com.realworld.retro.ResponseBody.QuestDetail;
+import lipnus.com.realworld.retro.ResponseBody.QuestResult;
 import lipnus.com.realworld.retro.ResponseBody.ResponseGet2;
 import lipnus.com.realworld.retro.ResponseBody.Scenario;
 import lipnus.com.realworld.retro.ResponseBody.ScenarioDetail;
@@ -159,6 +161,43 @@ public class RetroClient {
         });
     }
 
+    //퀘스트상세
+    public void postQuestDetail(int id, HashMap<String, Object> parameters, final RetroCallback callback) {
+        apiService.postQuestDetail(id, parameters).enqueue(new Callback<QuestDetail>() {
+            @Override
+            public void onResponse(Call<QuestDetail> call, Response<QuestDetail> response) {
+                if (response.isSuccessful()) {
+                    callback.onSuccess(response.code(), response.body());
+                } else {
+                    callback.onFailure(response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<QuestDetail> call, Throwable t) {
+                callback.onError(t);
+            }
+        });
+    }
+
+    //퀘스트결과등록
+    public void postQuestResult(int id, HashMap<String, Object> parameters, final RetroCallback callback) {
+        apiService.postQuestResult(id, parameters).enqueue(new Callback<QuestResult>() {
+            @Override
+            public void onResponse(Call<QuestResult> call, Response<QuestResult> response) {
+                if (response.isSuccessful()) {
+                    callback.onSuccess(response.code(), response.body());
+                } else {
+                    callback.onFailure(response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<QuestResult> call, Throwable t) {
+                callback.onError(t);
+            }
+        });
+    }
 
 
 

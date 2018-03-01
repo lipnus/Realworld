@@ -5,21 +5,23 @@
     android:background="#00000000">
 
 
+    <!--헤더-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#00000000"
         android:orientation="vertical">
-        
+
         <ImageView
             android:layout_marginTop="20dp"
             android:layout_gravity="center_horizontal"
-            android:id="@+id/detail_drag_iv"
+            android:id="@+id/drag_iv"
             android:layout_width="37dp"
             android:layout_height="12dp" />
     </LinearLayout>
 
 
+    <!--본문-->
     <LinearLayout
         android:layout_marginTop="50dp"
         android:paddingRight="20dp"
@@ -30,35 +32,37 @@
 
 
         <TextView
+            android:layout_gravity="center_horizontal"
             android:textColor="#2cc1e0"
-            android:id="@+id/detail_title_tv"
+            android:id="@+id/success_title_tv"
             android:layout_marginTop="20dp"
-            android:textSize="24dp"
+            android:textSize="26dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""/>
+            android:text="퀘스트 완료"/>
 
         <TextView
-            android:layout_marginTop="20dp"
-            android:id="@+id/detail_content_tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text=""/>
-
-        <ListView
-            android:layout_marginTop="70dp"
+            android:gravity="center_horizontal"
             android:layout_gravity="center_horizontal"
-            android:id="@+id/detail_listview"
-            android:layout_width="310dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/success_content_tv"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:divider="#ffffff"/>
+            android:text="..."/>
+
 
     </LinearLayout>
 
-
-
-
-
-
+    <TextView
+        android:id="@+id/detail_btn_tv"
+        android:textColor="#2cc1e0"
+        android:layout_width="300dp"
+        android:layout_height="45dp"
+        android:background="@drawable/roundbutton"
+        android:gravity="center"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="40dp"
+        android:onClick="onClick_success_next"
+        android:text="닫기"/>
 
 </FrameLayout>

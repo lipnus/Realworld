@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00000000">
+
+
+    <!--헤더-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#00000000"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/drag_iv"
+            android:layout_width="37dp"
+            android:layout_height="12dp" />
+    </LinearLayout>
+
+
+    <!--본문-->
+    <LinearLayout
+        android:layout_marginTop="50dp"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_gravity="center_horizontal"
+            android:textColor="#2cc1e0"
+            android:id="@+id/word_title_tv"
+            android:layout_marginTop="20dp"
+            android:textSize="26dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="암호를 입력하세요"/>
+
+        <TextView
+            android:gravity="center_horizontal"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:id="@+id/word_hint_tv"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="..."/>
+
+        <LinearLayout
+            android:id="@+id/word_edit_lr"
+            android:layout_marginTop="40dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="220dp"
+            android:layout_height="70dp"
+            android:background="#d5f3f9">
+
+            <EditText
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:layout_marginLeft="17dp"
+                android:singleLine="true"
+                android:imeOptions="actionDone"
+                android:id="@+id/word_et"
+                android:layout_width="200dp"
+                android:layout_height="60dp"
+                android:textSize="33dp"
+                android:textColor="#2cc1e0"
+                android:background="@null"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</FrameLayout>

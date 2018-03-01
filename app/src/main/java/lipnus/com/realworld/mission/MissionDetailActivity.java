@@ -5,8 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,28 +18,24 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.klinker.android.sliding.MultiShrinkScroller;
 import com.klinker.android.sliding.SlidingActivity;
-import com.pierfrancescosoffritti.youtubeplayer.player.AbstractYouTubePlayerListener;
-import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayer;
-import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerInitListener;
-import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView;
 
 import java.util.HashMap;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import lipnus.com.realworld.GlobalApplication;
 import lipnus.com.realworld.R;
+import lipnus.com.realworld.quest.WordActivity;
 import lipnus.com.realworld.retro.ResponseBody.MissionDetail;
 import lipnus.com.realworld.retro.RetroCallback;
 import lipnus.com.realworld.retro.RetroClient;
-import com.klinker.android.sliding.SlidingActivity;
 
 public class MissionDetailActivity extends SlidingActivity {
 
     TextView titleTv, contentTv;
     ImageView dragIv;
     TextView btnTv;
-    YouTubePlayerView youTubePlayerView;
+
+    ListView listView;
+    MissionDetailListViewAdapter adapter;
 
     RetroClient retroClient;
     int missionId;
@@ -44,9 +43,6 @@ public class MissionDetailActivity extends SlidingActivity {
     @Override
     public void init(Bundle savedInstanceState) {
         setContent(R.layout.activity_mission_detail);
-
-//        setTitle("Mission");
-//        setImage(R.drawable.main);
         disableHeader();
         enableFullscreen();
 
@@ -54,7 +50,25 @@ public class MissionDetailActivity extends SlidingActivity {
         contentTv = findViewById(R.id.detail_content_tv);
         dragIv = findViewById(R.id.detail_drag_iv);
         btnTv = findViewById(R.id.detail_btn_tv);
-        youTubePlayerView = findViewById(R.id.detail_youtube);
+        listView = findViewById(R.id.detail_listview);
+
+        //리스트뷰
+        adapter = new MissionDetailListViewAdapter();
+        listView.setAdapter(adapter);
+
+        //리스트뷰의 클릭리스너
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                MissionDetailListViewItem mDetail = (MissionDetailListViewItem)adapter.getItem(position);
+                int questId = mDetail.questId;
+
+                Intent iT = new Intent(getApplicationContext(), WordActivity.class);
+                iT.putExtra("questId", questId);
+                startActivity(iT);
+            }
+        });
 
         retroClient = RetroClient.getInstance(this).createBaseApi(); //레트로핏
 
@@ -62,20 +76,6 @@ public class MissionDetailActivity extends SlidingActivity {
         Intent iT = getIntent();
         missionId = iT.getExtras().getInt("missionId", 0);
         postMissionDetail(missionId);
-
-        youTubePlayerView.initialize(new YouTubePlayerInitListener() {
-            @Override
-            public void onInitSuccess(final YouTubePlayer initializedYouTubePlayer) {
-                initializedYouTubePlayer.addListener(new AbstractYouTubePlayerListener() {
-                    @Override
-                    public void onReady() {
-                        String videoId = "D76OSIdqtak";
-                        initializedYouTubePlayer.loadVideo(videoId, 0);
-                    }
-                });
-            }
-        }, true);
-
 
 
         //상단이미지
@@ -95,11 +95,7 @@ public class MissionDetailActivity extends SlidingActivity {
         });
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        youTubePlayerView.release();
-    }
+
 
 
     public void postMissionDetail(int missionId){
@@ -128,11 +124,15 @@ public class MissionDetailActivity extends SlidingActivity {
         });
     }
 
-
     public void setMission(MissionDetail data){
         titleTv.setText("#" + missionId + ". "+ data.name);
         contentTv.setText(data.content);
-        btnTv.setText(data.quests.get(0).label);
+
+        for(int i=0; i<data.quests.size(); i++){
+            adapter.addItem(data.quests.get(i).id, data.quests.get(i).label);
+        }
+
+        adapter.notifyDataSetChanged();
     }
 
     @Override
