@@ -1,11 +1,15 @@
 package lipnus.com.realworld.main;
 
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
@@ -14,8 +18,11 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -24,6 +31,7 @@ import butterknife.ButterKnife;
 import lipnus.com.realworld.GlobalApplication;
 import lipnus.com.realworld.R;
 import lipnus.com.realworld.retro.ResponseBody.Scenario;
+import lipnus.com.realworld.retro.ResponseBody.TokenGet;
 import lipnus.com.realworld.retro.RetroCallback;
 import lipnus.com.realworld.retro.RetroClient;
 
@@ -53,6 +61,11 @@ public class MainActivity extends AppCompatActivity {
         super.setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+
+//        requirePermission();
+//        getMoible_no();
+
+
         tabview.setupWithViewPager(mainPager); //탭뷰
         tabview.post(new Runnable() {
             @Override
@@ -70,6 +83,79 @@ public class MainActivity extends AppCompatActivity {
         super.onPostResume();
         Log.e("EVEV", "리쥼");
         postScenario();
+    }
+
+    //권한 인증
+    public void requirePermission(){
+
+        PermissionListener permissionlistener = new PermissionListener() {
+            @Override
+            public void onPermissionGranted() {
+                Toast.makeText(getApplicationContext(), "권한 허가", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                Toast.makeText(getApplicationContext(), "권한 거부\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        TedPermission.with(this)
+                .setPermissionListener(permissionlistener)
+                .setRationaleMessage("카메라권한, 위치권한, 전화번호")
+                .setDeniedMessage("권한 거부")
+                .setPermissions(Manifest.permission.CAMERA,
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.READ_PHONE_STATE)
+                .check();
+    }
+
+    public void postAuthorize(){
+
+        HashMap<String, Object> parameters = new HashMap<>();
+        parameters.put("client_id", "l7xx119653b3a36b4dc4be4206419bea131d");
+        parameters.put("mobile_no", "01027151024");
+
+        retroClient.postAuthorize(parameters, new RetroCallback() {
+
+            @Override
+            public void onError(Throwable t) {
+                Log.e("EVEV", "onError(), " + t.toString());
+            }
+
+            @Override
+            public void onSuccess(int code, Object receivedData) {
+                TokenGet data = (TokenGet) receivedData;
+                GlobalApplication.access_tocken = data.access_token;
+            }
+
+            @Override
+            public void onFailure(int code) {Log.e("EVEV", "onFailure(), " + String.valueOf(code));
+            }
+        });
+    }
+
+    public String getMoible_no(){
+
+        String phoneNum="0";
+
+        int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE);
+
+        if(permissionCheck== PackageManager.PERMISSION_DENIED){
+
+            requirePermission();
+
+        }else{
+            TelephonyManager telManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+            phoneNum = telManager.getLine1Number();
+            if(phoneNum.startsWith("+82")){
+                phoneNum = phoneNum.replace("+82", "0");
+            }
+        }
+
+        Log.e("PPNN", "전화번호: " + phoneNum);
+        return phoneNum;
     }
 
     public void onClick_Scenario(View v){

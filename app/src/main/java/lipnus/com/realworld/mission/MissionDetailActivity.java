@@ -1,12 +1,11 @@
 package lipnus.com.realworld.mission;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -40,11 +39,15 @@ public class MissionDetailActivity extends SlidingActivity {
     RetroClient retroClient;
     int missionId;
 
+    public static Activity MDActivity;
+
     @Override
     public void init(Bundle savedInstanceState) {
         setContent(R.layout.activity_mission_detail);
         disableHeader();
         enableFullscreen();
+
+        MDActivity = MissionDetailActivity.this;
 
         titleTv = findViewById(R.id.detail_title_tv);
         contentTv = findViewById(R.id.detail_content_tv);
@@ -94,8 +97,6 @@ public class MissionDetailActivity extends SlidingActivity {
             }
         });
     }
-
-
 
 
     public void postMissionDetail(int missionId){

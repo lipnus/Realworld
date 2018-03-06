@@ -277,9 +277,4 @@ public class MissionActivity extends AppCompatActivity {
 
     }
 
-
-
-
-
-
 }

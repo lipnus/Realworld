@@ -1,16 +1,9 @@
 package lipnus.com.realworld.quest;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
-import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -25,15 +18,12 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.klinker.android.sliding.MultiShrinkScroller;
 import com.klinker.android.sliding.SlidingActivity;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 
 import lipnus.com.realworld.GlobalApplication;
 import lipnus.com.realworld.R;
-import lipnus.com.realworld.mission.MissionDetailActivity;
-import lipnus.com.realworld.retro.ResponseBody.MissionDetail;
 import lipnus.com.realworld.retro.ResponseBody.QuestDetail;
+import lipnus.com.realworld.retro.ResponseBody.QuestResult;
 import lipnus.com.realworld.retro.RetroCallback;
 import lipnus.com.realworld.retro.RetroClient;
 
@@ -88,6 +78,21 @@ public class WordActivity extends SlidingActivity {
         postQuestDetail(questId);
     }
 
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+
+        //키보드 자동 띄우기
+        inputEt.postDelayed(new Runnable() {
+            public void run() {
+                InputMethodManager manager = (InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+                manager.showSoftInput(inputEt, 0);
+            }
+        }, 100);
+
+
+    }
+
     public void setEditText(){
 
 
@@ -101,27 +106,9 @@ public class WordActivity extends SlidingActivity {
                 switch (actionId) {
                     case EditorInfo.IME_ACTION_DONE: //Done버튼 눌렀을 때
 
-                        if(inputStr.equals( answer )){
+                        answer = inputStr;
+                        postQuestResult(inputStr);
 
-                            //정답
-                            Intent iT = new Intent(getApplicationContext(), SuccessActivity.class);
-                            iT.putExtra("questId", questId);
-                            iT.putExtra("answer", answer);
-                            startActivity(iT);
-
-                            finish();
-
-                        }else{
-                            Toast.makeText(getApplicationContext(), "잘못된 암호입니다", Toast.LENGTH_LONG).show();
-                            YoYo.with(Techniques.Tada)
-                                    .duration(700)
-                                    .playOn(editLr);
-                        }
-                        break;
-
-                    default:
-                        Toast.makeText(getApplicationContext(), "기본", Toast.LENGTH_LONG).show();
-                        return false;
                 }
                 return true;
             }
@@ -156,8 +143,6 @@ public class WordActivity extends SlidingActivity {
         });
     }
 
-
-
     public void setQuest(QuestDetail data){
 
         hintTv.setText( data.text );
@@ -166,20 +151,68 @@ public class WordActivity extends SlidingActivity {
         setEditText();
     }
 
-    @Override
-    protected void onPostResume() {
-        super.onPostResume();
 
-        //키보드 자동 띄우기
-        inputEt.postDelayed(new Runnable() {
-            public void run() {
-                InputMethodManager manager = (InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
-                manager.showSoftInput(inputEt, 0);
+    public void postQuestResult(String answerStr){
+        HashMap<String, Object> parameters = new HashMap<>();
+        parameters.put("access_token", GlobalApplication.access_tocken);
+        parameters.put("answer", answerStr);
+
+
+        retroClient.postQuestResult(questId, parameters, new RetroCallback() {
+
+            @Override
+            public void onError(Throwable t) {
+//                Toast.makeText(getApplicationContext(), "Error: " + t, Toast.LENGTH_SHORT).show();
+
+              Toast.makeText(getApplicationContext(), "잘못된 암호입니다", Toast.LENGTH_LONG).show();
+                YoYo.with(Techniques.Tada)
+                        .duration(700)
+                        .playOn(editLr);
             }
-        }, 100);
+
+            @Override
+            public void onSuccess(int code, Object receivedData) {
+                QuestResult data = (QuestResult) receivedData;
+                setCheckAnswer(data);
+            }
+
+            @Override
+            public void onFailure(int code) {
+//                Toast.makeText(getApplicationContext(), "Fialure: " + String.valueOf(code), Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(getApplicationContext(), "잘못된 암호입니다", Toast.LENGTH_LONG).show();
+                YoYo.with(Techniques.Tada)
+                        .duration(700)
+                        .playOn(editLr);
+            }
+        });
+    }
+
+
+    //정답체크
+    public void setCheckAnswer(QuestResult data){
+
+        if(data.result){
+            //정답
+            Intent iT = new Intent(getApplicationContext(), SuccessActivity.class);
+            iT.putExtra("questId", questId);
+            iT.putExtra("answer", answer);
+            startActivity(iT);
+
+            finish();
+        }
+
+        else{
+            Toast.makeText(getApplicationContext(), "잘못된 암호입니다", Toast.LENGTH_LONG).show();
+            YoYo.with(Techniques.Tada)
+                    .duration(700)
+                    .playOn(editLr);
+        }
 
 
     }
+
+
 
     @Override
     protected void configureScroller(MultiShrinkScroller scroller) {

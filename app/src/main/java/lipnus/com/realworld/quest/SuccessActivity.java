@@ -17,6 +17,7 @@ import java.util.HashMap;
 
 import lipnus.com.realworld.GlobalApplication;
 import lipnus.com.realworld.R;
+import lipnus.com.realworld.mission.MissionDetailActivity;
 import lipnus.com.realworld.retro.ResponseBody.QuestResult;
 import lipnus.com.realworld.retro.RetroCallback;
 import lipnus.com.realworld.retro.RetroClient;
@@ -31,6 +32,7 @@ public class SuccessActivity extends SlidingActivity {
 
     String answer;
     int questId;
+    int missionTo=-1;
 
 
     @Override
@@ -96,11 +98,28 @@ public class SuccessActivity extends SlidingActivity {
     public void setQuestResult(QuestResult data){
 
         contentTv.setText( data.content);
+        missionTo = data.missionTo;
     }
 
 
     public void onClick_success_next(View v){
-        finish();
+
+        if(missionTo!=-1){
+
+//            기존 미션디테일창 끔
+            MissionDetailActivity mdActivity = (MissionDetailActivity) MissionDetailActivity.MDActivity;
+            mdActivity.finish();
+
+            Toast.makeText(getApplicationContext(), "다음미션으로 이동", Toast.LENGTH_LONG).show();
+
+            Intent iT = new Intent(getApplicationContext(), MissionDetailActivity.class);
+            iT.putExtra("missionId", missionTo);
+            startActivity(iT);
+            finish();
+
+
+        }
+
     }
 
     @Override

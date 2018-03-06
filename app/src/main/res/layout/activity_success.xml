@@ -63,6 +63,6 @@
         android:layout_gravity="bottom|center_horizontal"
         android:layout_marginBottom="40dp"
         android:onClick="onClick_success_next"
-        android:text="닫기"/>
+        android:text="다음으로"/>
 
 </FrameLayout>
