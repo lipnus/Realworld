@@ -37,10 +37,7 @@
         <activity android:name=".volley.VolleyActivity" />
         <activity android:name=".mission.MissionActivity" />
         <activity
-            android:name=".mission.MissionDetailActivity"
-            android:excludeFromRecents="true"
-            android:taskAffinity=""
-            android:theme="@style/Theme.Sliding.Light" />
+            android:name=".mission.MissionDetailActivity"  />
          <activity
              android:name=".quest.WordActivity"
              android:excludeFromRecents="true"

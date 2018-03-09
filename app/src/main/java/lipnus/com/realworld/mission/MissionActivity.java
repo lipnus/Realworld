@@ -177,7 +177,7 @@ public class MissionActivity extends AppCompatActivity {
 
 
 
-        setListViewHeightBasedOnChildren(listView, 300);
+        setListViewHeightBasedOnChildren(listView, 0);
         adapter.notifyDataSetChanged();
         scrollView.post(new Runnable() {
             @Override

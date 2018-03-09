@@ -4,6 +4,7 @@ package lipnus.com.realworld.mission;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,11 +16,11 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import com.klinker.android.sliding.MultiShrinkScroller;
-import com.klinker.android.sliding.SlidingActivity;
 
 import java.util.HashMap;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import lipnus.com.realworld.GlobalApplication;
 import lipnus.com.realworld.R;
 import lipnus.com.realworld.quest.WordActivity;
@@ -27,33 +28,30 @@ import lipnus.com.realworld.retro.ResponseBody.MissionDetail;
 import lipnus.com.realworld.retro.RetroCallback;
 import lipnus.com.realworld.retro.RetroClient;
 
-public class MissionDetailActivity extends SlidingActivity {
+public class MissionDetailActivity extends AppCompatActivity {
 
-    TextView titleTv, contentTv;
-    ImageView dragIv;
-    TextView btnTv;
 
-    ListView listView;
+    @BindView(R.id.detail_title_tv)
+    TextView titleTv;
+    @BindView(R.id.detail_title_iv) ImageView titleIv;
+    @BindView(R.id.detail_content_tv) TextView contentTv;
+    @BindView(R.id.detail_drag_iv) ImageView dragIv;
+    @BindView(R.id.detail_listview) ListView listView;
+
     MissionDetailListViewAdapter adapter;
-
     RetroClient retroClient;
     int missionId;
 
     public static Activity MDActivity;
 
     @Override
-    public void init(Bundle savedInstanceState) {
-        setContent(R.layout.activity_mission_detail);
-        disableHeader();
-        enableFullscreen();
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_mission_detail);
+        ButterKnife.bind(this);
+
 
         MDActivity = MissionDetailActivity.this;
-
-        titleTv = findViewById(R.id.detail_title_tv);
-        contentTv = findViewById(R.id.detail_content_tv);
-        dragIv = findViewById(R.id.detail_drag_iv);
-        btnTv = findViewById(R.id.detail_btn_tv);
-        listView = findViewById(R.id.detail_listview);
 
         //리스트뷰
         adapter = new MissionDetailListViewAdapter();
@@ -129,6 +127,13 @@ public class MissionDetailActivity extends SlidingActivity {
         titleTv.setText("#" + missionId + ". "+ data.name);
         contentTv.setText(data.content);
 
+        //이미지
+        Glide.with(this)
+                .load(GlobalApplication.imgPath + data.image)
+                .into(titleIv);
+        titleIv.setScaleType(ImageView.ScaleType.FIT_XY);
+
+        //쿼스트 버튼
         for(int i=0; i<data.quests.size(); i++){
             adapter.addItem(data.quests.get(i).id, data.quests.get(i).label);
         }
@@ -136,11 +141,6 @@ public class MissionDetailActivity extends SlidingActivity {
         adapter.notifyDataSetChanged();
     }
 
-    @Override
-    protected void configureScroller(MultiShrinkScroller scroller) {
-        super.configureScroller(scroller);
-        scroller.setIntermediateHeaderHeightRatio(5);
-    }
 
 }
 
