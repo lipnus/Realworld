@@ -33,18 +33,22 @@
             <ImageView
                 android:id="@+id/detail_title_iv"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:elevation="8dp"
+                android:background="#909090"/>
 
             <TextView
                 android:textColor="#2cc1e0"
                 android:id="@+id/detail_title_tv"
                 android:layout_marginTop="20dp"
-                android:textSize="24dp"
+                android:textSize="23dp"
+                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""/>
 
             <TextView
+                android:lineSpacingMultiplier="1.2"
                 android:layout_marginTop="20dp"
                 android:id="@+id/detail_content_tv"
                 android:layout_width="match_parent"

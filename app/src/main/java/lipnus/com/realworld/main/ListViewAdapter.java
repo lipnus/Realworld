@@ -15,6 +15,7 @@ import com.daimajia.androidanimations.library.YoYo;
 
 import java.util.ArrayList;
 
+import lipnus.com.realworld.GlobalApplication;
 import lipnus.com.realworld.R;
 
 /**
@@ -58,24 +59,52 @@ public class ListViewAdapter extends BaseAdapter {
         TextView dateTv = convertView.findViewById(R.id.list_date_tv);
         ImageView rightBackgroundIv = convertView.findViewById(R.id.list_rightbackground_iv);
 
-        titleTv.setText(listViewItemList.get(pos).getTitile());
-        dateTv.setText(listViewItemList.get(pos).getDate());
+        titleTv.setText(listViewItemList.get(pos).title);
+
+        String date;
+        if(listViewItemList.get(pos).date!=null){
+            date = GlobalApplication.dateTrans( listViewItemList.get(pos).date );
+        }else{
+            date = "";
+        }
+        dateTv.setText(date);
 
 
         int imgPath;
 
-        if(listViewItemList.get(pos).getTitile().equals("LOCKED")){
-            imgPath = R.drawable.lock_lock;
-        }else if(listViewItemList.get(pos).getDate()!=null && listViewItemList.get(pos).getDate().equals("진행중")) {
-            imgPath = R.drawable.lock_now;
+        //지금 진행중인거 찾기
+        int size = listViewItemList.size();
+        int lastPlay = 0;
+        for(int i=0; i<size; i++){
+            if(listViewItemList.get(i).accomplished==true){
+                lastPlay = i+1;
+            }
+        }
+
+
+        //진행중
+        if(lastPlay==pos){
             Glide.with(context)
                     .load( R.drawable.ing )
                     .into(rightBackgroundIv);
             rightBackgroundIv.setScaleType(ImageView.ScaleType.FIT_XY);
+            imgPath = R.drawable.lock_now;
             dateTv.setText("");
-        }else{
+        }
+
+        //깬거
+        else if(listViewItemList.get(pos).accomplished==true){
             imgPath = R.drawable.lock_unlock;
         }
+
+        //못갠거
+        else{
+            imgPath = R.drawable.lock_lock;
+            titleTv.setText("LOCKED");
+        }
+
+
+
 
         Glide.with(context)
                 .load( imgPath )
@@ -109,9 +138,9 @@ public class ListViewAdapter extends BaseAdapter {
 
 
     // 아이템 데이터 추가
-    public void addItem(String title, String date) {
+    public void addItem(String title, String date, Boolean accomplished) {
 
-        ListViewItem item = new ListViewItem(title, date);
+        ListViewItem item = new ListViewItem(title, date, accomplished);
         listViewItemList.add(item);
     }
 }

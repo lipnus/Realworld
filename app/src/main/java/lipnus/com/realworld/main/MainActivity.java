@@ -22,9 +22,12 @@ import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
 import java.lang.reflect.Field;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -62,10 +65,6 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
 
-//        requirePermission();
-//        getMoible_no();
-
-
         tabview.setupWithViewPager(mainPager); //탭뷰
         tabview.post(new Runnable() {
             @Override
@@ -78,85 +77,14 @@ public class MainActivity extends AppCompatActivity {
         addData();
     }
 
+
+
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        Log.e("EVEV", "리쥼");
         postScenario();
     }
 
-    //권한 인증
-    public void requirePermission(){
-
-        PermissionListener permissionlistener = new PermissionListener() {
-            @Override
-            public void onPermissionGranted() {
-                Toast.makeText(getApplicationContext(), "권한 허가", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-                Toast.makeText(getApplicationContext(), "권한 거부\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
-            }
-        };
-
-        TedPermission.with(this)
-                .setPermissionListener(permissionlistener)
-                .setRationaleMessage("카메라권한, 위치권한, 전화번호")
-                .setDeniedMessage("권한 거부")
-                .setPermissions(Manifest.permission.CAMERA,
-                        Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.READ_PHONE_STATE)
-                .check();
-    }
-
-    public void postAuthorize(){
-
-        HashMap<String, Object> parameters = new HashMap<>();
-        parameters.put("client_id", "l7xx119653b3a36b4dc4be4206419bea131d");
-        parameters.put("mobile_no", "01027151024");
-
-        retroClient.postAuthorize(parameters, new RetroCallback() {
-
-            @Override
-            public void onError(Throwable t) {
-                Log.e("EVEV", "onError(), " + t.toString());
-            }
-
-            @Override
-            public void onSuccess(int code, Object receivedData) {
-                TokenGet data = (TokenGet) receivedData;
-                GlobalApplication.access_tocken = data.access_token;
-            }
-
-            @Override
-            public void onFailure(int code) {Log.e("EVEV", "onFailure(), " + String.valueOf(code));
-            }
-        });
-    }
-
-    public String getMoible_no(){
-
-        String phoneNum="0";
-
-        int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE);
-
-        if(permissionCheck== PackageManager.PERMISSION_DENIED){
-
-            requirePermission();
-
-        }else{
-            TelephonyManager telManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
-            phoneNum = telManager.getLine1Number();
-            if(phoneNum.startsWith("+82")){
-                phoneNum = phoneNum.replace("+82", "0");
-            }
-        }
-
-        Log.e("PPNN", "전화번호: " + phoneNum);
-        return phoneNum;
-    }
 
     public void onClick_Scenario(View v){
         postScenario();
@@ -190,8 +118,7 @@ public class MainActivity extends AppCompatActivity {
                 List<Scenario> data = (List<Scenario>) receivedData;
 
                 Log.e("EVEV", "onSuccess(), " + String.valueOf(code));
-
-                scenarioArray(data);
+//                scenarioArray(data);
                 GlobalApplication.scenarioList = data;
                 pagerSetting();
 
@@ -204,33 +131,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    //받은 시나리오 데이터들을 정렬(call by reference)
-    public void scenarioArray(List<Scenario> scenarioList){
 
-        int listSize = scenarioList.size();
-        int nowIndex= listSize;
-
-        Log.e("EVEV", "사이즈: " + listSize);
-
-
-        //어디까지 클리어했는지 확인
-        for(int i=0; i<listSize; i++){
-            Scenario scenario = scenarioList.get(i);
-
-            if(scenario.lastPlayed == null){
-                nowIndex = i;
-                scenario.lastPlayed="진행중";
-                break;
-            }
-        }
-
-        //아직 클리어 하지 않은 부분
-        for(int i=nowIndex+1; i<listSize; i++){
-            Scenario scenario = scenarioList.get(i);
-            scenario.name = "LOCKED";
-        }
-
-    }
 
     //뷰페이저 세팅
     public void pagerSetting(){
@@ -261,6 +162,40 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
+
+
+
+    //받은 시나리오 데이터들을 정렬(call by reference)
+    public void scenarioArray(List<Scenario> scenarioList){
+
+        int listSize = scenarioList.size();
+        int nowIndex= listSize;
+
+        Log.e("EVEV", "사이즈: " + listSize);
+
+
+        //어디까지 클리어했는지 확인
+        for(int i=0; i<listSize; i++){
+            Scenario scenario = scenarioList.get(i);
+
+            if(scenario.lastPlayed == null){
+                nowIndex = i;
+                scenario.lastPlayed="진행중";
+                break;
+            }
+        }
+
+        //아직 클리어 하지 않은 부분
+        for(int i=nowIndex+1; i<listSize; i++){
+            Scenario scenario = scenarioList.get(i);
+            scenario.name = "LOCKED";
+        }
+
+    }
+
 
     //탭뷰 인디케이터 크기 줄이기
     public void setIndicator (TabLayout tabs,int leftDip,int rightDip){

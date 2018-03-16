@@ -15,6 +15,7 @@ import com.daimajia.androidanimations.library.YoYo;
 
 import java.util.ArrayList;
 
+import lipnus.com.realworld.GlobalApplication;
 import lipnus.com.realworld.R;
 
 /**
@@ -58,15 +59,20 @@ public class MissionListViewAdapter extends BaseAdapter {
         TextView dateTv = convertView.findViewById(R.id.list_date_tv);
         ImageView rightBackgroundIv = convertView.findViewById(R.id.list_rightbackground_iv);
 
-        titleTv.setText(listViewItemMissionList.get(pos).getTitile());
-        dateTv.setText(listViewItemMissionList.get(pos).getDate());
+        titleTv.setText(listViewItemMissionList.get(pos).titile );
+
+        String date = "";
+        if(listViewItemMissionList.get(pos).date!=null && !listViewItemMissionList.get(pos).date.equals("진행중")){
+            date = GlobalApplication.dateTrans( listViewItemMissionList.get(pos).date );
+        }
+        dateTv.setText(date);
 
 
         int imgPath;
 
-        if(listViewItemMissionList.get(pos).getState().equals("locked")){
+        if(listViewItemMissionList.get(pos).state.equals("locked")){
             imgPath = R.drawable.lock_lock;
-        }else if(listViewItemMissionList.get(pos).getState().equals("now")) {
+        }else if(listViewItemMissionList.get(pos).state.equals("now")) {
             Glide.with(context)
                     .load( R.drawable.ing )
                     .into(rightBackgroundIv);

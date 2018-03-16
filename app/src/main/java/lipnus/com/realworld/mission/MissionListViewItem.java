@@ -10,9 +10,9 @@ package lipnus.com.realworld.mission;
 
 public class MissionListViewItem {
 
-    private String titile;
-    private String date;
-    private String state;
+    public String titile;
+    public String date;
+    public String state;
 
     public MissionListViewItem(String titile, String date, String state) {
         this.titile = titile;
@@ -20,15 +20,5 @@ public class MissionListViewItem {
         this.state = state;
     }
 
-    public String getTitile() {
-        return titile;
-    }
 
-    public String getDate() {
-        return date;
-    }
-
-    public String getState() {
-        return state;
-    }
 }

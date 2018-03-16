@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import lipnus.com.realworld.GlobalApplication;
 import lipnus.com.realworld.R;
@@ -106,7 +107,7 @@ public class ViewPager_Fragment {
 
             for(int i=0; i<listSize; i++){
                 Scenario scenario = GlobalApplication.scenarioList.get(i);
-                adapter.addItem(scenario.name, scenario.lastPlayed);
+                adapter.addItem(scenario.name, scenario.lastPlayed, scenario.accomplished);
             }
 
             adapter.notifyDataSetChanged();
@@ -115,10 +116,17 @@ public class ViewPager_Fragment {
             listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Log.e("CCC", "위치: " + position);
-                    Intent iT = new Intent(context, MissionActivity.class);
-                    iT.putExtra("scenarioId", position+1);
-                    startActivity(iT);
+                    ListViewItem scenario = (ListViewItem)parent.getAdapter().getItem(position);
+
+                    Log.e("CCC", "위치: " + position + " / 내용: " + scenario.date );
+
+                    if(scenario.date==null && position!=0){
+                        Toast.makeText(getContext(), "LOCKED", Toast.LENGTH_LONG).show();
+                    }else{
+                        Intent iT = new Intent(context, MissionActivity.class);
+                        iT.putExtra("scenarioId", position+1);
+                        startActivity(iT);
+                    }
                 }
             });
 

@@ -30,6 +30,7 @@ import butterknife.ButterKnife;
 import lipnus.com.realworld.GlobalApplication;
 import lipnus.com.realworld.NavigationMenu;
 import lipnus.com.realworld.R;
+import lipnus.com.realworld.main.ListViewItem;
 import lipnus.com.realworld.retro.ResponseBody.Mission;
 import lipnus.com.realworld.retro.ResponseBody.ScenarioDetail;
 import lipnus.com.realworld.retro.RetroCallback;
@@ -193,11 +194,18 @@ public class MissionActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.e("CCC", "MissionAcitivty 미션id: " + sDetail.missions.get(position).id);
 
+                MissionListViewItem mission = (MissionListViewItem)parent.getAdapter().getItem(position);
                 int missionId = sDetail.missions.get(position).id;
 
-                Intent iT = new Intent(getApplicationContext(), MissionDetailActivity.class);
-                iT.putExtra("missionId", missionId);
-                startActivity(iT);
+                if(mission.state.equals("open") || mission.state.equals("now")){
+                    Intent iT = new Intent(getApplicationContext(), MissionDetailActivity.class);
+                    iT.putExtra("missionId", missionId);
+                    startActivity(iT);
+                }else{
+                    Toast.makeText(getApplicationContext(), "LOCKED", Toast.LENGTH_LONG).show();
+                }
+
+
             }
         });
     }
@@ -219,7 +227,7 @@ public class MissionActivity extends AppCompatActivity {
             if(mission.succeededAt == null){
                 nowIndex = i;
                 mission.succeededAt="진행중";
-                mission.name = "#" + (i+1) + ". " + mission.name;
+                mission.name = "#" + mission.id + ". " + mission.name;
 
                 adapter.addItem(mission.name, mission.succeededAt, "now");
                 break;
@@ -231,7 +239,7 @@ public class MissionActivity extends AppCompatActivity {
         //아직 클리어 하지 않은 부분들 처리
         for(int i=nowIndex+1; i<listSize; i++){
             Mission mission = missionList.get(i);
-            mission.name = "#" + (i+1) + ". " + "LOCKED";
+            mission.name = "#" + mission.id + ". " + "LOCKED";
 
             adapter.addItem(mission.name, mission.succeededAt, "locked");
         }

@@ -10,20 +10,13 @@ package lipnus.com.realworld.main;
 
 public class ListViewItem {
 
-    private String titile;
-    private String date;
+    public String title;
+    public String date;
+    public boolean accomplished;
 
-    public ListViewItem(String titile, String date) {
-        this.titile = titile;
+    public ListViewItem(String title, String date, boolean accomplished) {
+        this.title = title;
         this.date = date;
+        this.accomplished = accomplished;
     }
-
-    public String getTitile() {
-        return titile;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
 }
