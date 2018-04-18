@@ -1,40 +1,28 @@
 package lipnus.com.realworld.main;
 
 
-import android.Manifest;
-import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.gun0912.tedpermission.PermissionListener;
-import com.gun0912.tedpermission.TedPermission;
 
 import java.lang.reflect.Field;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import lipnus.com.realworld.GlobalApplication;
 import lipnus.com.realworld.R;
 import lipnus.com.realworld.retro.ResponseBody.Scenario;
-import lipnus.com.realworld.retro.ResponseBody.TokenGet;
 import lipnus.com.realworld.retro.RetroCallback;
 import lipnus.com.realworld.retro.RetroClient;
 
@@ -74,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         retroClient = RetroClient.getInstance(this).createBaseApi(); //레트로핏
-        addData();
+        initSetting();
     }
 
 
@@ -90,11 +78,11 @@ public class MainActivity extends AppCompatActivity {
         postScenario();
     }
 
-    //받은 데이터들을 표현
-    public void addData(){
+
+    public void initSetting(){
 
         Glide.with(this)
-                .load(R.drawable.main)
+                .load(R.drawable.maintitle)
                  .centerCrop()
                 .into(titleIv);
         titleIv.setScaleType(ImageView.ScaleType.FIT_XY);

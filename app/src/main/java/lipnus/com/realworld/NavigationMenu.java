@@ -12,7 +12,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
 import lipnus.com.realworld.mission.MissionActivity;
-import lipnus.com.realworld.retro.ResponseBody.Mission;
 
 /**
  * Created by LIPNUS on 2018-02-19.
@@ -93,7 +92,7 @@ public class NavigationMenu {
                 Intent iT = new Intent(context, MissionActivity.class);
                 iT.putExtra("scenarioId", MissionActivity.scenarioId);
                 context.startActivity(iT);
-
+                finishOtherActivity();
             }
         });
 
@@ -111,12 +110,13 @@ public class NavigationMenu {
             public void onClick(View view) {
 
                 Toast.makeText(context, "준비중입니다", Toast.LENGTH_LONG).show();
-
             }
         });
+    }
 
-
-
+    public void finishOtherActivity(){
+        MissionActivity missionActivity = (MissionActivity) MissionActivity.missionActivity;
+        missionActivity.finish();
     }
 
 

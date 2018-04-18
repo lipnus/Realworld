@@ -121,4 +121,8 @@ public class MissionListViewAdapter extends BaseAdapter {
         MissionListViewItem item = new MissionListViewItem(title, date, state);
         listViewItemMissionList.add(item);
     }
+
+    public void cleaarItem(){
+        listViewItemMissionList.clear();
+    }
 }

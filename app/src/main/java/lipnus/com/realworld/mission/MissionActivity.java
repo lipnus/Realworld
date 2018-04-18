@@ -1,5 +1,6 @@
 package lipnus.com.realworld.mission;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -30,7 +31,6 @@ import butterknife.ButterKnife;
 import lipnus.com.realworld.GlobalApplication;
 import lipnus.com.realworld.NavigationMenu;
 import lipnus.com.realworld.R;
-import lipnus.com.realworld.main.ListViewItem;
 import lipnus.com.realworld.retro.ResponseBody.Mission;
 import lipnus.com.realworld.retro.ResponseBody.ScenarioDetail;
 import lipnus.com.realworld.retro.RetroCallback;
@@ -53,6 +53,7 @@ public class MissionActivity extends AppCompatActivity {
 
     ScenarioDetail sDetail; //클릭시 미션 아이디를 찾기 위해서
 
+    public static Activity missionActivity;
     NavigationMenu navigationMenu;
 
     @Override
@@ -62,6 +63,8 @@ public class MissionActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         retroClient = RetroClient.getInstance(this).createBaseApi(); //레트로핏
+        missionActivity = MissionActivity.this;
+
 
         //리스트뷰
         adapter = new MissionListViewAdapter();
@@ -70,7 +73,6 @@ public class MissionActivity extends AppCompatActivity {
         //호출할 때 같이 보낸 값 받아옴
         Intent iT = getIntent();
         scenarioId = iT.getExtras().getInt("scenarioId");
-        postScenarioDetail(scenarioId);
 
         //네이게이션
         View thisView = this.getWindow().getDecorView() ;
@@ -84,6 +86,13 @@ public class MissionActivity extends AppCompatActivity {
                 .load(R.drawable.back)
                 .into(backIv);
         backIv.setScaleType(ImageView.ScaleType.FIT_XY);
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        adapter.cleaarItem();
+        postScenarioDetail(scenarioId);
     }
 
     public void onClick_mission_back(View v){
@@ -178,7 +187,7 @@ public class MissionActivity extends AppCompatActivity {
 
 
 
-        setListViewHeightBasedOnChildren(listView, 0);
+        setListViewHeightBasedOnChildren(listView, 100);
         adapter.notifyDataSetChanged();
         scrollView.post(new Runnable() {
             @Override
@@ -227,12 +236,14 @@ public class MissionActivity extends AppCompatActivity {
             if(mission.succeededAt == null){
                 nowIndex = i;
                 mission.succeededAt="진행중";
-                mission.name = "#" + mission.id + ". " + mission.name;
 
-                adapter.addItem(mission.name, mission.succeededAt, "now");
+                String missionName = "#" + mission.id + ". " + mission.name;
+                adapter.addItem(missionName, mission.succeededAt, "now");
                 break;
+
             }else{
-                adapter.addItem(mission.name, mission.succeededAt, "open");
+                String missionName = mission.name;
+                adapter.addItem(missionName, mission.succeededAt, "open");
             }
         }
 
@@ -267,7 +278,7 @@ public class MissionActivity extends AppCompatActivity {
         int dpHeight = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
         int pxHeight = convertDpToPixel(dpHeight,this);
 
-        params.height = pxHeight + paddingBottom;
+        params.height = dpHeight*2 + paddingBottom;
 
         listView.setLayoutParams(params);
         listView.requestLayout();

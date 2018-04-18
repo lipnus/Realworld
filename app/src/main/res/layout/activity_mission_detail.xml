@@ -8,7 +8,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
         <LinearLayout
             android:paddingRight="20dp"
             android:paddingLeft="20dp"
@@ -60,14 +59,10 @@
                 android:layout_gravity="center_horizontal"
                 android:id="@+id/detail_listview"
                 android:layout_width="310dp"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:divider="#ffffff"
                 android:layout_marginBottom="60dp"/>
-
         </LinearLayout>
 
     </ScrollView>
-
-
-
 </LinearLayout>

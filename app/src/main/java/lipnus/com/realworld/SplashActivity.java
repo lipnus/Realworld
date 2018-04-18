@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.gun0912.tedpermission.PermissionListener;
@@ -26,17 +28,19 @@ public class SplashActivity extends AppCompatActivity {
 
     String mobileNumber;
     RetroClient retroClient;
+    EditText et;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        et = findViewById(R.id.splash_et);
+
         retroClient = RetroClient.getInstance(this).createBaseApi(); //레트로핏
 
         mobileNumber = getMoible_no();
         requirePermission();
-
 
     }
 
@@ -61,7 +65,7 @@ public class SplashActivity extends AppCompatActivity {
 
         TedPermission.with(this)
                 .setPermissionListener(permissionlistener)
-                .setRationaleMessage("카메라권한, 위치권한, 전화번호")
+                .setRationaleMessage("Permission 요청")
                 .setDeniedMessage("권한 거부")
                 .setPermissions(Manifest.permission.CAMERA,
                         Manifest.permission.ACCESS_COARSE_LOCATION,
@@ -76,10 +80,9 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run(){
-//                postAuthorize(mobileNumber);
                 postAuthorize(mobileNumber);
             }
-        }, 500);
+        }, 100);
     }
 
     //토큰받기
@@ -141,5 +144,10 @@ public class SplashActivity extends AppCompatActivity {
         return phoneNum;
     }
 
+
+    //테스트용 버튼
+    public void onClick_splash(View v){
+        postAuthorize(et.getText().toString());
+    }
 
 }

@@ -17,7 +17,7 @@ public class GlobalApplication extends Application {
 //    public static String access_tocken = "dd4076af-0e79-11e8-b608-0cc47a9ce276";
 
     public static String access_tocken = "";
-    public static String imgPath = "http://210.180.118.59:8061/images/";
+    public static String imgPath = "http://doctorhamel.com:8061/images/";
 
     @Override
     public void onCreate() {
