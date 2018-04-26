@@ -4,7 +4,7 @@ android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "lipnus.com.realworld"
-        minSdkVersion 22
+        minSdkVersion 20
         targetSdkVersion 26
         versionCode 3
         versionName "1.3"

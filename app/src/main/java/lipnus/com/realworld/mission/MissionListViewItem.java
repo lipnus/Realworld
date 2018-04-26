@@ -10,15 +10,16 @@ package lipnus.com.realworld.mission;
 
 public class MissionListViewItem {
 
-    public String titile;
+    public int id;
+    public boolean looked;
+    public String name;
     public String date;
-    public String state;
 
-    public MissionListViewItem(String titile, String date, String state) {
-        this.titile = titile;
+
+    public MissionListViewItem(int id, boolean looked, String name, String date) {
+        this.id = id;
+        this.looked = looked;
+        this.name = name;
         this.date = date;
-        this.state = state;
     }
-
-
 }

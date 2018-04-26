@@ -28,18 +28,6 @@
                     android:layout_height="270dp"/>
 
 
-                <!--그림위의 타이틀인데 안보이는걸로 변경-->
-                <TextView
-                    android:visibility="invisible"
-                    android:layout_gravity="left|bottom"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginBottom="15dp"
-                    android:id="@+id/mission_title_tv"
-                    android:textSize="28dp"
-                    android:textStyle="bold"
-                    android:textColor="#ffffff"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
 
             </FrameLayout>
 

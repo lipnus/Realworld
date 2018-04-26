@@ -24,7 +24,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
 import java.util.HashMap;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,7 +41,6 @@ public class MissionActivity extends AppCompatActivity {
 
     @BindView(R.id.mission_title_iv) ImageView titleIv;
     @BindView(R.id.mission_back_iv) ImageView backIv;
-    @BindView(R.id.mission_title_tv) TextView titleTv;
     @BindView(R.id.mission_subtitle_tv) TextView subtitleTv;
     @BindView(R.id.mission_listview) ListView listView;
     @BindView(R.id.mission_scrollView) ScrollView scrollView;
@@ -51,7 +49,7 @@ public class MissionActivity extends AppCompatActivity {
 
     public static int scenarioId; //네비게이션에서 재사용된다
 
-    ScenarioDetail sDetail; //클릭시 미션 아이디를 찾기 위해서
+//    ScenarioDetail sDetail; //클릭시 미션 아이디를 찾기 위해서
 
     public static Activity missionActivity;
     NavigationMenu navigationMenu;
@@ -91,6 +89,8 @@ public class MissionActivity extends AppCompatActivity {
     @Override
     protected void onPostResume() {
         super.onPostResume();
+
+        Log.e("GGGG", "리스트 재실행");
         adapter.cleaarItem();
         postScenarioDetail(scenarioId);
     }
@@ -157,7 +157,7 @@ public class MissionActivity extends AppCompatActivity {
             public void onSuccess(int code, Object receivedData) {
                 ScenarioDetail data = (ScenarioDetail) receivedData;
 
-                sDetail = data; //다음 리스트뷰로 가는 아이디 때문에..
+//                sDetail = data; //다음 리스트뷰로 가는 아이디 때문에..
                 setSenario(data);
             }
 
@@ -170,8 +170,7 @@ public class MissionActivity extends AppCompatActivity {
 
     public void setSenario(ScenarioDetail data){
 
-        //상단타이틀
-        titleTv.setText( data.name );
+        //미션이름 표시
         subtitleTv.setText( data.name + " - 미션목록");
 
         //상단이미지
@@ -182,11 +181,15 @@ public class MissionActivity extends AppCompatActivity {
         titleIv.setScaleType(ImageView.ScaleType.FIT_XY);
 
 
-        //정렬(call by reference이므로 걍 이렇게 하면 됨)
-        missionArray(data.missions);
+        //리스트에 삽입
+        for(int i=0; i<data.missions.size(); i++){
+            Mission mission = data.missions.get(i);
+            adapter.addItem(mission.id, mission.locked, mission.name, mission.succeededAt);
+        }
 
 
 
+        //리스트뷰 크기설정
         setListViewHeightBasedOnChildren(listView, 100);
         adapter.notifyDataSetChanged();
         scrollView.post(new Runnable() {
@@ -201,60 +204,23 @@ public class MissionActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.e("CCC", "MissionAcitivty 미션id: " + sDetail.missions.get(position).id);
 
-                MissionListViewItem mission = (MissionListViewItem)parent.getAdapter().getItem(position);
-                int missionId = sDetail.missions.get(position).id;
+                MissionListViewItem missionItem = (MissionListViewItem)parent.getAdapter().getItem(position);
 
-                if(mission.state.equals("open") || mission.state.equals("now")){
+                if( missionItem.looked==false ){ // 진행중, 해결한 미션
                     Intent iT = new Intent(getApplicationContext(), MissionDetailActivity.class);
-                    iT.putExtra("missionId", missionId);
+                    iT.putExtra("missionId", missionItem.id);
                     startActivity(iT);
-                }else{
+                }
+                else if(missionItem.looked==true){ //잠겨있는 미션
                     Toast.makeText(getApplicationContext(), "LOCKED", Toast.LENGTH_LONG).show();
                 }
-
-
             }
         });
     }
 
 
-    //받은 시나리오 데이터들을 정렬(call by reference)
-    public void missionArray(List<Mission> missionList){
 
-        int listSize = missionList.size();
-        int nowIndex= listSize;
-
-        Log.e("EVEV", "사이즈: " + listSize);
-
-
-        //어디까지 클리어했는지 확인
-        for(int i=0; i<listSize; i++){
-            Mission mission = missionList.get(i);
-
-            if(mission.succeededAt == null){
-                nowIndex = i;
-                mission.succeededAt="진행중";
-
-                String missionName = "#" + mission.id + ". " + mission.name;
-                adapter.addItem(missionName, mission.succeededAt, "now");
-                break;
-
-            }else{
-                String missionName = mission.name;
-                adapter.addItem(missionName, mission.succeededAt, "open");
-            }
-        }
-
-        //아직 클리어 하지 않은 부분들 처리
-        for(int i=nowIndex+1; i<listSize; i++){
-            Mission mission = missionList.get(i);
-            mission.name = "#" + mission.id + ". " + "LOCKED";
-
-            adapter.addItem(mission.name, mission.succeededAt, "locked");
-        }
-    }
 
     //리스트뷰 크기
     public void setListViewHeightBasedOnChildren(ListView listView, int paddingBottom) {

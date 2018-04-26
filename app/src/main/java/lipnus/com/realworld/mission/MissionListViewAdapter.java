@@ -59,28 +59,32 @@ public class MissionListViewAdapter extends BaseAdapter {
         TextView dateTv = convertView.findViewById(R.id.list_date_tv);
         ImageView rightBackgroundIv = convertView.findViewById(R.id.list_rightbackground_iv);
 
-        titleTv.setText(listViewItemMissionList.get(pos).titile );
-
-        String date = "";
-        if(listViewItemMissionList.get(pos).date!=null && !listViewItemMissionList.get(pos).date.equals("진행중")){
-            date = GlobalApplication.dateTrans( listViewItemMissionList.get(pos).date );
-        }
-        dateTv.setText(date);
+        titleTv.setText(listViewItemMissionList.get(pos).name);
 
 
-        int imgPath;
+        MissionListViewItem missionItem = listViewItemMissionList.get(pos);
+        int imgPath=0;
 
-        if(listViewItemMissionList.get(pos).state.equals("locked")){
-            imgPath = R.drawable.lock_lock;
-        }else if(listViewItemMissionList.get(pos).state.equals("now")) {
+        if(missionItem.looked == false && missionItem.date != null){ //해결한 미션
+            String date = GlobalApplication.dateTrans( missionItem.date );
+            imgPath = R.drawable.lock_unlock;
+            dateTv.setText(date);
+
+            //진행중 없에기
+           Glide.with(context)
+                    .load( 0 )
+                    .into(rightBackgroundIv);
+
+
+        }else if(missionItem.looked == false && missionItem.date == null){ //진행중인 미션
+            imgPath = R.drawable.lock_now;
             Glide.with(context)
                     .load( R.drawable.ing )
                     .into(rightBackgroundIv);
             rightBackgroundIv.setScaleType(ImageView.ScaleType.FIT_XY);
-            dateTv.setText("");
-            imgPath = R.drawable.lock_now;
-        }else{
-            imgPath = R.drawable.lock_unlock;
+
+        }else if(missionItem.looked == true){ //잠겨있는 미션
+            imgPath = R.drawable.lock_lock;
         }
 
         Glide.with(context)
@@ -93,11 +97,10 @@ public class MissionListViewAdapter extends BaseAdapter {
             @Override
             public void run() {
                 YoYo.with(Techniques.FadeInLeft)
-                        .duration(pos*400+400)
+                        .duration(pos*300+400)
                         .playOn(lR);
             }
         });
-
 
         return convertView;
     }
@@ -116,9 +119,9 @@ public class MissionListViewAdapter extends BaseAdapter {
 
 
     // 아이템 데이터 추가
-    public void addItem(String title, String date, String state) {
+    public void addItem(int id, boolean locked, String name, String date) {
 
-        MissionListViewItem item = new MissionListViewItem(title, date, state);
+        MissionListViewItem item = new MissionListViewItem(id, locked, name, date);
         listViewItemMissionList.add(item);
     }
 

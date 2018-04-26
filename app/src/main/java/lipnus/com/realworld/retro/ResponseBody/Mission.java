@@ -7,17 +7,20 @@ package lipnus.com.realworld.retro.ResponseBody;
 public class Mission {
 
     public int id;
-    public String name;
-    public int score;
+    public boolean locked;
     public int maxScore;
+    public String name;
+    public int order;
+    public int score;
     public String succeededAt;
 
-    public Mission(int id, String name, int score, int maxScore, String succeededAt) {
+    public Mission(int id, boolean locked, int maxScore, String name, int order, int score, String succeededAt) {
         this.id = id;
-        this.name = name;
-        this.score = score;
+        this.locked = locked;
         this.maxScore = maxScore;
+        this.name = name;
+        this.order = order;
+        this.score = score;
         this.succeededAt = succeededAt;
     }
-
 }
