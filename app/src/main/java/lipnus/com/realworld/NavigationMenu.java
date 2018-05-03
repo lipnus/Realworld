@@ -65,7 +65,7 @@ public class NavigationMenu {
 
 
         //현재위치에 따른 개별설정
-        menuTv[position].setTextColor(Color.parseColor("#2cc1e0"));
+        menuTv[position].setTextColor(Color.parseColor("#3f1874"));
 
         switch (position) {
             case 0:

@@ -3,7 +3,9 @@ package lipnus.com.realworld.main;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -14,6 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import lipnus.com.realworld.GlobalApplication;
 import lipnus.com.realworld.R;
+import lipnus.com.realworld.mission.MissionActivity;
 import lipnus.com.realworld.retro.ResponseBody.ScenarioDetail;
 import lipnus.com.realworld.retro.RetroCallback;
 import lipnus.com.realworld.retro.RetroClient;
@@ -24,7 +27,7 @@ public class SynopsisActivity extends AppCompatActivity {
     public static int scenarioId; //네비게이션에서 재사용된다
     @BindView(R.id.synopsis_back_iv) ImageView backIv;
     @BindView(R.id.synopsis_backgroud_iv) ImageView backgroudIv;
-    @BindView(R.id.synopsis_iv) ImageView synopsisIv;
+    @BindView(R.id.synopsis_tv) TextView synopsisTv;
 
 
     @Override
@@ -46,12 +49,6 @@ public class SynopsisActivity extends AppCompatActivity {
         Glide.with(this)
                 .load(R.drawable.back)
                 .into(backIv);
-        backIv.setScaleType(ImageView.ScaleType.FIT_XY);
-
-        //시놉시스가 들어갈 배경
-        Glide.with(this)
-                .load(R.drawable.sy)
-                .into(synopsisIv);
         backIv.setScaleType(ImageView.ScaleType.FIT_XY);
     }
 
@@ -83,9 +80,25 @@ public class SynopsisActivity extends AppCompatActivity {
     }
 
     public void setSynopsis(ScenarioDetail data){
+
         Glide.with(this)
                 .load(GlobalApplication.imgPath + data.coverImageUrl)
                 .into(backgroudIv);
         backgroudIv.setScaleType(ImageView.ScaleType.FIT_XY);
+
+        synopsisTv.setText(data.synopsis);
+    }
+
+    public void onClick_synopsis(View v){
+        Intent iT = new Intent(this, MissionActivity.class);
+        iT.putExtra("scenarioId", scenarioId);
+        startActivity(iT);
+        finish();
+    }
+
+    public void onClick_back(View v){
+        Intent iT = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(iT);
+        finish();
     }
 }

@@ -73,11 +73,9 @@ public class MainActivity extends AppCompatActivity {
         postScenario();
     }
 
-
     public void onClick_Scenario(View v){
         postScenario();
     }
-
 
     public void initSetting(){
 

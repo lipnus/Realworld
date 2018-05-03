@@ -138,9 +138,9 @@ public class ListViewAdapter extends BaseAdapter {
 
 
     // 아이템 데이터 추가
-    public void addItem(String title, String date, Boolean accomplished) {
+    public void addItem(String title, String date, Boolean accomplished, String lastPlayed) {
 
-        ListViewItem item = new ListViewItem(title, date, accomplished);
+        ListViewItem item = new ListViewItem(title, date, accomplished, lastPlayed);
         listViewItemList.add(item);
     }
 }

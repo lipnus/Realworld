@@ -62,12 +62,12 @@ public class MissionDetailActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                MissionDetailListViewItem mDetail = (MissionDetailListViewItem)adapter.getItem(position);
-                int questId = mDetail.questId;
+            MissionDetailListViewItem mDetail = (MissionDetailListViewItem)adapter.getItem(position);
+            int questId = mDetail.questId;
 
-                Intent iT = new Intent(getApplicationContext(), WordActivity.class);
-                iT.putExtra("questId", questId);
-                startActivity(iT);
+            Intent iT = new Intent(getApplicationContext(), WordActivity.class);
+            iT.putExtra("questId", questId);
+            startActivity(iT);
             }
         });
 
@@ -137,7 +137,6 @@ public class MissionDetailActivity extends AppCompatActivity {
         for(int i=0; i<data.quests.size(); i++){
             adapter.addItem(data.quests.get(i).id, data.quests.get(i).label);
         }
-
         adapter.notifyDataSetChanged();
     }
 

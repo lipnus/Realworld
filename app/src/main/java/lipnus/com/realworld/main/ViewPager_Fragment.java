@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import lipnus.com.realworld.GlobalApplication;
 import lipnus.com.realworld.R;
+import lipnus.com.realworld.mission.MissionActivity;
 import lipnus.com.realworld.retro.ResponseBody.Scenario;
 
 
@@ -106,7 +107,7 @@ public class ViewPager_Fragment {
 
             for(int i=0; i<listSize; i++){
                 Scenario scenario = GlobalApplication.scenarioList.get(i);
-                adapter.addItem(scenario.name, scenario.lastPlayed, scenario.accomplished);
+                adapter.addItem(scenario.name, scenario.lastPlayed, scenario.accomplished, scenario.lastPlayed);
             }
 
             adapter.notifyDataSetChanged();
@@ -122,8 +123,15 @@ public class ViewPager_Fragment {
                     if(scenario.date==null && position!=0){
                         Toast.makeText(getContext(), "LOCKED", Toast.LENGTH_LONG).show();
                     }else{
-                        Intent iT = new Intent(context, SynopsisActivity.class);
-//                        Intent iT = new Intent(context, MissionActivity.class);
+
+                        //처음인 경우 시놉시스를 보여준다
+                        Intent iT;
+                        if(scenario.lastPlayed==null){
+                           iT = new Intent(context, SynopsisActivity.class);
+                        }else{
+                           iT = new Intent(context, MissionActivity.class);
+                        }
+
                         iT.putExtra("scenarioId", position+1);
                         startActivity(iT);
                     }

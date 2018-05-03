@@ -3,6 +3,7 @@ package lipnus.com.realworld.quest;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -15,11 +16,10 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import com.klinker.android.sliding.MultiShrinkScroller;
-import com.klinker.android.sliding.SlidingActivity;
 
 import java.util.HashMap;
 
+import butterknife.ButterKnife;
 import lipnus.com.realworld.GlobalApplication;
 import lipnus.com.realworld.R;
 import lipnus.com.realworld.retro.ResponseBody.QuestDetail;
@@ -27,7 +27,7 @@ import lipnus.com.realworld.retro.ResponseBody.QuestResult;
 import lipnus.com.realworld.retro.RetroCallback;
 import lipnus.com.realworld.retro.RetroClient;
 
-public class WordActivity extends SlidingActivity {
+public class WordActivity extends AppCompatActivity {
 
     EditText inputEt;
     ImageView dragIv;
@@ -40,10 +40,10 @@ public class WordActivity extends SlidingActivity {
     int questId;
 
     @Override
-    public void init(Bundle savedInstanceState) {
-        setContent(R.layout.activity_word);
-        disableHeader();
-        enableFullscreen();
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_word);
+        ButterKnife.bind(this);
 
         inputEt = findViewById(R.id.word_et);
         titleTv = findViewById(R.id.word_title_tv);
@@ -214,9 +214,4 @@ public class WordActivity extends SlidingActivity {
 
 
 
-    @Override
-    protected void configureScroller(MultiShrinkScroller scroller) {
-        super.configureScroller(scroller);
-        scroller.setIntermediateHeaderHeightRatio(5);
-    }
 }

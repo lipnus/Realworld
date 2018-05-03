@@ -7,9 +7,11 @@
     <ImageView
         android:id="@+id/synopsis_backgroud_iv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:onClick="onClick_synopsis"/>
 
     <LinearLayout
+        android:onClick="onClick_back"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:layout_width="wrap_content"
@@ -32,11 +34,36 @@
             android:text="MAIN"/>
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/synopsis_iv"
-        android:paddingLeft="30dp"
-        android:paddingRgiht="30dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
+    <!--대화창이 있는 곳-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="40dp">
+
+        <ImageView
+            android:background="@drawable/synopsis_top"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/synopsis_tv"
+            android:gravity="center"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/synopsis_mid"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:textColor="#ffffff"
+            android:textSize="16dp"
+            android:text="시발시발시발"/>
+
+        <ImageView
+            android:background="@drawable/synopsis_bottom"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 </FrameLayout>

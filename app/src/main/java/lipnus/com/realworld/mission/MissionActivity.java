@@ -30,6 +30,7 @@ import butterknife.ButterKnife;
 import lipnus.com.realworld.GlobalApplication;
 import lipnus.com.realworld.NavigationMenu;
 import lipnus.com.realworld.R;
+import lipnus.com.realworld.main.SynopsisActivity;
 import lipnus.com.realworld.retro.ResponseBody.Mission;
 import lipnus.com.realworld.retro.ResponseBody.ScenarioDetail;
 import lipnus.com.realworld.retro.RetroCallback;
@@ -136,7 +137,6 @@ public class MissionActivity extends AppCompatActivity {
                 backIv.setAlpha( (300-scrollY)/300);
             }
 
-
         }catch(Exception e){Log.d("DDD", "오류: " + e);}
     }
 
@@ -217,6 +217,13 @@ public class MissionActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void onClick_mission_synopsis(View v){
+        Intent iT = new Intent(this, SynopsisActivity.class);
+        iT.putExtra("scenarioId", scenarioId);
+        startActivity(iT);
+        finish();
     }
 
 

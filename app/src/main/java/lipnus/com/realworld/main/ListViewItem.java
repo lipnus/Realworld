@@ -13,10 +13,12 @@ public class ListViewItem {
     public String title;
     public String date;
     public boolean accomplished;
+    public String lastPlayed;
 
-    public ListViewItem(String title, String date, boolean accomplished) {
+    public ListViewItem(String title, String date, boolean accomplished, String lastPlayed) {
         this.title = title;
         this.date = date;
         this.accomplished = accomplished;
+        this.lastPlayed = lastPlayed;
     }
 }
