@@ -1,7 +1,6 @@
 package lipnus.com.realworld;
 
 import android.app.Application;
-import android.util.Log;
 
 import java.util.List;
 
@@ -17,7 +16,7 @@ public class GlobalApplication extends Application {
 //    public static String access_tocken = "dd4076af-0e79-11e8-b608-0cc47a9ce276";
 
     public static String access_tocken = "";
-    public static String imgPath = "http://doctorhamel.com:8061/images/";
+    public static String imgPath = "http://api.doctorhamel.com:8061/images/";
 
     @Override
     public void onCreate() {

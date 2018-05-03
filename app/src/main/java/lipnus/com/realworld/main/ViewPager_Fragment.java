@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import lipnus.com.realworld.GlobalApplication;
 import lipnus.com.realworld.R;
-import lipnus.com.realworld.mission.MissionActivity;
 import lipnus.com.realworld.retro.ResponseBody.Scenario;
 
 
@@ -123,7 +122,8 @@ public class ViewPager_Fragment {
                     if(scenario.date==null && position!=0){
                         Toast.makeText(getContext(), "LOCKED", Toast.LENGTH_LONG).show();
                     }else{
-                        Intent iT = new Intent(context, MissionActivity.class);
+                        Intent iT = new Intent(context, SynopsisActivity.class);
+//                        Intent iT = new Intent(context, MissionActivity.class);
                         iT.putExtra("scenarioId", position+1);
                         startActivity(iT);
                     }

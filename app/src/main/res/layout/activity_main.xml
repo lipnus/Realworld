@@ -51,7 +51,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#f8f8f8">
+        android:background="#3f1874">
 
         <!--탭뷰-->
         <android.support.design.widget.TabLayout
@@ -59,22 +59,23 @@
             android:id="@+id/tabview"
             android:layout_width="150dp"
             app:tabTextAppearance="@style/CustomTextStyle"
-            app:tabSelectedTextColor="#2cc1e0"
+            app:tabSelectedTextColor="#ffffff"
             app:tabPaddingEnd="0dp"
             app:tabPaddingStart="0dp"
             android:layout_height="45dp" />
 
     </LinearLayout>
 
-
+    <!--탭뷰 밑에 굵은줄-->
     <View
         android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="#ebebeb"/>
+        android:layout_height="2px"
+        android:background="#1d0037"/>
 
     <!--뷰페이저-->
     <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/main_pager"
+        android:background="#6b40a4"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

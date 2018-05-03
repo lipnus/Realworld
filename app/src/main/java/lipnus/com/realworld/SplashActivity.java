@@ -1,16 +1,16 @@
 package lipnus.com.realworld;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.gun0912.tedpermission.PermissionListener;
@@ -18,6 +18,7 @@ import com.gun0912.tedpermission.TedPermission;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.UUID;
 
 import lipnus.com.realworld.main.MainActivity;
 import lipnus.com.realworld.retro.ResponseBody.TokenGet;
@@ -26,21 +27,18 @@ import lipnus.com.realworld.retro.RetroClient;
 
 public class SplashActivity extends AppCompatActivity {
 
-    String mobileNumber;
+    String mobileNumber; //원래는 전화번호를 썼으나 이제 안씀
+    String deviceUuidStr=""; //시작 전 처리
     RetroClient retroClient;
-    EditText et;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        et = findViewById(R.id.splash_et);
-
         retroClient = RetroClient.getInstance(this).createBaseApi(); //레트로핏
 
-        mobileNumber = getMoible_no();
-        requirePermission();
+        getUuid();
 
     }
 
@@ -58,7 +56,7 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-                Toast.makeText(getApplicationContext(), "권한획득실패.\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Permission 실패\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
                 finish();
             }
         };
@@ -80,7 +78,7 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run(){
-                postAuthorize(mobileNumber);
+                getUuid();
             }
         }, 100);
     }
@@ -121,6 +119,43 @@ public class SplashActivity extends AppCompatActivity {
         });
     }
 
+    //uuid 얻기
+    public void getUuid(){
+
+        int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE);
+
+        if(permissionCheck== PackageManager.PERMISSION_DENIED){
+            requirePermission();
+
+        }else{
+            final TelephonyManager tm = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
+            final String tmDevice, tmSerial, androidId;
+            tmDevice = "" + tm.getDeviceId();
+            tmSerial = "" + tm.getSimSerialNumber();
+            androidId = "" + android.provider.Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
+            UUID deviceUuid = new UUID(androidId.hashCode(), ((long)tmDevice.hashCode() << 32) | tmSerial.hashCode());
+            String deviceId = deviceUuid.toString();
+
+            //서버로 전송
+            deviceUuidStr = deviceUuid.toString();
+            Log.e("DDEE", "디바이스uuid: " + deviceUuidStr);
+
+        }
+    }
+
+
+
+
+
+
+    public void onClick_splash(View v){
+        if(!deviceUuidStr.equals("")){
+            postAuthorize(deviceUuidStr);
+        }else{
+            getUuid();
+        }
+    }
+
     //전화번호얻기
     public String getMoible_no(){
 
@@ -142,12 +177,6 @@ public class SplashActivity extends AppCompatActivity {
 
         Log.e("PPNN", "전화번호: " + phoneNum);
         return phoneNum;
-    }
-
-
-    //테스트용 버튼
-    public void onClick_splash(View v){
-        postAuthorize(et.getText().toString());
     }
 
 }

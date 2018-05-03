@@ -5,8 +5,8 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">#2cc1e0</item>
-        <item name="actionMenuTextColor">#2cc1e0</item>
+        <item name="colorAccent">#ffffff</item>
+        <item name="actionMenuTextColor">#ffffff</item>
         <item name="windowNoTitle">true</item>
         <!--<item name="android:windowTranslucentStatus">true</item>-->
 

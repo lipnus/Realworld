@@ -30,7 +30,7 @@
         <activity android:name=".direction.CompassActivity" />
         <activity android:name=".qrcode.QrcodeActicity" />
         <activity android:name=".direction.QuestActivity" />
-         <activity android:name=".main.MainActivity" />
+        <activity android:name=".main.MainActivity" />
         <activity android:name=".retro.RetrofitActivity" />
         <activity android:name=".volley.VolleyActivity" />
         <activity android:name=".mission.MissionActivity" />
@@ -45,7 +45,8 @@
             android:excludeFromRecents="true"
             android:taskAffinity=""
             android:theme="@style/Theme.Sliding.Light" />
-        <!--<activity android:name=".SplashActivity"></activity>-->
+        <!-- <activity android:name=".SplashActivity"></activity> -->
+        <activity android:name=".main.SynopsisActivity"></activity>
     </application>
 
 </manifest>
