@@ -2,7 +2,10 @@ package lipnus.com.realworld.quest;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,20 +18,24 @@ import com.klinker.android.sliding.SlidingActivity;
 
 import java.util.HashMap;
 
+import butterknife.ButterKnife;
 import lipnus.com.realworld.GlobalApplication;
 import lipnus.com.realworld.R;
+import lipnus.com.realworld.main.MainActivity;
 import lipnus.com.realworld.mission.MissionDetailActivity;
 import lipnus.com.realworld.retro.ResponseBody.QuestResult;
 import lipnus.com.realworld.retro.RetroCallback;
 import lipnus.com.realworld.retro.RetroClient;
 
-public class SuccessActivity extends SlidingActivity {
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
+
+public class SuccessActivity extends AppCompatActivity {
 
 
     ImageView dragIv;
     RetroClient retroClient;
-
     TextView titleTv, contentTv;
+    TextView detailBtn;
 
     String answer;
     int questId;
@@ -36,14 +43,16 @@ public class SuccessActivity extends SlidingActivity {
 
 
     @Override
-    public void init(Bundle savedInstanceState) {
-        setContent(R.layout.activity_success);
-        disableHeader();
-        enableFullscreen();
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_success);
+        ButterKnife.bind(this);
 
         dragIv = findViewById(R.id.drag_iv);
         titleTv = findViewById(R.id.success_title_tv);
         contentTv = findViewById(R.id.success_content_tv);
+        detailBtn = findViewById(R.id.detail_btn_tv);
+
         retroClient = RetroClient.getInstance(this).createBaseApi(); //레트로핏
 
         //호출할 때 같이 보낸 값 받아옴
@@ -58,15 +67,6 @@ public class SuccessActivity extends SlidingActivity {
                 .load(R.drawable.dragdown)
                 .into(dragIv);
         dragIv.setScaleType(ImageView.ScaleType.FIT_XY);
-
-        dragIv.post(new Runnable() {
-            @Override
-            public void run() {
-                YoYo.with(Techniques.BounceInDown)
-                        .duration(1500)
-                        .playOn(dragIv);
-            }
-        });
     }
 
     public void postQuestResult(String answer){
@@ -97,8 +97,28 @@ public class SuccessActivity extends SlidingActivity {
 
     public void setQuestResult(QuestResult data){
 
-        contentTv.setText( data.content);
-        missionTo = data.missionTo;
+
+//        contentTv.setText( Html.fromHtml(data.content) );
+
+        WebView web = (WebView) findViewById(R.id.webapp);
+
+        // 자바스크립트 허용
+        web.getSettings().setJavaScriptEnabled(true);
+
+        // 스크롤바 없애기
+        web.setHorizontalScrollBarEnabled(false);
+        web.setVerticalScrollBarEnabled(false);
+        web.setBackgroundColor(0);
+
+        web.loadData(data.content, "text/html", "UTF-8");
+
+        if(data.missionTo==null){
+            detailBtn.setText("닫기");
+            missionTo = -1;
+        }else{
+            missionTo = Integer.parseInt(data.missionTo);
+        }
+
     }
 
 
@@ -111,21 +131,20 @@ public class SuccessActivity extends SlidingActivity {
             mdActivity.finish();
 
             Toast.makeText(getApplicationContext(), "다음미션으로 이동", Toast.LENGTH_LONG).show();
-
             Intent iT = new Intent(getApplicationContext(), MissionDetailActivity.class);
             iT.putExtra("missionId", missionTo);
             startActivity(iT);
             finish();
+        }else{
 
-
+            Toast.makeText(getApplicationContext(), "사니리오 완료", Toast.LENGTH_LONG).show();
+            Intent iT = new Intent(getApplicationContext(), MainActivity.class);
+            iT.addFlags(FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(iT);
+            finish();
         }
-
     }
 
-    @Override
-    protected void configureScroller(MultiShrinkScroller scroller) {
-        super.configureScroller(scroller);
-        scroller.setIntermediateHeaderHeightRatio(5);
-    }
+
 }
 

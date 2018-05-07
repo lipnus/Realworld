@@ -36,13 +36,10 @@
         <activity android:name=".mission.MissionActivity" />
         <activity android:name=".mission.MissionDetailActivity" />
         <activity android:name=".quest.WordActivity" />
-        <activity
-            android:name=".quest.SuccessActivity"
-            android:excludeFromRecents="true"
-            android:taskAffinity=""
-            android:theme="@style/Theme.Sliding.Light" />
+        <activity android:name=".quest.SuccessActivity"/>
         <!-- <activity android:name=".SplashActivity"></activity> -->
-        <activity android:name=".main.SynopsisActivity"></activity>
+        <activity android:name=".main.SynopsisActivity" />
+        <activity android:name=".submenu.InventoryActivity"></activity>
     </application>
 
 </manifest>

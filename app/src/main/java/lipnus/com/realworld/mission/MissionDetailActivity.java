@@ -2,13 +2,18 @@ package lipnus.com.realworld.mission;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -124,7 +129,7 @@ public class MissionDetailActivity extends AppCompatActivity {
     }
 
     public void setMission(MissionDetail data){
-        titleTv.setText("#" + missionId + ". "+ data.name);
+        titleTv.setText(data.name);
         contentTv.setText(data.content);
 
         //이미지
@@ -137,9 +142,50 @@ public class MissionDetailActivity extends AppCompatActivity {
         for(int i=0; i<data.quests.size(); i++){
             adapter.addItem(data.quests.get(i).id, data.quests.get(i).label);
         }
+
+        //리스트뷰 크기설정
+        setListViewHeightBasedOnChildren(listView, 100);
         adapter.notifyDataSetChanged();
     }
 
+    //리스트뷰 크기
+    public void setListViewHeightBasedOnChildren(ListView listView, int paddingBottom) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            // pre-condition
+            return;
+        }
 
+        int totalHeight = 0;
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.AT_MOST);
+
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        int dpHeight = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        int pxHeight = convertDpToPixel(dpHeight,this);
+
+        params.height = dpHeight*2 + paddingBottom;
+
+        listView.setLayoutParams(params);
+        listView.requestLayout();
+    }
+
+    public int convertDpToPixel(float dp, Context context){
+
+        Resources resources = context.getResources();
+
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+
+        float px = dp * (metrics.densityDpi / 160f);
+
+        return (int)px;
+
+    }
 }
 

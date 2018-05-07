@@ -58,7 +58,7 @@
             android:paddingRight="20dp"
             android:textColor="#ffffff"
             android:textSize="16dp"
-            android:text="시발시발시발"/>
+            android:text=""/>
 
         <ImageView
             android:background="@drawable/synopsis_bottom"

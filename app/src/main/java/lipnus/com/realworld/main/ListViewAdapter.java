@@ -71,40 +71,7 @@ public class ListViewAdapter extends BaseAdapter {
 
 
         int imgPath;
-
-        //지금 진행중인거 찾기
-        int size = listViewItemList.size();
-        int lastPlay = 0;
-        for(int i=0; i<size; i++){
-            if(listViewItemList.get(i).accomplished==true){
-                lastPlay = i+1;
-            }
-        }
-
-
-        //진행중
-        if(lastPlay==pos){
-            Glide.with(context)
-                    .load( R.drawable.ing )
-                    .into(rightBackgroundIv);
-            rightBackgroundIv.setScaleType(ImageView.ScaleType.FIT_XY);
-            imgPath = R.drawable.lock_now;
-            dateTv.setText("");
-        }
-
-        //깬거
-        else if(listViewItemList.get(pos).accomplished==true){
-            imgPath = R.drawable.lock_unlock;
-        }
-
-        //못갠거
-        else{
-            imgPath = R.drawable.lock_lock;
-            titleTv.setText("LOCKED");
-        }
-
-
-
+        imgPath = R.drawable.lock_now;
 
         Glide.with(context)
                 .load( imgPath )
@@ -138,9 +105,9 @@ public class ListViewAdapter extends BaseAdapter {
 
 
     // 아이템 데이터 추가
-    public void addItem(String title, String date, Boolean accomplished, String lastPlayed) {
+    public void addItem(int id, String title, String date, Boolean accomplished, String lastPlayed) {
 
-        ListViewItem item = new ListViewItem(title, date, accomplished, lastPlayed);
+        ListViewItem item = new ListViewItem(id, title, date, accomplished, lastPlayed);
         listViewItemList.add(item);
     }
 }

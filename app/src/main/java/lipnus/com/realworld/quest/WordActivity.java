@@ -51,8 +51,6 @@ public class WordActivity extends AppCompatActivity {
         dragIv = findViewById(R.id.drag_iv);
         editLr = findViewById(R.id.word_edit_lr);
 
-
-
         retroClient = RetroClient.getInstance(this).createBaseApi(); //레트로핏
 
         //호출할 때 같이 보낸 값 받아옴
@@ -89,12 +87,10 @@ public class WordActivity extends AppCompatActivity {
                 manager.showSoftInput(inputEt, 0);
             }
         }, 100);
-
-
     }
 
-    public void setEditText(){
 
+    public void setEditText(){
 
         inputEt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 
@@ -208,8 +204,6 @@ public class WordActivity extends AppCompatActivity {
                     .duration(700)
                     .playOn(editLr);
         }
-
-
     }
 
 

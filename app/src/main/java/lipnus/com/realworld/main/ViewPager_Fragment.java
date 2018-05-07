@@ -107,7 +107,7 @@ public class ViewPager_Fragment {
 
             for(int i=0; i<listSize; i++){
                 Scenario scenario = GlobalApplication.scenarioList.get(i);
-                adapter.addItem(scenario.name, scenario.lastPlayed, scenario.accomplished, scenario.lastPlayed);
+                adapter.addItem(Integer.parseInt(scenario.id), scenario.name, scenario.lastPlayed, scenario.accomplished, scenario.lastPlayed);
             }
 
             adapter.notifyDataSetChanged();
@@ -120,21 +120,16 @@ public class ViewPager_Fragment {
 
                     Log.e("CCC", "위치: " + position + " / 내용: " + scenario.date );
 
-                    if(scenario.date==null && position!=0){
-                        Toast.makeText(getContext(), "LOCKED", Toast.LENGTH_LONG).show();
+                    //처음인 경우만 시놉시스를 보여준다
+                    Intent iT;
+                    if(scenario.lastPlayed==null){
+                        iT = new Intent(context, SynopsisActivity.class);
                     }else{
-
-                        //처음인 경우 시놉시스를 보여준다
-                        Intent iT;
-                        if(scenario.lastPlayed==null){
-                           iT = new Intent(context, SynopsisActivity.class);
-                        }else{
-                           iT = new Intent(context, MissionActivity.class);
-                        }
-
-                        iT.putExtra("scenarioId", position+1);
-                        startActivity(iT);
+                        iT = new Intent(context, MissionActivity.class);
                     }
+
+                    iT.putExtra("scenarioId", scenario.id);
+                    startActivity(iT);
                 }
             });
 

@@ -10,12 +10,12 @@ public class QuestResult {
 
     public String content;
     public int obtainedItem;
-    public int missionTo;
+    public String missionTo;
     public int missionUnlock;
 
     public String correctAnswer;
 
-    public QuestResult(boolean result, String contact, int obtainedItem, int missionTo, int missionUnlock, String correctAnswer) {
+    public QuestResult(boolean result, String contact, int obtainedItem, String missionTo, int missionUnlock, String correctAnswer) {
         this.result = result;
         this.content = contact;
         this.obtainedItem = obtainedItem;

@@ -4,6 +4,7 @@
     android:layout_height="match_parent">
 
     <ScrollView
+        android:background="#6b40a4"
         android:id="@+id/mission_scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

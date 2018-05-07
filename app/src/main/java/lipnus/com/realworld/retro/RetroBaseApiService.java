@@ -4,6 +4,7 @@ package lipnus.com.realworld.retro;
 import java.util.HashMap;
 import java.util.List;
 
+import lipnus.com.realworld.retro.ResponseBody.Inventory;
 import lipnus.com.realworld.retro.ResponseBody.MissionDetail;
 import lipnus.com.realworld.retro.ResponseBody.QuestDetail;
 import lipnus.com.realworld.retro.ResponseBody.QuestResult;
@@ -51,6 +52,9 @@ public interface RetroBaseApiService {
 
     @POST("/quests/{id}/result")
     Call<QuestResult> postQuestResult(@Path("id") int id, @Body HashMap<String, Object> parameters);
+
+    @POST("/inventory")
+    Call<List<Inventory>> postInventory(@Body HashMap<String, Object> parameters);
 
 
 

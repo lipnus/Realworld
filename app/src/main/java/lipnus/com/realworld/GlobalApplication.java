@@ -18,6 +18,8 @@ public class GlobalApplication extends Application {
     public static String access_tocken = "";
     public static String imgPath = "http://api.doctorhamel.com:8061/images/";
 
+    public static String missionImgPath =""; //인벤토리에도 그림이 떠야하니 저장해뒀다가 씀
+
     @Override
     public void onCreate() {
         super.onCreate();

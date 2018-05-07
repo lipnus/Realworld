@@ -40,6 +40,18 @@ public class SplashActivity extends AppCompatActivity {
 
         getUuid();
 
+        //약간의 딜레이를 준다
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run(){
+                if(!deviceUuidStr.equals("")){
+                    postAuthorize(deviceUuidStr);
+                }else{
+                    getUuid();
+                }
+            }
+        }, 2000);
+
     }
 
 
@@ -80,7 +92,7 @@ public class SplashActivity extends AppCompatActivity {
             public void run(){
                 getUuid();
             }
-        }, 100);
+        }, 1000);
     }
 
     //토큰받기
@@ -164,12 +176,11 @@ public class SplashActivity extends AppCompatActivity {
         int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE);
 
         if(permissionCheck== PackageManager.PERMISSION_DENIED){
-
             requirePermission();
-
         }else{
             TelephonyManager telManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
             phoneNum = telManager.getLine1Number();
+
             if(phoneNum.startsWith("+82")){
                 phoneNum = phoneNum.replace("+82", "0");
             }

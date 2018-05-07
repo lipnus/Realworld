@@ -7,6 +7,7 @@ import android.util.Log;
 import java.util.HashMap;
 import java.util.List;
 
+import lipnus.com.realworld.retro.ResponseBody.Inventory;
 import lipnus.com.realworld.retro.ResponseBody.MissionDetail;
 import lipnus.com.realworld.retro.ResponseBody.QuestDetail;
 import lipnus.com.realworld.retro.ResponseBody.QuestResult;
@@ -194,6 +195,26 @@ public class RetroClient {
 
             @Override
             public void onFailure(Call<QuestResult> call, Throwable t) {
+                callback.onError(t);
+            }
+        });
+    }
+
+
+    //인벤토리
+    public void postInventory(HashMap<String, Object> parameters, final RetroCallback callback) {
+        apiService.postInventory(parameters).enqueue(new Callback<List<Inventory>>() {
+            @Override
+            public void onResponse(Call<List<Inventory>> call, Response<List<Inventory>> response) {
+                if (response.isSuccessful()) {
+                    callback.onSuccess(response.code(), response.body());
+                } else {
+                    callback.onFailure(response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Inventory>> call, Throwable t) {
                 callback.onError(t);
             }
         });

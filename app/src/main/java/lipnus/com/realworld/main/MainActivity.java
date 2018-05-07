@@ -1,10 +1,13 @@
 package lipnus.com.realworld.main;
 
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.TypedValue;
@@ -72,6 +75,29 @@ public class MainActivity extends AppCompatActivity {
         super.onPostResume();
         postScenario();
     }
+
+    @Override
+    public void onBackPressed()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogStyle);
+        builder.setMessage("종료하시겠어요?");
+
+        builder.setPositiveButton("네",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
+        builder.setNegativeButton("아니오",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        //무반응
+                    }
+                });
+        builder.show();
+    }
+
+
 
     public void onClick_Scenario(View v){
         postScenario();

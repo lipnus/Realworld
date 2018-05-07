@@ -64,6 +64,8 @@ public class MissionActivity extends AppCompatActivity {
         retroClient = RetroClient.getInstance(this).createBaseApi(); //레트로핏
         missionActivity = MissionActivity.this;
 
+        //애니매이션 없음
+        overridePendingTransition(0, 0);
 
         //리스트뷰
         adapter = new MissionListViewAdapter();
@@ -172,6 +174,9 @@ public class MissionActivity extends AppCompatActivity {
 
         //미션이름 표시
         subtitleTv.setText( data.name + " - 미션목록");
+
+        //미션이미지를 저장해둔다(인벤토리에서 써야해서..)
+        GlobalApplication.missionImgPath = GlobalApplication.imgPath + data.coverImageUrl;
 
         //상단이미지
         Glide.with(this)

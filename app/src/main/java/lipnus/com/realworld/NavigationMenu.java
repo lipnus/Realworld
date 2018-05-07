@@ -12,6 +12,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
 import lipnus.com.realworld.mission.MissionActivity;
+import lipnus.com.realworld.retro.ResponseBody.Inventory;
+import lipnus.com.realworld.submenu.InventoryActivity;
 
 /**
  * Created by LIPNUS on 2018-02-19.
@@ -23,12 +25,10 @@ public class NavigationMenu {
     View view;
     int position;
 
-
     ImageView[] menuIv = new ImageView[3];
-
     TextView[] menuTv = new TextView[3];
-
     LinearLayout[] menuLr = new LinearLayout[3];
+
 
     public NavigationMenu(final Context context, View view, int position) {
         this.context = context;
@@ -76,6 +76,10 @@ public class NavigationMenu {
                 break;
 
             case 1:
+                Glide.with(context)
+                        .load(R.drawable.navi_2_on)
+                        .into(menuIv[1]);
+                menuIv[0].setScaleType(ImageView.ScaleType.FIT_XY);
                 break;
 
             case 2:
@@ -92,7 +96,9 @@ public class NavigationMenu {
                 Intent iT = new Intent(context, MissionActivity.class);
                 iT.putExtra("scenarioId", MissionActivity.scenarioId);
                 context.startActivity(iT);
-                finishOtherActivity();
+
+                InventoryActivity inventoryActivity = (InventoryActivity) InventoryActivity.inventoryActivity;
+                inventoryActivity.finish();
             }
         });
 
@@ -100,8 +106,11 @@ public class NavigationMenu {
             @Override
             public void onClick(View view) {
 
-                Toast.makeText(context, "준비중입니다", Toast.LENGTH_LONG).show();
+                Intent iT = new Intent(context, InventoryActivity.class);
+                context.startActivity(iT);
 
+                MissionActivity missionActivity = (MissionActivity) MissionActivity.missionActivity;
+                missionActivity.finish();
             }
         });
 
@@ -117,6 +126,8 @@ public class NavigationMenu {
     public void finishOtherActivity(){
         MissionActivity missionActivity = (MissionActivity) MissionActivity.missionActivity;
         missionActivity.finish();
+
+
     }
 
 
