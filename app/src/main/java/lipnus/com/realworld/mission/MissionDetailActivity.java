@@ -21,6 +21,10 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.pierfrancescosoffritti.youtubeplayer.player.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayer;
+import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerInitListener;
+import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView;
 
 import java.util.HashMap;
 
@@ -47,6 +51,8 @@ public class MissionDetailActivity extends AppCompatActivity {
     RetroClient retroClient;
     int missionId;
 
+    YouTubePlayerView youTubePlayerView;
+
     public static Activity MDActivity;
 
     @Override
@@ -55,7 +61,7 @@ public class MissionDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_mission_detail);
         ButterKnife.bind(this);
 
-
+        youTubePlayerView = findViewById(R.id.youtube_player_view);
         MDActivity = MissionDetailActivity.this;
 
         //리스트뷰
@@ -131,6 +137,30 @@ public class MissionDetailActivity extends AppCompatActivity {
     public void setMission(MissionDetail data){
         titleTv.setText(data.name);
         contentTv.setText(data.content);
+
+        //영상처리
+        if(data.video != null){
+
+            youTubePlayerView.setVisibility(View.VISIBLE);
+
+            String urlPath[] = data.video.split("/");
+            final String youtubeId = urlPath[urlPath.length-1];
+
+            youTubePlayerView.initialize(new YouTubePlayerInitListener() {
+                @Override
+                public void onInitSuccess(final YouTubePlayer initializedYouTubePlayer) {
+                    initializedYouTubePlayer.addListener(new AbstractYouTubePlayerListener() {
+                        @Override
+                        public void onReady() {
+                            String videoId = youtubeId;
+                            initializedYouTubePlayer.loadVideo(videoId, 0);
+                        }
+                    });
+                }
+            }, true);
+
+
+        }
 
         //이미지
         Glide.with(this)

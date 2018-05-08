@@ -16,8 +16,9 @@ public class MissionDetail {
     public String SucceededAt;
     public String content;
     public List<Quest> quests;
+    public String video;
 
-    public MissionDetail(int id, String name, int score, int maxScore, String image, String succeededAt, String content, List<Quest> quests) {
+    public MissionDetail(int id, String name, int score, int maxScore, String image, String succeededAt, String content, List<Quest> quests, String video) {
         this.id = id;
         this.name = name;
         this.score = score;
@@ -26,5 +27,6 @@ public class MissionDetail {
         SucceededAt = succeededAt;
         this.content = content;
         this.quests = quests;
+        this.video = video;
     }
 }
