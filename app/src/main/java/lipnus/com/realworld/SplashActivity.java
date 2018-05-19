@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
-import lipnus.com.realworld.main.MainActivity;
+import lipnus.com.realworld.main.Main2Activity;
 import lipnus.com.realworld.retro.ResponseBody.TokenGet;
 import lipnus.com.realworld.retro.RetroCallback;
 import lipnus.com.realworld.retro.RetroClient;
@@ -117,7 +117,7 @@ public class SplashActivity extends AppCompatActivity {
                 TokenGet data = (TokenGet) receivedData;
                 GlobalApplication.access_tocken = data.access_token;
 
-                Intent iT = new Intent(getApplicationContext(), MainActivity.class);
+                Intent iT = new Intent(getApplicationContext(), Main2Activity.class);
                 startActivity(iT);
                 finish();
             }

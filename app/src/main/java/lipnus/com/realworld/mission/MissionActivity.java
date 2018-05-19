@@ -181,7 +181,6 @@ public class MissionActivity extends AppCompatActivity {
         //상단이미지
         Glide.with(this)
                 .load(GlobalApplication.imgPath + data.coverImageUrl)
-                .centerCrop()
                 .into(titleIv);
         titleIv.setScaleType(ImageView.ScaleType.FIT_XY);
 
