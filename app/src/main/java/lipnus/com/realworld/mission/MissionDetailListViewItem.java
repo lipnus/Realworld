@@ -11,10 +11,12 @@ package lipnus.com.realworld.mission;
 public class MissionDetailListViewItem {
 
     public int questId;
+    public int type;
     public String label;
 
-    public MissionDetailListViewItem(int questId, String label) {
+    public MissionDetailListViewItem(int questId, int type, String label) {
         this.questId = questId;
+        this.type = type;
         this.label = label;
     }
 }

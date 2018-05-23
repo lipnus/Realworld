@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import lipnus.com.realworld.direction.CompassActivity;
 import lipnus.com.realworld.main.MainActivity;
 import lipnus.com.realworld.mission.MissionActivity;
-import lipnus.com.realworld.qrcode.QrcodeActicity;
+import lipnus.com.realworld.quest.QrcodeActicity;
 import lipnus.com.realworld.direction.QuestActivity;
 import lipnus.com.realworld.retro.RetrofitActivity;
 import lipnus.com.realworld.volley.VolleyActivity;

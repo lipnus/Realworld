@@ -32,6 +32,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import lipnus.com.realworld.GlobalApplication;
 import lipnus.com.realworld.R;
+import lipnus.com.realworld.quest.QrcodeActicity;
 import lipnus.com.realworld.quest.WordActivity;
 import lipnus.com.realworld.retro.ResponseBody.MissionDetail;
 import lipnus.com.realworld.retro.RetroCallback;
@@ -75,9 +76,18 @@ public class MissionDetailActivity extends AppCompatActivity {
 
             MissionDetailListViewItem mDetail = (MissionDetailListViewItem)adapter.getItem(position);
             int questId = mDetail.questId;
+            int questType = mDetail.type;
 
-            Intent iT = new Intent(getApplicationContext(), WordActivity.class);
-            iT.putExtra("questId", questId);
+            Intent iT;
+
+            iT = new Intent(getApplicationContext(), WordActivity.class);
+//            if(questType==2){
+//                iT = new Intent(getApplicationContext(), QrcodeActicity.class);
+//            }else{
+//                iT = new Intent(getApplicationContext(), WordActivity.class);
+//            }
+
+                iT.putExtra("questId", questId);
             startActivity(iT);
             }
         });
@@ -158,8 +168,6 @@ public class MissionDetailActivity extends AppCompatActivity {
                     });
                 }
             }, true);
-
-
         }
 
         //이미지
@@ -170,7 +178,7 @@ public class MissionDetailActivity extends AppCompatActivity {
 
         //쿼스트 버튼
         for(int i=0; i<data.quests.size(); i++){
-            adapter.addItem(data.quests.get(i).id, data.quests.get(i).label);
+            adapter.addItem(data.quests.get(i).id, data.quests.get(i).type, data.quests.get(i).label);
         }
 
         //리스트뷰 크기설정

@@ -97,8 +97,11 @@ public class NavigationMenu {
                 iT.putExtra("scenarioId", MissionActivity.scenarioId);
                 context.startActivity(iT);
 
-                InventoryActivity inventoryActivity = (InventoryActivity) InventoryActivity.inventoryActivity;
-                inventoryActivity.finish();
+                MissionActivity missionActivity = (MissionActivity) MissionActivity.missionActivity;
+                missionActivity.finish();
+
+//                InventoryActivity inventoryActivity = (InventoryActivity) InventoryActivity.inventoryActivity;
+//                inventoryActivity.finish();
             }
         });
 
@@ -106,11 +109,13 @@ public class NavigationMenu {
             @Override
             public void onClick(View view) {
 
-                Intent iT = new Intent(context, InventoryActivity.class);
-                context.startActivity(iT);
+                Toast.makeText(context, "준비중입니다", Toast.LENGTH_LONG).show();
 
-                MissionActivity missionActivity = (MissionActivity) MissionActivity.missionActivity;
-                missionActivity.finish();
+//                Intent iT = new Intent(context, InventoryActivity.class);
+//                context.startActivity(iT);
+//
+//                MissionActivity missionActivity = (MissionActivity) MissionActivity.missionActivity;
+//                missionActivity.finish();
             }
         });
 

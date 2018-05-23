@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.UUID;
 
 import lipnus.com.realworld.main.Main2Activity;
+import lipnus.com.realworld.quest.QrcodeActicity;
 import lipnus.com.realworld.retro.ResponseBody.TokenGet;
 import lipnus.com.realworld.retro.RetroCallback;
 import lipnus.com.realworld.retro.RetroClient;
@@ -38,23 +39,22 @@ public class SplashActivity extends AppCompatActivity {
 
         retroClient = RetroClient.getInstance(this).createBaseApi(); //레트로핏
 
-        getUuid();
+//        getUuid();
 
         //약간의 딜레이를 준다
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run(){
                 if(!deviceUuidStr.equals("")){
+                    Log.e("DDDD","post");
                     postAuthorize(deviceUuidStr);
                 }else{
+                    Log.e("DDDD","uuid");
                     getUuid();
                 }
             }
-        }, 2000);
-
+        }, 500);
     }
-
-
 
 
     //권한 인증
@@ -118,6 +118,7 @@ public class SplashActivity extends AppCompatActivity {
                 GlobalApplication.access_tocken = data.access_token;
 
                 Intent iT = new Intent(getApplicationContext(), Main2Activity.class);
+//                Intent iT = new Intent(getApplicationContext(), QrcodeActicity.class);
                 startActivity(iT);
                 finish();
             }
@@ -152,6 +153,8 @@ public class SplashActivity extends AppCompatActivity {
             deviceUuidStr = deviceUuid.toString();
             Log.e("DDEE", "디바이스uuid: " + deviceUuidStr);
 
+
+            postAuthorize(deviceUuidStr);
         }
     }
 
@@ -168,7 +171,7 @@ public class SplashActivity extends AppCompatActivity {
         }
     }
 
-    //전화번호얻기
+    //전화번호얻기(사용하지 않음)
     public String getMoible_no(){
 
         String phoneNum="0";

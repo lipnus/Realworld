@@ -184,7 +184,6 @@ public class WordActivity extends AppCompatActivity {
         });
     }
 
-
     //정답체크
     public void setCheckAnswer(QuestResult data){
 
