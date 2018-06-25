@@ -16,7 +16,7 @@ public class GlobalApplication extends Application {
 //    public static String access_tocken = "dd4076af-0e79-11e8-b608-0cc47a9ce276";
 
     public static String access_tocken = "";
-    public static String imgPath = "http://api.doctorhamel.com:8061/images/";
+    public static String imgPath = "https://api.doctorhamel.com:443/images/";
 
     public static String missionImgPath =""; //인벤토리에도 그림이 떠야하니 저장해뒀다가 씀
 
@@ -26,7 +26,7 @@ public class GlobalApplication extends Application {
     }
 
 
-    //서버에서 좆같은 형식으로 보낸 걸 디자인 형식에 맞게 표시되게 만든다
+    //서버에서 보낸 걸 디자인 형식에 맞게 표시되게 만든다
     public static String dateTrans(String dateStr){
 
 //        String dateStr = "Fri, 16 Mar 2018 22:03:30 GMT";
