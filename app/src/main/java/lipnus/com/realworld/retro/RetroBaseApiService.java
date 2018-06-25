@@ -4,6 +4,8 @@ package lipnus.com.realworld.retro;
 import java.util.HashMap;
 import java.util.List;
 
+import lipnus.com.realworld.GlobalApplication;
+import lipnus.com.realworld.retro.ResponseBody.Banners;
 import lipnus.com.realworld.retro.ResponseBody.Inventory;
 import lipnus.com.realworld.retro.ResponseBody.MissionDetail;
 import lipnus.com.realworld.retro.ResponseBody.QuestDetail;
@@ -27,7 +29,7 @@ import retrofit2.http.Path;
 public interface RetroBaseApiService {
 
 
-    String Base_URL= "https://apitest.doctorhamel.com:443";
+    String Base_URL= GlobalApplication.serverPath;
 
 
 
@@ -55,6 +57,9 @@ public interface RetroBaseApiService {
 
     @POST("/inventory")
     Call<List<Inventory>> postInventory(@Body HashMap<String, Object> parameters);
+
+    @POST("/banners")
+    Call<List<Banners>> postBanners(@Body HashMap<String, Object> parameters);
 
 
 

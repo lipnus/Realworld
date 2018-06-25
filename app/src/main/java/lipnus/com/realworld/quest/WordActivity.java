@@ -1,9 +1,13 @@
 package lipnus.com.realworld.quest;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -39,6 +43,8 @@ public class WordActivity extends AppCompatActivity {
     String answer;
     int questId;
 
+    Vibrator vibrator;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +62,9 @@ public class WordActivity extends AppCompatActivity {
         //호출할 때 같이 보낸 값 받아옴
         Intent iT = getIntent();
         questId = iT.getExtras().getInt("questId", 0);
+
+        //진동
+        vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
 
 
         //상단이미지
@@ -141,9 +150,15 @@ public class WordActivity extends AppCompatActivity {
 
     public void setQuest(QuestDetail data){
 
-        hintTv.setText( data.text );
-        answer = data.answer;
+        //텍스트뷰에 html적용
+        if(Build.VERSION.SDK_INT >= 24){
+            hintTv.setText(Html.fromHtml(data.text, Html.FROM_HTML_MODE_COMPACT));
+        }else{
+            hintTv.setText(Html.fromHtml(data.text));
+        }
 
+
+        answer = data.answer;
         setEditText();
     }
 
@@ -161,6 +176,7 @@ public class WordActivity extends AppCompatActivity {
 //                Toast.makeText(getApplicationContext(), "Error: " + t, Toast.LENGTH_SHORT).show();
 
               Toast.makeText(getApplicationContext(), "잘못된 암호입니다", Toast.LENGTH_LONG).show();
+                vibrator.vibrate(1000);
                 YoYo.with(Techniques.Tada)
                         .duration(700)
                         .playOn(editLr);
@@ -177,6 +193,7 @@ public class WordActivity extends AppCompatActivity {
 //                Toast.makeText(getApplicationContext(), "Fialure: " + String.valueOf(code), Toast.LENGTH_SHORT).show();
 
                 Toast.makeText(getApplicationContext(), "잘못된 암호입니다", Toast.LENGTH_LONG).show();
+                vibrator.vibrate(1000);
                 YoYo.with(Techniques.Tada)
                         .duration(700)
                         .playOn(editLr);
@@ -193,12 +210,13 @@ public class WordActivity extends AppCompatActivity {
             iT.putExtra("questId", questId);
             iT.putExtra("answer", answer);
             startActivity(iT);
-
             finish();
         }
 
         else{
+            vibrator.vibrate(1000);
             Toast.makeText(getApplicationContext(), "잘못된 암호입니다", Toast.LENGTH_LONG).show();
+
             YoYo.with(Techniques.Tada)
                     .duration(700)
                     .playOn(editLr);

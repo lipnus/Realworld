@@ -2,6 +2,7 @@ package lipnus.com.realworld.main;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -21,20 +22,21 @@ import butterknife.ButterKnife;
 import lipnus.com.realworld.GlobalApplication;
 import lipnus.com.realworld.R;
 import lipnus.com.realworld.mission.MissionActivity;
+import lipnus.com.realworld.retro.ResponseBody.Banners;
 import lipnus.com.realworld.retro.ResponseBody.Scenario;
 import lipnus.com.realworld.retro.RetroCallback;
 import lipnus.com.realworld.retro.RetroClient;
 
 public class Main2Activity extends AppCompatActivity {
 
-    @BindView(R.id.main2_title_iv)
-    ImageView titleIv;
-
-    @BindView(R.id.main2_listview)
-    ListView listView;
+    @BindView(R.id.main2_title_iv) ImageView titleIv;
+    @BindView(R.id.main2_listview) ListView listView;
     ListViewAdapter adapter;
 
+    @BindView(R.id.main2_banner_iv) ImageView bannerIv;
     RetroClient retroClient;
+
+    String bannerLink = "https://www.mystery-trail.com/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,7 @@ public class Main2Activity extends AppCompatActivity {
         retroClient = RetroClient.getInstance(this).createBaseApi(); //레트로핏
 
         postScenario();
+        postBanners();
     }
 
     public void initSetting(){
@@ -139,5 +142,55 @@ public class Main2Activity extends AppCompatActivity {
                 startActivity(iT);
             }
         });
+    }
+
+
+    //서버에서 배너를 받아옴
+    public void postBanners(){
+
+        HashMap<String, Object> parameters = new HashMap<>();
+        parameters.put("access_token", GlobalApplication.access_tocken);
+        parameters.put("position", 0);
+
+        retroClient.postBanners(parameters, new RetroCallback() {
+
+            @Override
+            public void onError(Throwable t) {
+                Log.e("EVEV", "onError(), " + t.toString());
+            }
+
+            @Override
+            public void onSuccess(int code, Object receivedData) {
+                List<Banners> data = (List<Banners>) receivedData;
+                setBanners(data);
+
+//                Log.e("sibal", data.imageUrl);
+            }
+
+            @Override
+            public void onFailure(int code) {
+                Log.e("banner", "onFailure(), " + String.valueOf(code));
+            }
+        });
+    }
+
+    public void setBanners(List<Banners> banners){
+
+        bannerLink = banners.get(0).targetUrl;
+
+        Glide.with(this)
+                .load(GlobalApplication.imgPath + banners.get(0).imageUrl)
+                .into(bannerIv);
+        bannerIv.setScaleType(ImageView.ScaleType.FIT_XY);
+
+    }
+
+
+    public void onClick_banner(View v){
+        String url = bannerLink;
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        startActivity(intent);
+
+
     }
 }

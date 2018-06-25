@@ -1,8 +1,10 @@
 package lipnus.com.realworld.main;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -86,8 +88,15 @@ public class SynopsisActivity extends AppCompatActivity {
                 .into(backgroudIv);
         backgroudIv.setScaleType(ImageView.ScaleType.FIT_XY);
 
-        synopsisTv.setText(data.synopsis);
+        //텍스트뷰에 html적용
+        if(Build.VERSION.SDK_INT >= 24){
+            synopsisTv.setText(Html.fromHtml(data.synopsis, Html.FROM_HTML_MODE_COMPACT));
+        }else{
+            synopsisTv.setText(Html.fromHtml(data.synopsis));
+        }
+
     }
+
 
     public void onClick_synopsis(View v){
         Intent iT = new Intent(this, MissionActivity.class);
@@ -95,6 +104,7 @@ public class SynopsisActivity extends AppCompatActivity {
         startActivity(iT);
         finish();
     }
+
 
     public void onClick_back(View v){
         Intent iT = new Intent(getApplicationContext(), MainActivity.class);

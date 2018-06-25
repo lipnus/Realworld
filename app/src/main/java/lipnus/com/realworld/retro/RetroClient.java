@@ -7,6 +7,7 @@ import android.util.Log;
 import java.util.HashMap;
 import java.util.List;
 
+import lipnus.com.realworld.retro.ResponseBody.Banners;
 import lipnus.com.realworld.retro.ResponseBody.Inventory;
 import lipnus.com.realworld.retro.ResponseBody.MissionDetail;
 import lipnus.com.realworld.retro.ResponseBody.QuestDetail;
@@ -215,6 +216,25 @@ public class RetroClient {
 
             @Override
             public void onFailure(Call<List<Inventory>> call, Throwable t) {
+                callback.onError(t);
+            }
+        });
+    }
+
+    //배너(광고)
+    public void postBanners(HashMap<String, Object> parameters, final RetroCallback callback) {
+        apiService.postBanners(parameters).enqueue(new Callback<List<Banners>>() {
+            @Override
+            public void onResponse(Call<List<Banners>> call, Response<List<Banners>> response) {
+                if (response.isSuccessful()) {
+                    callback.onSuccess(response.code(), response.body());
+                } else {
+                    callback.onFailure(response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Banners>> call, Throwable t) {
                 callback.onError(t);
             }
         });
