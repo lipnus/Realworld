@@ -138,6 +138,7 @@ public class Main2Activity extends AppCompatActivity {
                     iT = new Intent(getApplicationContext(), MissionActivity.class);
                 }
 
+                GlobalApplication.nowMission = scenario.id;
                 iT.putExtra("scenarioId", scenario.id);
                 startActivity(iT);
             }

@@ -6,21 +6,11 @@ package lipnus.com.realworld.retro.ResponseBody;
 
 public class QuestResult {
 
-    public boolean result;
-
     public String content;
     public int obtainedItem;
     public String missionTo;
-    public int missionUnlock;
+//    public String missionUnlock[]; //안쓰니까 안받음
+    public boolean result;
 
-    public String correctAnswer;
 
-    public QuestResult(boolean result, String contact, int obtainedItem, String missionTo, int missionUnlock, String correctAnswer) {
-        this.result = result;
-        this.content = contact;
-        this.obtainedItem = obtainedItem;
-        this.missionTo = missionTo;
-        this.missionUnlock = missionUnlock;
-        this.correctAnswer = correctAnswer;
-    }
 }

@@ -61,7 +61,7 @@
                 android:text=""/>
 
             <ListView
-                android:layout_marginTop="70dp"
+                android:layout_marginTop="30dp"
                 android:layout_gravity="center_horizontal"
                 android:id="@+id/detail_listview"
                 android:layout_width="310dp"

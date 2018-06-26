@@ -4,4 +4,5 @@
     <color name="colorPrimaryDark">#000</color>
     <color name="colorAccent">#000</color>
     <color name="skycolor">#2cc1e0</color>
+    <color name="skyblueStrong">#2cc1e0</color>
 </resources>

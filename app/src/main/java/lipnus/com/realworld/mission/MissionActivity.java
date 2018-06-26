@@ -85,8 +85,10 @@ public class MissionActivity extends AppCompatActivity {
         //백버튼
         Glide.with(this)
                 .load(R.drawable.back)
+                .centerCrop()
                 .into(backIv);
-        backIv.setScaleType(ImageView.ScaleType.FIT_XY);
+//        backIv.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
     }
 
     @Override

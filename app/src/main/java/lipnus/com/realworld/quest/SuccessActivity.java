@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.view.View;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,7 +22,9 @@ import java.util.HashMap;
 import butterknife.ButterKnife;
 import lipnus.com.realworld.GlobalApplication;
 import lipnus.com.realworld.R;
+import lipnus.com.realworld.main.Main2Activity;
 import lipnus.com.realworld.main.MainActivity;
+import lipnus.com.realworld.mission.MissionActivity;
 import lipnus.com.realworld.mission.MissionDetailActivity;
 import lipnus.com.realworld.retro.ResponseBody.QuestResult;
 import lipnus.com.realworld.retro.RetroCallback;
@@ -105,17 +108,21 @@ public class SuccessActivity extends AppCompatActivity {
         // 자바스크립트 허용
         web.getSettings().setJavaScriptEnabled(true);
 
+        //웹뷰 크기
+        web.setInitialScale(250);
+
         // 스크롤바 없애기
-        web.setHorizontalScrollBarEnabled(false);
+        web.setHorizontalScrollBarEnabled(true);
         web.setVerticalScrollBarEnabled(false);
         web.setBackgroundColor(0);
 
         web.loadData(data.content, "text/html", "UTF-8");
 
         if(data.missionTo==null){
-            detailBtn.setText("닫기");
+            detailBtn.setText("미션리스트로 이동");
             missionTo = -1;
         }else{
+            detailBtn.setText("다음미션으로 이동");
             missionTo = Integer.parseInt(data.missionTo);
         }
 
@@ -137,8 +144,8 @@ public class SuccessActivity extends AppCompatActivity {
             finish();
         }else{
 
-            Toast.makeText(getApplicationContext(), "사니리오 완료", Toast.LENGTH_LONG).show();
-            Intent iT = new Intent(getApplicationContext(), MainActivity.class);
+            Intent iT = new Intent(getApplicationContext(), MissionActivity.class);
+            iT.putExtra("scenarioId", GlobalApplication.nowMission);
             iT.addFlags(FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(iT);
             finish();

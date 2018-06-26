@@ -1,6 +1,5 @@
 package lipnus.com.realworld.quest;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
@@ -9,12 +8,11 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
-import android.view.KeyEvent;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,41 +21,41 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 
 import java.util.HashMap;
+import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import lipnus.com.realworld.GlobalApplication;
 import lipnus.com.realworld.R;
+import lipnus.com.realworld.quest.list_hint.Hint_ListViewAdapter;
+import lipnus.com.realworld.quest.list_hint.Hint_ListViewItem;
+import lipnus.com.realworld.retro.ResponseBody.Hints;
 import lipnus.com.realworld.retro.ResponseBody.QuestDetail;
 import lipnus.com.realworld.retro.ResponseBody.QuestResult;
 import lipnus.com.realworld.retro.RetroCallback;
 import lipnus.com.realworld.retro.RetroClient;
 
-public class WordActivity extends AppCompatActivity {
+public class ChoiceActivity extends AppCompatActivity {
 
-    EditText inputEt;
-    ImageView dragIv;
+    @BindView(R.id.drag_iv) ImageView dragIv;
+    @BindView(R.id.choice_title_tv) TextView titleTv;
+    @BindView(R.id.choice_hint_tv) TextView hintTv;
+    @BindView(R.id.choice_listview) ListView listView;
+    Hint_ListViewAdapter adapter;
 
-    TextView titleTv, hintTv;
-    LinearLayout editLr;
     RetroClient retroClient;
-    AudioManager mAudioManager;
+    AudioManager  mAudioManager;
 
-    String answer;
     int questId;
-
     Vibrator vibrator;
+
+    int answerNumber = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_word);
+        setContentView(R.layout.activity_choice);
         ButterKnife.bind(this);
-
-        inputEt = findViewById(R.id.word_et);
-        titleTv = findViewById(R.id.word_title_tv);
-        hintTv = findViewById(R.id.word_hint_tv);
-        dragIv = findViewById(R.id.drag_iv);
-        editLr = findViewById(R.id.word_edit_lr);
 
         retroClient = RetroClient.getInstance(this).createBaseApi(); //레트로핏
 
@@ -71,6 +69,8 @@ public class WordActivity extends AppCompatActivity {
         //오디오상태 체크
         mAudioManager = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
 
+        //리스트뷰 세팅
+        initListview();
 
         //상단이미지
         Glide.with(this)
@@ -87,44 +87,29 @@ public class WordActivity extends AppCompatActivity {
             }
         });
 
-        postQuestDetail(questId);
+
+
+        postQuestDetail(questId); //힌트
+        postHints(questId); //4지선다
     }
 
-    @Override
-    protected void onPostResume() {
-        super.onPostResume();
+    public void initListview(){
 
-        //키보드 자동 띄우기
-        inputEt.postDelayed(new Runnable() {
-            public void run() {
-                InputMethodManager manager = (InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
-                manager.showSoftInput(inputEt, 0);
-            }
-        }, 100);
-    }
+        //리스트뷰
+        adapter = new Hint_ListViewAdapter();
+        listView.setAdapter(adapter);
 
-
-    public void setEditText(){
-
-        inputEt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-
+        //리스트뷰의 클릭리스너
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                String inputStr = inputEt.getText().toString();
+                Hint_ListViewItem hintItem = (Hint_ListViewItem) parent.getAdapter().getItem(position);
+                answerNumber = hintItem.id;
 
-                switch (actionId) {
-                    case EditorInfo.IME_ACTION_DONE: //Done버튼 눌렀을 때
-
-                        answer = inputStr;
-                        postQuestResult(inputStr);
-
-                }
-                return true;
+                postQuestResult(hintItem.id);
             }
-
         });
-
     }
 
     public void postQuestDetail(int questId){
@@ -160,16 +145,55 @@ public class WordActivity extends AppCompatActivity {
             hintTv.setText(Html.fromHtml(data.text));
         }
 
-
-        answer = data.answer;
-        setEditText();
     }
 
 
-    public void postQuestResult(String answerStr){
+
+    //서버에서 4지선다를 받아옴
+    public void postHints(int questId){
+
         HashMap<String, Object> parameters = new HashMap<>();
         parameters.put("access_token", GlobalApplication.access_tocken);
-        parameters.put("answer", answerStr);
+
+        retroClient.postHints(questId, parameters, new RetroCallback() {
+
+            @Override
+            public void onError(Throwable t) {
+                Toast.makeText(getApplicationContext(), "Error: " + t, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onSuccess(int code, Object receivedData) {
+                List<Hints> data = (List<Hints>) receivedData;
+                setHints(data);
+            }
+
+            @Override
+            public void onFailure(int code) {
+                Toast.makeText(getApplicationContext(), "Fialure: " + String.valueOf(code), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void setHints(List<Hints> hints){
+
+        Log.e("HHTT", "힌트: " + hints);
+
+        for(int i=0; i<hints.size(); i++){
+            adapter.addItem(hints.get(i).description, hints.get(i).id);
+        }
+        adapter.notifyDataSetChanged();
+
+    }
+
+
+    //서버로 정답을 보냄(정답이 아니면 500. Success하면 정답)
+    public void postQuestResult(int answer){
+        HashMap<String, Object> parameters = new HashMap<>();
+        parameters.put("access_token", GlobalApplication.access_tocken);
+        parameters.put("answer", Integer.toString(answer) ); //서버에서 이건 string으로 받는듯..
+
+        Log.e("HHTT", "서버로 보낸 정답: " + answer);
 
 
         retroClient.postQuestResult(questId, parameters, new RetroCallback() {
@@ -181,46 +205,36 @@ public class WordActivity extends AppCompatActivity {
 
             @Override
             public void onSuccess(int code, Object receivedData) {
-                QuestResult data = (QuestResult) receivedData;
-                setCheckAnswer(data);
+//                QuestResult data = (QuestResult) receivedData;
+
+                //response가 오면 정답인 것으로 처리
+                MoveToSuccessActivity();
             }
 
             @Override
             public void onFailure(int code) {
-//                Toast.makeText(getApplicationContext(), "Fialure: " + String.valueOf(code), Toast.LENGTH_SHORT).show();
-
-                Toast.makeText(getApplicationContext(), "잘못된 암호입니다", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "잘못된 암호입니다.", Toast.LENGTH_LONG).show();
                 if(mAudioManager.getRingerMode() != 0){
                     vibrator.vibrate(300);
                 }
                 YoYo.with(Techniques.Tada)
                         .duration(700)
-                        .playOn(editLr);
+                        .playOn(listView);
             }
         });
     }
 
     //정답체크
-    public void setCheckAnswer(QuestResult data){
+    public void MoveToSuccessActivity(){
 
-        if(data.result){
-            //정답
-            Intent iT = new Intent(getApplicationContext(), SuccessActivity.class);
-            iT.putExtra("questId", questId);
-            iT.putExtra("answer", answer);
-            startActivity(iT);
-            finish();
-        }
-
-        else{
-//            vibrator.vibrate(500);
-            Toast.makeText(getApplicationContext(), "암호가 틀렸습니다", Toast.LENGTH_LONG).show();
-
-            YoYo.with(Techniques.Tada)
-                    .duration(700)
-                    .playOn(editLr);
-        }
+        Intent iT = new Intent(getApplicationContext(), SuccessActivity.class);
+        iT.putExtra("questId", questId);
+        iT.putExtra("answer", Integer.toString(answerNumber) );
+        startActivity(iT);
+        finish();
     }
+
+
 
 
 

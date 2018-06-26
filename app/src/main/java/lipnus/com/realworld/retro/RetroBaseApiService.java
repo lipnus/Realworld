@@ -6,6 +6,7 @@ import java.util.List;
 
 import lipnus.com.realworld.GlobalApplication;
 import lipnus.com.realworld.retro.ResponseBody.Banners;
+import lipnus.com.realworld.retro.ResponseBody.Hints;
 import lipnus.com.realworld.retro.ResponseBody.Inventory;
 import lipnus.com.realworld.retro.ResponseBody.MissionDetail;
 import lipnus.com.realworld.retro.ResponseBody.QuestDetail;
@@ -60,6 +61,9 @@ public interface RetroBaseApiService {
 
     @POST("/banners")
     Call<List<Banners>> postBanners(@Body HashMap<String, Object> parameters);
+
+    @POST("/quests/{id}/hints")
+    Call<List<Hints>> postHints(@Path("id") int id, @Body HashMap<String, Object> parameters);
 
 
 

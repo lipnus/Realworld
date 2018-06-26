@@ -1,6 +1,7 @@
-package lipnus.com.realworld.main;
+package lipnus.com.realworld.quest.list_hint;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,20 +16,20 @@ import com.daimajia.androidanimations.library.YoYo;
 
 import java.util.ArrayList;
 
-import lipnus.com.realworld.GlobalApplication;
 import lipnus.com.realworld.R;
+import lipnus.com.realworld.mission.MissionDetailListViewItem;
 
 /**
  * Created by Sunpil on 2016-07-13.
  */
-public class ListViewAdapter extends BaseAdapter {
+public class Hint_ListViewAdapter extends BaseAdapter {
 
     // Adapter에 추가된 데이터를 저장하기 위한 ArrayList
-    private ArrayList<ListViewItem> listViewItemList = new ArrayList<>() ;
+    private ArrayList<Hint_ListViewItem> listViewItemList = new ArrayList<>() ;
 
 
     // ListViewAdapter의 생성자
-    public ListViewAdapter() {
+    public Hint_ListViewAdapter() {
 
     }
 
@@ -49,45 +50,15 @@ public class ListViewAdapter extends BaseAdapter {
         // menulist.xml을 inflate하여 convertView 참조 획득.
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.list_scenario, parent, false);
-//            convertView = inflater.inflate(R.layout.list_main, parent, false);
+            convertView = inflater.inflate(R.layout.list_hint, parent, false);
         }
 
-        final LinearLayout lR = convertView.findViewById(R.id.list_lr);
+        Hint_ListViewItem item = listViewItemList.get(pos);
 
-        ImageView lockIv = convertView.findViewById(R.id.list_lock_iv);
-        TextView titleTv = convertView.findViewById(R.id.list_title_tv);
-        TextView dateTv = convertView.findViewById(R.id.list_date_tv);
-        ImageView rightBackgroundIv = convertView.findViewById(R.id.list_rightbackground_iv);
-
-        titleTv.setText(listViewItemList.get(pos).title);
-
-        String date;
-        if(listViewItemList.get(pos).date!=null){
-            date = GlobalApplication.dateTrans( listViewItemList.get(pos).date );
-        }else{
-            date = "";
-        }
-        dateTv.setText(date);
-
-
-        int imgPath;
-        imgPath = R.drawable.lock_now;
-
-        Glide.with(context)
-                .load( imgPath )
-                .into(lockIv);
-        lockIv.setScaleType(ImageView.ScaleType.FIT_XY);
-
-//        //애니메이션
-//        lR.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                YoYo.with(Techniques.FadeInLeft)
-//                        .duration(pos*300+300)
-//                        .playOn(lR);
-//            }
-//        });
+        //힌트입력
+        TextView hintTv = convertView.findViewById(R.id.hintlist_tv);
+        hintTv.setText( item.hint );
+        Log.e("HHTT", "어댑터에서 힌트: " + listViewItemList.get(pos).hint);
 
         return convertView;
     }
@@ -106,9 +77,10 @@ public class ListViewAdapter extends BaseAdapter {
 
 
     // 아이템 데이터 추가
-    public void addItem(int id, String title, String date, Boolean accomplished, String lastPlayed) {
+    public void addItem(String hint, int id) {
 
-        ListViewItem item = new ListViewItem(id, title, date, accomplished, lastPlayed);
+        Hint_ListViewItem item = new Hint_ListViewItem(hint, id);
         listViewItemList.add(item);
+
     }
 }

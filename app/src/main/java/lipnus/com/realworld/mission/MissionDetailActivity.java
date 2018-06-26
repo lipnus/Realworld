@@ -32,6 +32,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import lipnus.com.realworld.GlobalApplication;
 import lipnus.com.realworld.R;
+import lipnus.com.realworld.quest.ChoiceActivity;
 import lipnus.com.realworld.quest.QrcodeActicity;
 import lipnus.com.realworld.quest.WordActivity;
 import lipnus.com.realworld.retro.ResponseBody.MissionDetail;
@@ -80,14 +81,17 @@ public class MissionDetailActivity extends AppCompatActivity {
 
             Intent iT;
 
-            iT = new Intent(getApplicationContext(), WordActivity.class);
-//            if(questType==2){
-//                iT = new Intent(getApplicationContext(), QrcodeActicity.class);
-//            }else{
-//                iT = new Intent(getApplicationContext(), WordActivity.class);
-//            }
+            Log.d("CCDD", "type=" + questType);
 
-                iT.putExtra("questId", questId);
+            if(questType== 5){//4지선다
+                iT = new Intent(getApplicationContext(), ChoiceActivity.class);
+            }else if(questType==2){//QR코드
+                iT = new Intent(getApplicationContext(), QrcodeActicity.class);
+            }else{
+                iT = new Intent(getApplicationContext(), WordActivity.class);
+            }
+
+            iT.putExtra("questId", questId);
             startActivity(iT);
             }
         });

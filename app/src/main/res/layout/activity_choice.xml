@@ -34,45 +34,44 @@
         <TextView
             android:layout_gravity="center_horizontal"
             android:textColor="#2cc1e0"
-            android:id="@+id/word_title_tv"
+            android:id="@+id/choice_title_tv"
             android:layout_marginTop="20dp"
             android:textSize="26dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="암호를 입력하세요"/>
+            android:text="암호를 선택하세요"/>
 
         <TextView
             android:gravity="center_horizontal"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
-            android:id="@+id/word_hint_tv"
-            android:layout_width="250dp"
+            android:id="@+id/choice_hint_tv"
+            android:layout_width="270dp"
             android:layout_height="wrap_content"
             android:text="..."/>
 
-        <!--정답입력부분-->
-        <LinearLayout
-            android:id="@+id/word_edit_lr"
-            android:layout_marginTop="20dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_width="280dp"
-            android:layout_height="70dp"
-            android:background="#d5f3f9">
+        <!--<TextView-->
+            <!--android:layout_marginTop="20dp"-->
+            <!--android:textColor="#d5f3f9"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text=""/>-->
 
-            <EditText
-                android:textStyle="bold"
-                android:layout_gravity="center"
-                android:layout_marginLeft="17dp"
-                android:singleLine="true"
-                android:imeOptions="actionDone"
-                android:id="@+id/word_et"
-                android:layout_width="260dp"
-                android:layout_height="60dp"
-                android:textSize="33dp"
-                android:textColor="@color/skyblueStrong"
-                android:background="@null"/>
-        </LinearLayout>
+        <ListView
+
+            android:id="@+id/choice_listview"
+            android:layout_marginTop="30dp"
+            android:background="#d5f3f9"
+            android:layout_gravity="center"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:dividerHeight="6dp"
+            android:divider="#ffffff">
+
+        </ListView>
 
     </LinearLayout>
+
 
 </FrameLayout>

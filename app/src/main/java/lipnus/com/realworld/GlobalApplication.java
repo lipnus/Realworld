@@ -18,8 +18,10 @@ public class GlobalApplication extends Application {
     public static String access_tocken = "";
     public static String serverPath = "https://apitest.doctorhamel.com:443";
     public static String imgPath = "https://apitest.doctorhamel.com:443/images/";
-
     public static String missionImgPath =""; //인벤토리에도 그림이 떠야하니 저장해뒀다가 씀
+
+    //현재 진행중인 시나리오
+    public static int nowMission = 0;
 
     @Override
     public void onCreate() {
