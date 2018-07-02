@@ -14,16 +14,16 @@
             android:id="@+id/main2_title_iv"
             android:layout_marginTop="30dp"
             android:layout_gravity="center_horizontal"
-            android:layout_width="130dp"
+            android:layout_width="190dp"
             android:layout_height="wrap_content"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="center_horizontal"
-            android:textColor="#ffffff"
-            android:text="시나리오 목록"/>
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:textColor="#ffffff"-->
+            <!--android:text="시나리오 목록"/>-->
 
         <!--대화창이 있는 곳-->
         <LinearLayout

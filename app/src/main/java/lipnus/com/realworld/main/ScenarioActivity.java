@@ -1,7 +1,9 @@
 package lipnus.com.realworld.main;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -20,14 +23,15 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import lipnus.com.realworld.GlobalApplication;
+import lipnus.com.realworld.LocationControl;
 import lipnus.com.realworld.R;
 import lipnus.com.realworld.mission.MissionActivity;
-import lipnus.com.realworld.retro.ResponseBody.Banners;
+import lipnus.com.realworld.retro.ResponseBody.Banner;
 import lipnus.com.realworld.retro.ResponseBody.Scenario;
 import lipnus.com.realworld.retro.RetroCallback;
 import lipnus.com.realworld.retro.RetroClient;
 
-public class Main2Activity extends AppCompatActivity {
+public class ScenarioActivity extends AppCompatActivity {
 
     @BindView(R.id.main2_title_iv) ImageView titleIv;
     @BindView(R.id.main2_listview) ListView listView;
@@ -41,11 +45,13 @@ public class Main2Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_scenario);
         ButterKnife.bind(this);
 
         initSetting();//기본세팅들은 다 여기 때려박음
         retroClient = RetroClient.getInstance(this).createBaseApi(); //레트로핏
+
+        checkGPS();
 
         postScenario();
         postBanners();
@@ -54,7 +60,7 @@ public class Main2Activity extends AppCompatActivity {
     public void initSetting(){
 
         Glide.with(this)
-                .load(R.drawable.title)
+                .load(R.drawable.logo)
                 .into(titleIv);
         titleIv.setScaleType(ImageView.ScaleType.FIT_XY);
 
@@ -121,7 +127,6 @@ public class Main2Activity extends AppCompatActivity {
 
         adapter.notifyDataSetChanged();
 
-
         //리스트뷰의 클릭리스너
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -162,7 +167,7 @@ public class Main2Activity extends AppCompatActivity {
 
             @Override
             public void onSuccess(int code, Object receivedData) {
-                List<Banners> data = (List<Banners>) receivedData;
+                List<Banner> data = (List<Banner>) receivedData;
                 setBanners(data);
 
 //                Log.e("sibal", data.imageUrl);
@@ -175,7 +180,7 @@ public class Main2Activity extends AppCompatActivity {
         });
     }
 
-    public void setBanners(List<Banners> banners){
+    public void setBanners(List<Banner> banners){
 
         bannerLink = banners.get(0).targetUrl;
 
@@ -186,12 +191,37 @@ public class Main2Activity extends AppCompatActivity {
 
     }
 
-
+    //광고클릭
     public void onClick_banner(View v){
         String url = bannerLink;
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         startActivity(intent);
 
 
+    }
+
+
+    //gps가 켜져있는지 확인하고 현재위치를 수집
+    public boolean checkGPS() {
+
+        //현재위치를 구하는데 필요한 지오코더
+        LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+
+        boolean isGPS = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        if (isGPS) {
+            Log.e("GPGP", "gps 켜져있음");
+
+            //위치정보 업데이트
+            LocationControl gl = new LocationControl( getApplicationContext() );
+            return true;
+
+        } else {
+            Toast.makeText(getApplication(), "GPS를 켜주세요!", Toast.LENGTH_LONG).show();
+            Log.e("GPGP", "gps꺼짐");
+
+            //위치정보 설정창 띄우기
+            startActivityForResult(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS), 0);
+        }
+        return false;
     }
 }

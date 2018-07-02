@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical">
+
+    <TextView
+        android:id="@+id/multi_quiz_tv"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:text="HINT"/>
+
+    <!--정답입력부분-->
+    <LinearLayout
+        android:id="@+id/multi_edit_lr"
+        android:layout_marginTop="22dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:background="@drawable/round_low_sky">
+
+        <EditText
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:singleLine="true"
+            android:imeOptions="actionDone"
+            android:id="@+id/multi_et"
+            android:layout_width="190dp"
+            android:layout_height="40dp"
+            android:textSize="25dp"
+            android:textColor="@color/skyblueStrong"
+            android:background="@null"/>
+    </LinearLayout>
+
+</FrameLayout>
+

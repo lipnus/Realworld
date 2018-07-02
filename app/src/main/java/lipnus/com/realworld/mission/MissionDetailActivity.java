@@ -33,6 +33,7 @@ import butterknife.ButterKnife;
 import lipnus.com.realworld.GlobalApplication;
 import lipnus.com.realworld.R;
 import lipnus.com.realworld.quest.ChoiceActivity;
+import lipnus.com.realworld.quest.MultiInputActivity;
 import lipnus.com.realworld.quest.QrcodeActicity;
 import lipnus.com.realworld.quest.WordActivity;
 import lipnus.com.realworld.retro.ResponseBody.MissionDetail;
@@ -87,7 +88,10 @@ public class MissionDetailActivity extends AppCompatActivity {
                 iT = new Intent(getApplicationContext(), ChoiceActivity.class);
             }else if(questType==2){//QR코드
                 iT = new Intent(getApplicationContext(), QrcodeActicity.class);
-            }else{
+            }else if(questType==6){//다중주관식
+                iT = new Intent(getApplicationContext(), MultiInputActivity.class);
+            }
+            else{
                 iT = new Intent(getApplicationContext(), WordActivity.class);
             }
 

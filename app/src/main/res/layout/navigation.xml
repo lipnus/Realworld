@@ -4,98 +4,144 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="55dp"
-    android:orientation="horizontal"
-    android:paddingTop="10dp">
+    android:orientation="vertical"
+    android:background="#ededed">
 
-    <!--홈-->
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#909090"/>
+
+    <!--가로배열-->
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="50dp"
-        android:gravity="center">
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
+        <!--게임-->
         <LinearLayout
-            android:id="@+id/navitaion_menu_lr1"
-            android:layout_width="40dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="50dp"
-            android:orientation="vertical">
+            android:gravity="center">
 
-            <ImageView
-                android:id="@+id/navitaion_menu_iv1"
-                android:layout_gravity="center"
-                android:layout_width="22dp"
-                android:layout_height="22dp" />
+            <LinearLayout
+                android:id="@+id/navitaion_menu_lr1"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:orientation="vertical">
 
-            <TextView
-                android:paddingTop="3dp"
-                android:id="@+id/navitaion_menu_tv1"
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="홈"
-                android:textSize="9dp"/>
+                <ImageView
+                    android:id="@+id/navitaion_menu_iv1"
+                    android:layout_gravity="center"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp" />
+
+                <TextView
+                    android:paddingTop="3dp"
+                    android:id="@+id/navitaion_menu_tv1"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="게임"
+                    android:textSize="9dp"/>
+            </LinearLayout>
+
         </LinearLayout>
 
-    </LinearLayout>
-
-    <!--내 가방-->
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="50dp"
-        android:gravity="center">
-
+        <!--지역할인쿠폰-->
         <LinearLayout
-            android:id="@+id/navitaion_menu_lr2"
-            android:layout_width="40dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="50dp"
-            android:orientation="vertical">
+            android:gravity="center">
 
-            <ImageView
-                android:id="@+id/navitaion_menu_iv2"
-                android:layout_gravity="center"
-                android:layout_width="22dp"
-                android:layout_height="22dp" />
+            <LinearLayout
+                android:id="@+id/navitaion_menu_lr2"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:orientation="vertical">
 
-            <TextView
-                android:paddingTop="3dp"
-                android:id="@+id/navitaion_menu_tv2"
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="내 가방"
-                android:textSize="9dp"/>
+                <ImageView
+                    android:id="@+id/navitaion_menu_iv2"
+                    android:layout_gravity="center"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp" />
+
+                <TextView
+                    android:paddingTop="3dp"
+                    android:id="@+id/navitaion_menu_tv2"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="지역할인쿠폰"
+                    android:textSize="9dp"/>
+            </LinearLayout>
+
         </LinearLayout>
 
-    </LinearLayout>
-
-    <!--마이페이지-->
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="50dp"
-        android:gravity="center">
-
+        <!--마이페이지-->
         <LinearLayout
-            android:id="@+id/navitaion_menu_lr3"
-            android:layout_width="40dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="50dp"
-            android:orientation="vertical">
+            android:gravity="center">
 
-            <ImageView
-                android:id="@+id/navitaion_menu_iv3"
-                android:layout_gravity="center"
-                android:layout_width="22dp"
-                android:layout_height="22dp" />
+            <LinearLayout
+                android:id="@+id/navitaion_menu_lr3"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:orientation="vertical">
 
-            <TextView
-                android:paddingTop="3dp"
-                android:id="@+id/navitaion_menu_tv3"
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="마이페이지"
-                android:textSize="9dp"/>
+                <ImageView
+                    android:id="@+id/navitaion_menu_iv3"
+                    android:layout_gravity="center"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp" />
+
+                <TextView
+                    android:paddingTop="3dp"
+                    android:id="@+id/navitaion_menu_tv3"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="마이페이지"
+                    android:textSize="9dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!--설정-->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:gravity="center">
+
+            <LinearLayout
+                android:id="@+id/navitaion_menu_lr4"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/navitaion_menu_iv4"
+                    android:layout_gravity="center"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp" />
+
+                <TextView
+                    android:paddingTop="3dp"
+                    android:id="@+id/navitaion_menu_tv4"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="설정"
+                    android:textSize="9dp"/>
+            </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>

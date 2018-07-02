@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">미스테리트레일 여수</string>
     <string name="synopsis"><u>시놉시스 다시보기</u></string>
+    <!--<string name="join"><u>회원가입</u></string>-->
+    <string name="join">
+        <font color="#000000">미스테리트레일에 오신 것을 환영합니다.\n 처음 오셨다면, </font>
+        <font color="#2cc1e0"><u>회원가입</u></font>
+    </string>
+
 </resources>

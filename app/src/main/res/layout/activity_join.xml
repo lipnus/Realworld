@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+        <!--메인뷰-->
+        <LinearLayout
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context=".submenu.CouponActivity">
+
+            <TextView
+                android:textColor="@color/skyblueStrong"
+                android:layout_marginTop="30dp"
+                android:textSize="23dp"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="JOIN"/>
+
+
+
+            <!--이메일-->
+            <LinearLayout
+                android:layout_marginTop="30dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="80dp"
+                        android:gravity="left"
+                        android:layout_height="wrap_content"
+                        android:text="이메일"/>
+
+                        <EditText
+                            android:paddingLeft="10dp"
+                            android:paddingTop="7dp"
+                            android:paddingBottom="7dp"
+                            android:gravity="center_vertical"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="17dp"
+                            android:maxLength="30"
+                            android:inputType="textEmailAddress"
+                            android:singleLine="true"
+                            android:imeOptions="actionDone"
+                            android:id="@+id/join_email_et"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="18dp"
+                            android:background="@drawable/border_sky"/>
+
+                </LinearLayout>
+
+            <!--비밀번호-->
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="80dp"
+                    android:gravity="left"
+                    android:layout_height="wrap_content"
+                    android:text="비밀번호"/>
+
+                <EditText
+                    android:paddingLeft="10dp"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="7dp"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="17dp"
+                    android:singleLine="true"
+                    android:imeOptions="actionDone"
+                    android:inputType="textPassword"
+                    android:id="@+id/join_pw_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp"
+                    android:background="@drawable/border_sky"/>
+
+            </LinearLayout>
+
+            <!--비밀번호확인-->
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="80dp"
+                    android:gravity="left"
+                    android:layout_height="wrap_content"
+                    android:text="비밀번호확인"/>
+
+                <EditText
+                    android:paddingLeft="10dp"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="7dp"
+                    android:gravity="center_vertical"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="17dp"
+                    android:singleLine="true"
+                    android:inputType="textPassword"
+                    android:imeOptions="actionDone"
+                    android:id="@+id/join_pw_confirm_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp"
+                    android:background="@drawable/border_sky"/>
+
+            </LinearLayout>
+
+            <!--전화번호-->
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="80dp"
+                    android:gravity="left"
+                    android:layout_height="wrap_content"
+                    android:text="전화번호"/>
+
+                <EditText
+                    android:paddingLeft="10dp"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="7dp"
+                    android:gravity="center_vertical"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="17dp"
+                    android:singleLine="true"
+                    android:imeOptions="actionDone"
+                    android:maxLength="11"
+                    android:inputType="phone"
+                    android:id="@+id/join_mobile_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp"
+                    android:background="@drawable/border_sky"/>
+
+            </LinearLayout>
+
+            <!--이름(선택)-->
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="80dp"
+                    android:gravity="left"
+                    android:layout_height="wrap_content"
+                    android:text="이름(선택)"/>
+
+                <EditText
+                    android:paddingLeft="10dp"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="7dp"
+                    android:gravity="center_vertical"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="17dp"
+                    android:singleLine="true"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:maxLength="6"
+                    android:id="@+id/join_name_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp"
+                    android:background="@drawable/border_sky"/>
+
+            </LinearLayout>
+
+
+
+
+            <TextView
+                android:layout_marginTop="50dp"
+                android:onClick="onClick_join_finish"
+                android:layout_marginBottom="50dp"
+                android:layout_gravity="bottom|center_horizontal"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:textColor="#ffffff"
+                android:textSize="17dp"
+                android:background="@drawable/round_high_strong_sky"
+                android:text="가입하기"/>
+        </LinearLayout>
+
+
+
+
+
+
+</FrameLayout>
+

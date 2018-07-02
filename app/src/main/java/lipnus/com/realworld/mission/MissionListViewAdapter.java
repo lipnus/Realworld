@@ -75,9 +75,9 @@ public class MissionListViewAdapter extends BaseAdapter {
 
 
         }else if(missionItem.looked == false && missionItem.date == null){ //진행중인 미션
-            imgPath = R.drawable.lock_now;
+            imgPath = R.drawable.lock_now2;
             Glide.with(context)
-                    .load( R.drawable.ing )
+                    .load( R.drawable.ing2 )
                     .into(rightBackgroundIv);
             rightBackgroundIv.setScaleType(ImageView.ScaleType.FIT_XY);
 

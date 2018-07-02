@@ -5,4 +5,8 @@
     <color name="colorAccent">#000</color>
     <color name="skycolor">#2cc1e0</color>
     <color name="skyblueStrong">#2cc1e0</color>
+    <color name="lightSky">#d5f3f9</color>
+    <color name="purple">#3f1874</color>
+    <color name="backgroudPurple">#10152f</color>
+
 </resources>

@@ -3,6 +3,7 @@ package lipnus.com.realworld;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,17 +21,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
-import lipnus.com.realworld.main.Main2Activity;
-import lipnus.com.realworld.quest.QrcodeActicity;
+import lipnus.com.realworld.main.ScenarioActivity;
 import lipnus.com.realworld.retro.ResponseBody.TokenGet;
 import lipnus.com.realworld.retro.RetroCallback;
 import lipnus.com.realworld.retro.RetroClient;
+import lipnus.com.realworld.user.LoginActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
     String mobileNumber; //원래는 전화번호를 썼으나 이제 안씀
     String deviceUuidStr=""; //시작 전 처리
     RetroClient retroClient;
+
+    SharedPreferences setting;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,21 +43,23 @@ public class SplashActivity extends AppCompatActivity {
 
         retroClient = RetroClient.getInstance(this).createBaseApi(); //레트로핏
 
-//        getUuid();
+        //Prefrence설정(0:읽기,쓰기가능)
+        setting = getSharedPreferences("USERDATA", 0);
+        editor= setting.edit();
+
 
         //약간의 딜레이를 준다
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run(){
                 if(!deviceUuidStr.equals("")){
-                    Log.e("DDDD","post");
-                    postAuthorize(deviceUuidStr);
+//                    postAuthorize(deviceUuidStr);
+//                    goToLogin(deviceUuidStr);
                 }else{
-                    Log.e("DDDD","uuid");
-                    getUuid();
+                    requirePermission();
                 }
             }
-        }, 500);
+        }, 700);
     }
 
 
@@ -95,6 +101,7 @@ public class SplashActivity extends AppCompatActivity {
         }, 1000);
     }
 
+
     //토큰받기
     public void postAuthorize(String mobileNumber){
 
@@ -117,8 +124,9 @@ public class SplashActivity extends AppCompatActivity {
                 TokenGet data = (TokenGet) receivedData;
                 GlobalApplication.access_tocken = data.access_token;
 
-                Intent iT = new Intent(getApplicationContext(), Main2Activity.class);
-//                Intent iT = new Intent(getApplicationContext(), QrcodeActicity.class);
+                Log.e("DDDD", "서버접속토큰: " + data.access_token);
+
+                Intent iT = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(iT);
                 finish();
             }
@@ -152,20 +160,43 @@ public class SplashActivity extends AppCompatActivity {
             //서버로 전송
             deviceUuidStr = deviceUuid.toString();
             Log.e("DDEE", "디바이스uuid: " + deviceUuidStr);
-
-
-            postAuthorize(deviceUuidStr);
+//            postAuthorize(deviceUuidStr);
+            goToLogin(deviceUuidStr);
         }
     }
 
 
+    public void goToLogin(String uuid){
+
+        GlobalApplication.uuid = uuid; //UUID는 일단 저장
+
+        String access_toekn = setting.getString("access_token", "0");
+
+
+
+        if(!access_toekn.equals("0")){
+
+            GlobalApplication.access_tocken = access_toekn;
+            Intent iT = new Intent(getApplicationContext(), ScenarioActivity.class);
+            startActivity(iT);
+            finish();
+        }else{
+            Intent iT = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(iT);
+            finish();
+        }
+
+
+
+    }
 
 
 
 
     public void onClick_splash(View v){
         if(!deviceUuidStr.equals("")){
-            postAuthorize(deviceUuidStr);
+//            postAuthorize(deviceUuidStr);
+            goToLogin(deviceUuidStr);
         }else{
             getUuid();
         }

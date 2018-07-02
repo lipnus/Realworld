@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:textColor="@color/purple"
+                android:layout_marginTop="20dp"
+                android:textSize="23dp"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Coupons"/>
+
+
+            <ImageView
+                android:layout_marginTop="30dp"
+                android:id="@+id/coupon_title_iv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="8dp"
+                android:background="#909090"/>
+
+            <TextView
+                android:id="@+id/coupon_title_tv"
+                android:layout_marginTop="20dp"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name"/>
+
+            <TextView
+                android:lineSpacingMultiplier="1.2"
+                android:layout_marginTop="20dp"
+                android:id="@+id/coupon_description_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="description"/>
+
+            <ImageView
+                android:layout_marginTop="40dp"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/coupon_qr_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="8dp"/>
+        </LinearLayout>
+
+    </ScrollView>
+
+    <!--네비게이션 메뉴-->
+    <include
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        layout="@layout/navigation" />
+
+</FrameLayout>
+
+

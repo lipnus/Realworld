@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -28,13 +29,16 @@ import java.util.HashMap;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import lipnus.com.realworld.GlobalApplication;
+import lipnus.com.realworld.LocationControl;
 import lipnus.com.realworld.NavigationMenu;
 import lipnus.com.realworld.R;
+import lipnus.com.realworld.main.ScenarioActivity;
 import lipnus.com.realworld.main.SynopsisActivity;
 import lipnus.com.realworld.retro.ResponseBody.Mission;
 import lipnus.com.realworld.retro.ResponseBody.ScenarioDetail;
 import lipnus.com.realworld.retro.RetroCallback;
 import lipnus.com.realworld.retro.RetroClient;
+import lipnus.com.realworld.submenu.MypageActivity;
 
 public class MissionActivity extends AppCompatActivity {
 
@@ -43,6 +47,8 @@ public class MissionActivity extends AppCompatActivity {
     @BindView(R.id.mission_title_iv) ImageView titleIv;
     @BindView(R.id.mission_back_iv) ImageView backIv;
     @BindView(R.id.mission_subtitle_tv) TextView subtitleTv;
+    @BindView(R.id.mission_pic_title_iv) TextView picTitleTv;
+
     @BindView(R.id.mission_listview) ListView listView;
     @BindView(R.id.mission_scrollView) ScrollView scrollView;
     MissionListViewAdapter adapter;
@@ -64,8 +70,10 @@ public class MissionActivity extends AppCompatActivity {
         retroClient = RetroClient.getInstance(this).createBaseApi(); //레트로핏
         missionActivity = MissionActivity.this;
 
+        checkGPS();
+
         //애니매이션 없음
-        overridePendingTransition(0, 0);
+        overridePendingTransition(R.anim.fadein, 0);
 
         //리스트뷰
         adapter = new MissionListViewAdapter();
@@ -89,7 +97,10 @@ public class MissionActivity extends AppCompatActivity {
                 .into(backIv);
 //        backIv.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
+
     }
+
+
 
     @Override
     protected void onPostResume() {
@@ -174,8 +185,14 @@ public class MissionActivity extends AppCompatActivity {
 
     public void setSenario(ScenarioDetail data){
 
+        //시작지점인지 알려줌
+        alertStartLocation(data.beginLoc);
+
+
+
         //미션이름 표시
-        subtitleTv.setText( data.name + " - 미션목록");
+        picTitleTv.setText(data.name);
+        subtitleTv.setText( "미션목록");
 
         //미션이미지를 저장해둔다(인벤토리에서 써야해서..)
         GlobalApplication.missionImgPath = GlobalApplication.imgPath + data.coverImageUrl;
@@ -235,6 +252,9 @@ public class MissionActivity extends AppCompatActivity {
 
 
 
+
+
+
     //리스트뷰 크기
     public void setListViewHeightBasedOnChildren(ListView listView, int paddingBottom) {
         ListAdapter listAdapter = listView.getAdapter();
@@ -263,6 +283,43 @@ public class MissionActivity extends AppCompatActivity {
         listView.requestLayout();
     }
 
+
+    //시작지점인지 알려줌
+    public void alertStartLocation(String beginLoc){
+
+        if(GlobalApplication.user_latitude != 0){
+            Log.e("HHTT", "위치는: "+ GlobalApplication.user_latitude);
+        }
+
+    }
+
+    //gps가 켜져있는지 확인하고 현재위치를 수집
+    public boolean checkGPS() {
+
+        //현재위치를 구하는데 필요한 지오코더
+        LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+
+        boolean isGPS = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        if (isGPS) {
+            Log.e("GPGP", "gps 켜져있음");
+
+            //위치정보 업데이트
+            LocationControl gl = new LocationControl( getApplicationContext() );
+            return true;
+
+        } else {
+            Toast.makeText(getApplication(), "GPS를 켜주세요!", Toast.LENGTH_LONG).show();
+            Log.e("GPGP", "gps꺼짐");
+
+            //위치정보 설정창 띄우기
+            //여기서는 강요는 하지 않음
+//            startActivityForResult(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS), 0);
+        }
+        return false;
+    }
+
+
+
     public int convertDpToPixel(float dp, Context context){
 
         Resources resources = context.getResources();
@@ -275,4 +332,11 @@ public class MissionActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        Intent iT = new Intent(this, ScenarioActivity.class);
+        iT.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(iT);
+    }
 }

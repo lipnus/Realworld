@@ -7,13 +7,12 @@ package lipnus.com.realworld.retro.ResponseBody;
 public class Scenario {
     public String id;
     public String name;
-    public String score;
-    public String maxScore;
+    public int score;
+    public int maxScore;
     public String lastPlayed;
     public boolean accomplished;
 
-
-    public Scenario(String id, String name, String score, String maxScore, String lastPlayed, boolean accomplished) {
+    public Scenario(String id, String name, int score, int maxScore, String lastPlayed, boolean accomplished) {
         this.id = id;
         this.name = name;
         this.score = score;
@@ -21,6 +20,8 @@ public class Scenario {
         this.lastPlayed = lastPlayed;
         this.accomplished = accomplished;
     }
+
+
 
 //• id: 시나리오의 ID
     //• name: 시나리오의 이름

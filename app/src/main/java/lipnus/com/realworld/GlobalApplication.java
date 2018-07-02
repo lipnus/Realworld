@@ -1,6 +1,7 @@
 package lipnus.com.realworld;
 
 import android.app.Application;
+import android.content.Intent;
 
 import java.util.List;
 
@@ -19,6 +20,19 @@ public class GlobalApplication extends Application {
     public static String serverPath = "https://apitest.doctorhamel.com:443";
     public static String imgPath = "https://apitest.doctorhamel.com:443/images/";
     public static String missionImgPath =""; //인벤토리에도 그림이 떠야하니 저장해뒀다가 씀
+
+    public static String clientId = "l7xx119653b3a36b4dc4be4206419bea131d";
+    public static String uuid = "";
+
+    public static String tempEmail = "";
+    public static String tempPassword = "";
+
+    public static Intent profileImg = null;
+
+    //유저의 현재위치
+    public static volatile double user_latitude = 0;
+    public static volatile double user_longitude = 0;
+
 
     //현재 진행중인 시나리오
     public static int nowMission = 0;
@@ -46,7 +60,12 @@ public class GlobalApplication extends Application {
                 month = Integer.toString(i+1);
             }
         }
-
         return year + "/" + month + "/" + day;
+    }
+
+    //위치정보 입력
+    public static void setLocation(double user_latitude, double user_longitude) {
+        GlobalApplication.user_latitude = user_latitude;
+        GlobalApplication.user_longitude = user_longitude;
     }
 }

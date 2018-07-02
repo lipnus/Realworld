@@ -1,5 +1,7 @@
 package lipnus.com.realworld.retro.ResponseBody;
 
+import java.util.List;
+
 /**
  * Created by LIPNUS on 2018-03-02.
  */
@@ -12,6 +14,7 @@ public class QuestDetail {
     public String text;
     public String answer;
 
+
     public QuestDetail(int id, int type, String image, String text, String answer) {
         this.id = id;
         this.type = type;
@@ -19,4 +22,7 @@ public class QuestDetail {
         this.text = text;
         this.answer = answer;
     }
+
+
+
 }

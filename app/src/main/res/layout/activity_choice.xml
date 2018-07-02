@@ -59,14 +59,12 @@
             <!--android:text=""/>-->
 
         <ListView
-
             android:id="@+id/choice_listview"
             android:layout_marginTop="30dp"
-            android:background="#d5f3f9"
             android:layout_gravity="center"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
-            android:dividerHeight="6dp"
+            android:dividerHeight="10dp"
             android:divider="#ffffff">
 
         </ListView>

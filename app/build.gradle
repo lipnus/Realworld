@@ -48,10 +48,10 @@ dependencies {
     api 'com.google.code.gson:gson:2.7'
     api 'com.squareup.retrofit2:retrofit:2.1.0'
     api 'com.squareup.retrofit2:converter-gson:2.1.0'
-
     api 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
-
     api 'com.daimajia.androidanimations:library:2.3@aar'
-
     api 'com.klinkerapps:sliding-activity:1.5.2'
+
+    compile 'com.github.zcweng:switch-button:0.0.3@aar'
+    compile 'com.rengwuxian.materialedittext:library:2.1.4'
 }

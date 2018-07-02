@@ -11,6 +11,7 @@ public class QuestResult {
     public String missionTo;
 //    public String missionUnlock[]; //안쓰니까 안받음
     public boolean result;
+    public String error;
 
 
 }

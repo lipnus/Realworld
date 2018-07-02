@@ -176,7 +176,7 @@ public class WordActivity extends AppCompatActivity {
 
             @Override
             public void onError(Throwable t) {
-              Toast.makeText(getApplicationContext(), "잘못된 암호입니다.", Toast.LENGTH_LONG).show();
+              wrongAnswer();
             }
 
             @Override
@@ -187,18 +187,21 @@ public class WordActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(int code) {
-//                Toast.makeText(getApplicationContext(), "Fialure: " + String.valueOf(code), Toast.LENGTH_SHORT).show();
-
-                Toast.makeText(getApplicationContext(), "잘못된 암호입니다", Toast.LENGTH_LONG).show();
-                if(mAudioManager.getRingerMode() != 0){
-                    vibrator.vibrate(300);
-                }
-                YoYo.with(Techniques.Tada)
-                        .duration(700)
-                        .playOn(editLr);
+                wrongAnswer();
             }
         });
     }
+
+    public void wrongAnswer(){
+        Toast.makeText(getApplicationContext(), "잘못된 암호입니다.", Toast.LENGTH_LONG).show();
+        if(mAudioManager.getRingerMode() != 0){
+            vibrator.vibrate(300);
+        }
+        YoYo.with(Techniques.Tada)
+                .duration(700)
+                .playOn(editLr);
+    }
+
 
     //정답체크
     public void setCheckAnswer(QuestResult data){
@@ -213,12 +216,7 @@ public class WordActivity extends AppCompatActivity {
         }
 
         else{
-//            vibrator.vibrate(500);
-            Toast.makeText(getApplicationContext(), "암호가 틀렸습니다", Toast.LENGTH_LONG).show();
-
-            YoYo.with(Techniques.Tada)
-                    .duration(700)
-                    .playOn(editLr);
+            wrongAnswer();
         }
     }
 

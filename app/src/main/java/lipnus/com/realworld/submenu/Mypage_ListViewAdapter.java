@@ -1,35 +1,31 @@
-package lipnus.com.realworld.quest.list_hint;
+package lipnus.com.realworld.submenu;
 
 import android.content.Context;
-import android.util.Log;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
 
 import java.util.ArrayList;
 
 import lipnus.com.realworld.R;
-import lipnus.com.realworld.mission.MissionDetailListViewItem;
 
 /**
  * Created by Sunpil on 2016-07-13.
  */
-public class Hint_ListViewAdapter extends BaseAdapter {
+public class Mypage_ListViewAdapter extends BaseAdapter {
 
     // Adapter에 추가된 데이터를 저장하기 위한 ArrayList
-    private ArrayList<Hint_ListViewItem> listViewItemList = new ArrayList<>() ;
+    private ArrayList<Mypage_ListViewItem> items = new ArrayList<>() ;
 
 
     // ListViewAdapter의 생성자
-    public Hint_ListViewAdapter() {
+    public Mypage_ListViewAdapter() {
 
     }
 
@@ -37,7 +33,7 @@ public class Hint_ListViewAdapter extends BaseAdapter {
     // Adapter에 사용되는 데이터의 개수를 리턴. : 필수 구현
     @Override
     public int getCount() {
-        return listViewItemList.size() ;
+        return items.size() ;
     }
 
 
@@ -50,16 +46,26 @@ public class Hint_ListViewAdapter extends BaseAdapter {
         // menulist.xml을 inflate하여 convertView 참조 획득.
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.list_hint, parent, false);
+            convertView = inflater.inflate(R.layout.list_mypage, parent, false);
         }
 
-        Hint_ListViewItem item = listViewItemList.get(pos);
+        TextView scenarioTv = convertView.findViewById(R.id.mypage_list_scenario_tv);
+        TextView scoreTv = convertView.findViewById(R.id.mypage_list_score_tv);
+        TextView maxScoreTv = convertView.findViewById(R.id.mypage_list_max_score_tv);
+        ProgressBar progressBar = convertView.findViewById(R.id.mypage_list_progressBar);
 
-        //힌트입력
-        TextView hintTv = convertView.findViewById(R.id.hintlist_tv);
-        hintTv.setText( item.hint );
-        Log.e("HHTT", "어댑터에서 힌트: " + listViewItemList.get(pos).hint);
 
+
+
+//        double score = Double.parseDouble(items.get(position).score);
+//        double maxScore = Double.parseDouble(items.get(position).maxScore);
+
+        scenarioTv.setText( items.get(position).scenarioTitle );
+        maxScoreTv.setText( "" + items.get(position).maxScore );
+        scoreTv.setText( "" +items.get(position).score );
+
+        progressBar.setMax( items.get(position).maxScore );
+        progressBar.setProgress(  items.get(position).score );
         return convertView;
     }
 
@@ -72,15 +78,14 @@ public class Hint_ListViewAdapter extends BaseAdapter {
     // 지정한 위치(position)에 있는 데이터 리턴 : 필수 구현
     @Override
     public Object getItem(int position) {
-        return listViewItemList.get(position) ;
+        return items.get(position) ;
     }
 
 
     // 아이템 데이터 추가
-    public void addItem(String hint, int id) {
+    public void addItem(String scenario, int score, int maxScore) {
 
-        Hint_ListViewItem item = new Hint_ListViewItem(hint, id);
-        listViewItemList.add(item);
-
+        Mypage_ListViewItem item = new Mypage_ListViewItem(scenario, score, maxScore);
+        items.add(item);
     }
 }

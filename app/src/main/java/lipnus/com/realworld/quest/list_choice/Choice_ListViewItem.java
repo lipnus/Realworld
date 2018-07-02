@@ -1,4 +1,4 @@
-package lipnus.com.realworld.quest.list_hint;
+package lipnus.com.realworld.quest.list_choice;
 
 
 /**
@@ -8,12 +8,12 @@ package lipnus.com.realworld.quest.list_hint;
  *
  */
 
-public class Hint_ListViewItem {
+public class Choice_ListViewItem {
 
     public String hint;
     public int id;
 
-    public Hint_ListViewItem(String hint, int id) {
+    public Choice_ListViewItem(String hint, int id) {
         this.hint = hint;
         this.id = id;
     }

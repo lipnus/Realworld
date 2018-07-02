@@ -51,7 +51,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#3f1874">
+        android:background="@color/purple">
 
         <!--탭뷰-->
         <android.support.design.widget.TabLayout

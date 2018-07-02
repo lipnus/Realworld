@@ -3,27 +3,19 @@ package lipnus.com.realworld.quest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Html;
 import android.view.View;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
-import com.klinker.android.sliding.MultiShrinkScroller;
-import com.klinker.android.sliding.SlidingActivity;
 
 import java.util.HashMap;
 
 import butterknife.ButterKnife;
 import lipnus.com.realworld.GlobalApplication;
 import lipnus.com.realworld.R;
-import lipnus.com.realworld.main.Main2Activity;
-import lipnus.com.realworld.main.MainActivity;
 import lipnus.com.realworld.mission.MissionActivity;
 import lipnus.com.realworld.mission.MissionDetailActivity;
 import lipnus.com.realworld.retro.ResponseBody.QuestResult;

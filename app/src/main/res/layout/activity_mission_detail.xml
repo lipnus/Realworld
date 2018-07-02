@@ -33,8 +33,7 @@
                 android:id="@+id/detail_title_iv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:elevation="8dp"
-                android:background="#909090"/>
+                android:elevation="8dp"/>
 
             <com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView
                 android:id="@+id/youtube_player_view"

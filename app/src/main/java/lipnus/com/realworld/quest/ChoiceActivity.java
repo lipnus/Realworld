@@ -27,9 +27,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import lipnus.com.realworld.GlobalApplication;
 import lipnus.com.realworld.R;
-import lipnus.com.realworld.quest.list_hint.Hint_ListViewAdapter;
-import lipnus.com.realworld.quest.list_hint.Hint_ListViewItem;
-import lipnus.com.realworld.retro.ResponseBody.Hints;
+import lipnus.com.realworld.quest.list_choice.Choice_ListViewAdapter;
+import lipnus.com.realworld.quest.list_choice.Choice_ListViewItem;
+import lipnus.com.realworld.retro.ResponseBody.Hint;
 import lipnus.com.realworld.retro.ResponseBody.QuestDetail;
 import lipnus.com.realworld.retro.ResponseBody.QuestResult;
 import lipnus.com.realworld.retro.RetroCallback;
@@ -41,7 +41,7 @@ public class ChoiceActivity extends AppCompatActivity {
     @BindView(R.id.choice_title_tv) TextView titleTv;
     @BindView(R.id.choice_hint_tv) TextView hintTv;
     @BindView(R.id.choice_listview) ListView listView;
-    Hint_ListViewAdapter adapter;
+    Choice_ListViewAdapter adapter;
 
     RetroClient retroClient;
     AudioManager  mAudioManager;
@@ -96,7 +96,7 @@ public class ChoiceActivity extends AppCompatActivity {
     public void initListview(){
 
         //리스트뷰
-        adapter = new Hint_ListViewAdapter();
+        adapter = new Choice_ListViewAdapter();
         listView.setAdapter(adapter);
 
         //리스트뷰의 클릭리스너
@@ -104,7 +104,7 @@ public class ChoiceActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Hint_ListViewItem hintItem = (Hint_ListViewItem) parent.getAdapter().getItem(position);
+                Choice_ListViewItem hintItem = (Choice_ListViewItem) parent.getAdapter().getItem(position);
                 answerNumber = hintItem.id;
 
                 postQuestResult(hintItem.id);
@@ -164,7 +164,7 @@ public class ChoiceActivity extends AppCompatActivity {
 
             @Override
             public void onSuccess(int code, Object receivedData) {
-                List<Hints> data = (List<Hints>) receivedData;
+                List<Hint> data = (List<Hint>) receivedData;
                 setHints(data);
             }
 
@@ -175,7 +175,7 @@ public class ChoiceActivity extends AppCompatActivity {
         });
     }
 
-    public void setHints(List<Hints> hints){
+    public void setHints(List<Hint> hints){
 
         Log.e("HHTT", "힌트: " + hints);
 
@@ -200,29 +200,38 @@ public class ChoiceActivity extends AppCompatActivity {
 
             @Override
             public void onError(Throwable t) {
-              Toast.makeText(getApplicationContext(), "잘못된 암호입니다.", Toast.LENGTH_LONG).show();
+                wrongAnswer();
             }
 
             @Override
             public void onSuccess(int code, Object receivedData) {
-//                QuestResult data = (QuestResult) receivedData;
+                QuestResult data = (QuestResult) receivedData;
 
-                //response가 오면 정답인 것으로 처리
-                MoveToSuccessActivity();
+                if(data.result){
+                    MoveToSuccessActivity();
+                }else{
+                    wrongAnswer();
+                }
+
             }
 
             @Override
             public void onFailure(int code) {
-                Toast.makeText(getApplicationContext(), "잘못된 암호입니다.", Toast.LENGTH_LONG).show();
-                if(mAudioManager.getRingerMode() != 0){
-                    vibrator.vibrate(300);
-                }
-                YoYo.with(Techniques.Tada)
-                        .duration(700)
-                        .playOn(listView);
+                wrongAnswer();
             }
         });
     }
+
+    public void wrongAnswer(){
+        Toast.makeText(getApplicationContext(), "잘못된 암호입니다.", Toast.LENGTH_LONG).show();
+        if(mAudioManager.getRingerMode() != 0){
+            vibrator.vibrate(300);
+        }
+        YoYo.with(Techniques.Tada)
+                .duration(700)
+                .playOn(listView);
+    }
+
 
     //정답체크
     public void MoveToSuccessActivity(){
