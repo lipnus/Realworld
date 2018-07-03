@@ -6,8 +6,8 @@ android {
         applicationId "lipnus.com.realworld"
         minSdkVersion 17
         targetSdkVersion 24
-        versionCode 14
-        versionName "1.4+"
+        versionCode 17
+        versionName "2.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

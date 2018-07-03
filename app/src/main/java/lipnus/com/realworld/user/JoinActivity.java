@@ -191,7 +191,7 @@ public class JoinActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogStyle);
-        builder.setMessage("종료하시겠어요?");
+        builder.setMessage("회원가입을 진행중입니다. 취소하시겠어요?");
 
         builder.setPositiveButton("네",
                 new DialogInterface.OnClickListener() {

@@ -23,18 +23,52 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:text="LOGIN"/>
-
-            <TextView
+            
+            
+            <LinearLayout
                 android:onClick="onClick_join"
-                android:layout_marginTop="20dp"
-                android:id="@+id/login_html_tv"
-                android:gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="@string/join"/>
+                android:orientation="vertical">
+                <TextView
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="미스테리 트레일에 오신 것을 환영합니다."/>
 
-\
+                <LinearLayout
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="처음 오셨다면 ->"/>
+
+                    <TextView
+                        android:layout_marginLeft="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textColor="@color/skyblueStrong"
+                        android:text="가입하기"/>
+                </LinearLayout>
+                
+            </LinearLayout>
+
+            <!--<TextView-->
+                <!--android:onClick="onClick_join"-->
+                <!--android:layout_marginTop="20dp"-->
+                <!--android:id="@+id/login_html_tv"-->
+                <!--android:gravity="center_horizontal"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center_horizontal"-->
+                <!--android:text="@string/join"/>-->
 
             <LinearLayout
                 android:layout_marginTop="45dp"

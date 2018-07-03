@@ -75,9 +75,9 @@ public class MissionDetailListViewAdapter extends BaseAdapter {
 
 
     // 아이템 데이터 추가
-    public void addItem(int questId, int type, String label) {
+    public void addItem(int questId, int type, String label, int locked) {
 
-        MissionDetailListViewItem item = new MissionDetailListViewItem(questId, type, label);
+        MissionDetailListViewItem item = new MissionDetailListViewItem(questId, type, label, locked);
         listViewItemMissionDetailList.add(item);
     }
 }

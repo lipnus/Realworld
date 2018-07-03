@@ -70,7 +70,7 @@ public class MissionActivity extends AppCompatActivity {
         retroClient = RetroClient.getInstance(this).createBaseApi(); //레트로핏
         missionActivity = MissionActivity.this;
 
-        checkGPS();
+//        checkGPS();
 
         //애니매이션 없음
         overridePendingTransition(R.anim.fadein, 0);
@@ -112,7 +112,9 @@ public class MissionActivity extends AppCompatActivity {
     }
 
     public void onClick_mission_back(View v){
-        finish();
+        Intent iT = new Intent(this, ScenarioActivity.class);
+        iT.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(iT);
     }
 
     public void scrollViewControl(){

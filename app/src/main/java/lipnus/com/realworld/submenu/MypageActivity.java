@@ -2,6 +2,7 @@ package lipnus.com.realworld.submenu;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -50,11 +51,18 @@ public class MypageActivity extends AppCompatActivity {
     NavigationMenu navigationMenu;
     RetroClient retroClient;
 
+    SharedPreferences setting;
+    SharedPreferences.Editor editor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mypage);
         ButterKnife.bind(this);
+
+        //Prefrence설정(0:읽기,쓰기가능)
+        setting = getSharedPreferences("USERDATA", 0);
+        editor= setting.edit();
 
         retroClient = RetroClient.getInstance(this).createBaseApi(); //레트로핏
 
@@ -73,7 +81,6 @@ public class MypageActivity extends AppCompatActivity {
             @Override
             public void run() {
                 scrollView.scrollTo(0,0);
-//                scrollView.fullScroll(ScrollView.FOCUS_DOWN);
             }
         },200);
 
@@ -85,22 +92,22 @@ public class MypageActivity extends AppCompatActivity {
     public void imageSetting(){
         //프사
 
-        if(GlobalApplication.profileImg != null){
-            Glide.with(this)
-                    .load( GlobalApplication.profileImg.getData() )
-                    .centerCrop()
-                    .bitmapTransform(new CropCircleTransformation(this))
-                    .into(profileIv);
-            profileIv.setScaleType(ImageView.ScaleType.FIT_XY);
-        }else{
+        String profileImg = setting.getString("profileImg", "0");
+        if(profileImg.equals("0")){
             Glide.with(this)
                     .load( R.drawable.whoareyou )
                     .centerCrop()
                     .bitmapTransform(new CropCircleTransformation(this))
                     .into(profileIv);
+                    profileIv.setScaleType(ImageView.ScaleType.FIT_XY);
+        }else{
+            Glide.with(this)
+                    .load( profileImg )
+                    .centerCrop()
+                    .bitmapTransform(new CropCircleTransformation(this))
+                    .into(profileIv);
             profileIv.setScaleType(ImageView.ScaleType.FIT_XY);
         }
-
 
     }
 
@@ -193,7 +200,10 @@ public class MypageActivity extends AppCompatActivity {
         if (requestCode == GALLERY_INTENT && resultCode == RESULT_OK) {
 
             try {
-                GlobalApplication.profileImg = data;
+
+                //프레퍼런스
+                editor.putString("profileImg", data.getData().toString());
+                editor.commit();
 
                 //프사
                 Glide.with(this)
@@ -202,6 +212,8 @@ public class MypageActivity extends AppCompatActivity {
                         .bitmapTransform(new CropCircleTransformation(this))
                         .into(profileIv);
                 profileIv.setScaleType(ImageView.ScaleType.FIT_XY);
+
+                Log.e("HHTT", "경로인가: " + data.getData() );
 
             } catch (Exception e) {
                 e.printStackTrace();

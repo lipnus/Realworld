@@ -13,10 +13,12 @@ public class MissionDetailListViewItem {
     public int questId;
     public int type;
     public String label;
+    public int locked;
 
-    public MissionDetailListViewItem(int questId, int type, String label) {
+    public MissionDetailListViewItem(int questId, int type, String label, int locked) {
         this.questId = questId;
         this.type = type;
         this.label = label;
+        this.locked = locked;
     }
 }

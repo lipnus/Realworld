@@ -51,7 +51,7 @@ public class ScenarioActivity extends AppCompatActivity {
         initSetting();//기본세팅들은 다 여기 때려박음
         retroClient = RetroClient.getInstance(this).createBaseApi(); //레트로핏
 
-        checkGPS();
+//        checkGPS();
 
         postScenario();
         postBanners();

@@ -27,7 +27,6 @@ public class GlobalApplication extends Application {
     public static String tempEmail = "";
     public static String tempPassword = "";
 
-    public static Intent profileImg = null;
 
     //유저의 현재위치
     public static volatile double user_latitude = 0;

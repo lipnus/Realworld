@@ -76,27 +76,30 @@ public class MissionDetailActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-            MissionDetailListViewItem mDetail = (MissionDetailListViewItem)adapter.getItem(position);
-            int questId = mDetail.questId;
-            int questType = mDetail.type;
+                MissionDetailListViewItem mDetail = (MissionDetailListViewItem)adapter.getItem(position);
+                int questId = mDetail.questId;
+                int questType = mDetail.type;
 
-            Intent iT;
+                if(mDetail.locked == 1){
+                    Toast.makeText(getApplicationContext(), "LOCKED", Toast.LENGTH_LONG).show();
+                }else{
+                    Intent iT;
+                    Log.d("CCDD", "type=" + questType);
 
-            Log.d("CCDD", "type=" + questType);
+                    if(questType== 5){//4지선다
+                        iT = new Intent(getApplicationContext(), ChoiceActivity.class);
+                    }else if(questType==2){//QR코드
+                        iT = new Intent(getApplicationContext(), QrcodeActicity.class);
+                    }else if(questType==6){//다중주관식
+                        iT = new Intent(getApplicationContext(), MultiInputActivity.class);
+                    }
+                    else{
+                        iT = new Intent(getApplicationContext(), WordActivity.class);
+                    }
 
-            if(questType== 5){//4지선다
-                iT = new Intent(getApplicationContext(), ChoiceActivity.class);
-            }else if(questType==2){//QR코드
-                iT = new Intent(getApplicationContext(), QrcodeActicity.class);
-            }else if(questType==6){//다중주관식
-                iT = new Intent(getApplicationContext(), MultiInputActivity.class);
-            }
-            else{
-                iT = new Intent(getApplicationContext(), WordActivity.class);
-            }
-
-            iT.putExtra("questId", questId);
-            startActivity(iT);
+                    iT.putExtra("questId", questId);
+                    startActivity(iT);
+                }
             }
         });
 
@@ -186,7 +189,7 @@ public class MissionDetailActivity extends AppCompatActivity {
 
         //쿼스트 버튼
         for(int i=0; i<data.quests.size(); i++){
-            adapter.addItem(data.quests.get(i).id, data.quests.get(i).type, data.quests.get(i).label);
+            adapter.addItem(data.quests.get(i).id, data.quests.get(i).type, data.quests.get(i).label, data.quests.get(i).locked);
         }
 
         //리스트뷰 크기설정
